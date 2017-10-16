@@ -12,7 +12,8 @@ Starting the automated test:
 	components folder as parameters:
 		./frontend_test.sh [program] Test_Components
 
-Coding Standards
+Coding Standards:
 	1. All functions are to begin with inline braces {
 	2. Lines are to be no longer than 80 characters in ALL files
 	3. All header files must contain function descriptions and 
+	4. All code files must contain meta information at top

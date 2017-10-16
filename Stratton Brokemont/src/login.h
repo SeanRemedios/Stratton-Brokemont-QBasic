@@ -1,3 +1,12 @@
+/*************************************************
+|
+|
+|
+|
+|
+|
+|*************************************************/
+
 #ifndef __INCLUDE_CHECK__
 	#define __INCLUDE_CHECK__
 
@@ -10,7 +19,9 @@
  */
 void promptLogin();
 
-/*	prompts user to enter user type (Machine or Agent), in which it calls
+/*	Called by promptLogin()
+ *	
+ *	prompts user to enter user type (Machine or Agent), in which it calls
  *	user.c to handle the rest of the machine with given user permissions
  */
 void promptUser();
