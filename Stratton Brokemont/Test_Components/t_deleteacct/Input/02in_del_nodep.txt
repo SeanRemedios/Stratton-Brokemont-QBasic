@@ -1,0 +1,1 @@
+login agentdeleteacct 1000101 testnamedeposit 1000101 50000logout

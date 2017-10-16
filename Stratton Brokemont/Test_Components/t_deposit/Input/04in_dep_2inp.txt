@@ -1,0 +1,1 @@
+login machinedeposit 1000001logout

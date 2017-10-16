@@ -1,0 +1,24 @@
+The tests are organized by component on a per-folder basis. The qbasic.c program is inside the folder "Stratton Brokemont" and inside that there is the shell script to start the test and the folder "Test_Components". The test components folder holds folders for all of the individual components of the system. In each component's folder there is a shell script that runs all of the test cases for that component, an Input folder and an Output folder for each test case. In the Input folder there are the test case files, each with the input that will be used to test the system. In the Output folder are the files with the expected output for each test case.
+
+The input and output files will follow a similar naming convention but with the word 'in' being replaced with 'out'.
+The Input text file names will have the following naming convention:
+	[Test Case Number]in_[Test Component]_[Test Case Name].txt
+The Output text file names will follow the following naming convention:
+	[Test Case Number]out_[Test Component]_[Test Case Name].txt
+
+	Test Case Number : The test number for a specific test case (coordinated with the test case table). Ex. 01
+	Test Component : The name of the component being tested. Ex. agent
+	Test Case Name : A very short description of the test case name to be able to identify the test. Ex. log
+	Example of an input file name: 01in_agent_log.txt
+	Example of an output file name: 01out_agent_log.txt
+
+The tests will be run as shell scripts. An overall shell script will call every shell script in each folder. Each individual shell script will perform the tests from the files in the Input folder and then compare the result with the expected output in the Output folder for each component. After each shell script is finished with its test, it will merge a file with the test results (passed or failed) with a master output file.
+
+The output will be validated by comparison within each shell script. It will compare the output of the program with the expected output located in each Ouput folder.
+
+Each results file will be stored in a folder at the top level called Test_Results. The results file will be named as followed:
+	[Test Number]_[Version Number]_[[Date].txt
+	Test Number : This is the number of tests performed on the program. Ex. T1
+	Version Number : This is the version number of the program that the test case is being performed on. Ex. V1-1
+	Date : This is the date at which the test was completed. Ex. 2017-10-10
+	Example of a test result file name: T1_V1-1_2017-10-10.txt

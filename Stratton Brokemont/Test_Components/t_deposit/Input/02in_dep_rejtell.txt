@@ -1,0 +1,2 @@
+loginagentdeposit 1000001 100000000
+logout

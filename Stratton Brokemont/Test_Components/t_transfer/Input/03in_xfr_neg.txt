@@ -1,0 +1,1 @@
+loginmachinetransfer 1000001 1010011 -100logout
