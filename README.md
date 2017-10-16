@@ -1,2 +1,2 @@
 # Stratton-Brokemont-QBasic
-We embezzle your money for profit.
+We embezzle your money for major profit.
