@@ -5,17 +5,13 @@
 
 /*	Called by main.c 	
  *
- *	prompts user for an input, 
- *	looking for login. Proceeds to call 
- *	promptUser() if input is valid.
+ *	prompts user for an input, looking for login. Proceeds to call promptUser()
+ *	if input is valid.
  */
 void promptLogin();
 
-/*	prompts user to enter user
- *	type (Machine or Agent), in
- *	which it calls user.c to handle
- *	the rest of the machine with
- *	given user permissions
+/*	prompts user to enter user type (Machine or Agent), in which it calls
+ *	user.c to handle the rest of the machine with given user permissions
  */
 void promptUser();
 
