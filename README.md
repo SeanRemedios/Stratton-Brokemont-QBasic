@@ -1,7 +1,4 @@
-The Bank Program is made by the members of the		
-Stratton Brokemont group, consisting of 		
-Sean Remedios, Taylor Simpson, Matt Rodgers and 	
-Stefan Decimelli.				
+The Bank Program is made by the members of the Stratton Brokemont group, consisting of Sean Remedios, Taylor Simpson, Matt Rodgers and Stefan Decimelli.
 
 for CISC 327, Fall 2017			
 
