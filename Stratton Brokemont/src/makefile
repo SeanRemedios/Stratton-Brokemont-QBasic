@@ -1,6 +1,6 @@
 CFLAGS = -Wall
 
-# All .c files in the folder
+# All .c files in the folder --need to go into folders
 SRC=$(wildcard *.c)
 
 QBasic: $(SRC)
