@@ -2,10 +2,12 @@
 	#define __INCLUDE_CHECK__
 
 #include "types.h"
+#include "agent.h"
+#include "machine.h"
 
 #define ACCT_NUM_LEN		7
-#define AMOUNT_LEN_AGENT	8
-#define AMOUNT_LEN_MACHINE	6
+#define MIN_AMOUNT			0
+#define RESERVED			'\0'
 
 /*	Called by login.c or user.c
  *	

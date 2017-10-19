@@ -48,6 +48,7 @@ Bool transfer_Agent(void) {
 }
 
 int main() {
-	
+	deposit_Agent();
+
+	return 0;
 }
-	

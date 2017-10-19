@@ -13,11 +13,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "types.h"
-#include "check.h"
 //#include "user.h"
 
 #define INVALID_ACCOUNT		0000000
-#define MAX_AMOUNT			99999999 // Cents
+#define AMOUNT_LEN_AGENT	8
+#define MAX_AMOUNT_AGENT			99999999 // Cents
 
 
 typedef enum {
