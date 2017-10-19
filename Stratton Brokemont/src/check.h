@@ -1,3 +1,11 @@
+/*************************************************
+|
+|
+|
+|
+|
+|
+|*************************************************/
 #ifndef __INCLUDE_CHECK__
 	#define __INCLUDE_CHECK__
 
@@ -11,10 +19,12 @@
 #define NOT_START_ZERO		'0'
 #define MIN_AMOUNT_LEN		3
 #define MAX_AMOUNT_LEN		8
+#define SPACE				' '
 
 typedef enum {
 	DIGIT,
-	ALPHA
+	ALPHA,
+	COMMAND
 } CheckField;
 
 
@@ -28,8 +38,7 @@ typedef enum {
  */
 Bool check(const Char* input, CheckField e_digOrAl);
 Bool checkAccountNum(const Char* input);
-Bool checkAmountAgent(const Char* input);
-Bool checkAmountMachine(const Char* input);
+Bool checkAmount(const Char* input, Int i_lengths);
 
 void clear_newlines(void);
 
