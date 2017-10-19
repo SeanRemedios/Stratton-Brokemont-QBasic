@@ -24,6 +24,7 @@ void createStruct(Users e_user) {
         arr[i] = atoi(line);
     }
     fclose(valid_accts);
+    u_input.valid_accts = arr;
 
     if (line)
         free(line);
