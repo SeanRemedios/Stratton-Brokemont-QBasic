@@ -17,7 +17,9 @@
 
 #define INVALID_ACCOUNT		0000000
 #define AMOUNT_LEN_AGENT	8
-#define MAX_AMOUNT_AGENT			99999999 // Cents
+#define MAX_AMOUNT_AGENT	99999999 // Cents
+#define MAX_NAME_LENGTH		30
+#define MIN_NAME_LENGTH		3
 
 
 typedef enum {
@@ -35,6 +37,10 @@ typedef struct {
 					Int to_acct_num;
 					Int from_acct_num;
 				};
+				struct {
+					Int mod_acct_num;
+					Char* acct_name;
+				};
 			};
 			Int amount;
 		};
@@ -46,6 +52,8 @@ Bool withdraw_Agent(void);
 Bool transfer_Agent(void);
 Bool createacct_Agent(void);
 Bool deleteacct_Agent(void);
+
+void getName(void);
 
 
 

@@ -10,13 +10,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "types.h"
 #include "check.h"
 #include "agent.h"
 #include "machine.h"
 
-void clear_newlines(void);
 
 Int getInfo (const Char* cs_printstring, Int i_length) {
 
@@ -27,8 +27,9 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 
 	do {
 		printf("%s", cs_printstring);
-		scanf("%s", s_input);
-		
+		scanf("%9s", s_input);	
+		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
+
 		// Checks for specific constraints on account numbers and amounts
 		if (i_length == ACCT_NUM_LEN) {
 			b_checkResult = checkAccountNum((const Char*)s_input);
@@ -38,14 +39,14 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 			b_checkResult = checkAmountMachine((const Char*)s_input);
 		} else {}
 
-		b_checkValidity = check((const Char*)s_input);
+		b_checkValidity = check((const Char*)s_input, DIGIT);
 
 		if ((!b_checkResult) || (!b_checkValidity)) {
 			printf("Error: Invalid Entry.\n");
-			//printf("Press Enter: \n");
+			memset(s_input, RESERVED, i_length);
 		}
 
-		memset(s_input, RESERVED, i_length);
+		clear_newlines();
 
 	} while (!(b_checkResult && b_checkValidity));
 
@@ -57,11 +58,13 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 // Clears the new line character from the standard s_input so fgets does not read
 // another line when an s_input is received. 
 // Doesn't work with the amount, says it has one too many.
-// void clear_newlines(void) {
-// 	Int c;
+void clear_newlines(void) {
+	Int c;
 
-// 	while ((c = getchar()) != '\n' && c != EOF) { }
-// }
+	//while ((c = getchar()) != '\n' && c != EOF) { }
+	while ((c = fgetc(stdin)) != '\n' && c != EOF) { }
+	// Gets a character from the standard input to clear the buffer
+}
 
 
 Bool checkAccountNum(const Char* s_input) {
@@ -71,7 +74,7 @@ Bool checkAccountNum(const Char* s_input) {
 		b_checkResult = FALSE;
 	}
 	// Covers case of "0000000" because it starts with a '0'
-	if (s_input[0] == '0') {	
+	if (s_input[0] == NOT_START_ZERO) {	
 		b_checkResult = FALSE;
 	}
 
@@ -82,9 +85,9 @@ Bool checkAccountNum(const Char* s_input) {
 Bool checkAmountAgent(const Char* s_input) {
 	Bool b_checkResult = TRUE;
 	Int i_agentAmount = 0;
+	
 
-	printf("%lu\n",strlen(s_input));
-	if ((strlen(s_input) < 3) || (strlen(s_input) > 8)) {
+	if ((strlen(s_input) < MIN_AMOUNT_LEN) || (strlen(s_input) > MAX_AMOUNT_LEN)) {
 		b_checkResult = FALSE;
 	}
 
@@ -102,7 +105,7 @@ Bool checkAmountMachine(const Char* s_input) {
 	Bool b_checkResult = TRUE;
 	Int i_machineAmount = 0;
 
-	if ((strlen(s_input) < 3) || (strlen(s_input) > 8)) {
+	if ((strlen(s_input) < MIN_AMOUNT_LEN) || (strlen(s_input) > MAX_AMOUNT_LEN)) {
 		b_checkResult = FALSE;
 	}
 
@@ -115,8 +118,31 @@ Bool checkAmountMachine(const Char* s_input) {
 	return b_checkResult;
 }
 
+Bool check(const Char* s_input, CheckField e_digOrAl) {
+	Bool b_checkResult = TRUE;
+	Int character;
 
-Bool check(const Char* s_input) {return TRUE;}
+	for (character = 0; character < (strlen(s_input)); character++) {
+		if (e_digOrAl == DIGIT) {
+			if (!isdigit(s_input[character])) {
+				b_checkResult = FALSE;
+				break;
+			}
+		} else if (e_digOrAl == ALPHA) {
+			if (s_input[character] == ' ') {
+				continue;
+			}
+			if (!isalnum(s_input[character]) || (s_input[0] == ' ')) {
+				b_checkResult = FALSE;
+				break;
+			}
+		} else {}
+	}	
+	return b_checkResult;
+}
+
+
+
 
 
 

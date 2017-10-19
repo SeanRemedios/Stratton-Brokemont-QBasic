@@ -8,6 +8,15 @@
 #define ACCT_NUM_LEN		7
 #define MIN_AMOUNT			0
 #define RESERVED			'\0'
+#define NOT_START_ZERO		'0'
+#define MIN_AMOUNT_LEN		3
+#define MAX_AMOUNT_LEN		8
+
+typedef enum {
+	DIGIT,
+	ALPHA
+} CheckField;
+
 
 /*	Called by login.c or user.c
  *	
@@ -17,10 +26,12 @@
  *
  *	Returns 1 (TRUE) or 0 (FASLE)
  */
-Bool check(const Char* input);
+Bool check(const Char* input, CheckField e_digOrAl);
 Bool checkAccountNum(const Char* input);
 Bool checkAmountAgent(const Char* input);
 Bool checkAmountMachine(const Char* input);
+
+void clear_newlines(void);
 
 Int getInfo (const Char* printstring, Int length);
 
