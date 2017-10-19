@@ -8,38 +8,38 @@
 |*************************************************/
 
 #include "login.h"
+#include "user.h"
+
+extern void createStruct(Users e_user);
 
 // Works, but backwards? --check
 void promptLogin(void) {
-	char* u_choice;
+	char* cs_choice;
 
 	printf("\n> ");
-	scanf("%s", u_choice);
+	scanf("%s", cs_choice);
 
-	if(!strncmp(check((const char*)u_choice, ALPHA), "login", 5)) {
+	if(!strncmp(cs_choice, "login", 5)) {
 		promptUser();
 	} else {
 		promptLogin();
 	}
 }
 
-void promptUser() {
-	char* u_choice;
+void promptUser(void) {
+	char* cs_choice;
 
 	printf("\nEnter User > ");
-	scanf("%s", u_choice);
+	scanf("%s", cs_choice);
 
-	if(!strncmp(check((const char*)u_choice, ALPHA), "agent", 5)) {
-		printf("agent\n");
-	} else if(!strncmp(check((const char*)u_choice, ALPHA), "machine", 7)) {
-		printf("machine\n");
+	if(!strncmp(cs_choice, "agent", 5)) {
+		createStruct(2);
+
+	} else if(!strncmp(cs_choice, "machine", 7)) {
+		createStruct(1);
+
 	} else {
 		printf("No User Selected\n");
 		promptLogin();
 	}
-}
-
-int main() {
-	promptLogin();
-	return 0;
 }

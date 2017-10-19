@@ -2,13 +2,16 @@
 	#define __INCLUDE_USER__
 	
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "types.h"
+#include "check.h"
 
 typedef struct {
-	int USER;
-	FILE *VALID_PATH;
-	int *VALID_ACCTS;
+	int user;
+	const char *valid_path;
+	const char *trans_path;
+	int *valid_accts;
 } Input;
 
 typedef enum {
