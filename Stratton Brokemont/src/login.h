@@ -10,7 +10,10 @@
 #ifndef __INCLUDE_CHECK__
 	#define __INCLUDE_CHECK__
 
+#include <stdio.h>
+#include <string.h>
 #include "types.h"
+#include "check.h"
 
 /*	Called by main.c 	
  *
