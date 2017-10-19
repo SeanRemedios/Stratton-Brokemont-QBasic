@@ -127,7 +127,7 @@ Bool check(const Char* s_input, CheckField e_digOrAl) {
 			}
 		// If a name is being looked at
 		} else if ((e_digOrAl == ALPHA) || (e_digOrAl == COMMAND)) {
-			if ((s_input[character] == SPACE) && (e_digOrAl == COMMAND)) {
+			if ((s_input[character] == SPACE) && (!(e_digOrAl == COMMAND)) {
 				continue;
 			}
 			// Check for spaces at the start of the word and alphanumeric
