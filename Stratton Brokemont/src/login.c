@@ -8,8 +8,10 @@
 
 #include "login.h"
 #include "user.h"
+#include "machine.h"
 
 extern void createStruct(Users e_user);
+extern void clear_list(void);
 
 /*	Called by main.c 	
  *
@@ -18,6 +20,9 @@ extern void createStruct(Users e_user);
  */
 void promptLogin(void) {
 	char* cs_choice;
+
+	clear_list();
+	printf("\e[1;1H\e[2J");
 
 	printf("\n> ");
 	scanf("%s", cs_choice);
