@@ -128,11 +128,11 @@ void clear_list(void) {
     free(u_machineInfo.wdr_totals);
 }
 
-int main() {
-	init_wdrList();
-	add_node(1234567,99999);
-	withdraw_Machine();
-	print_list();
+// int main() {
+// 	init_wdrList();
+// 	add_node(1234567,99999);
+// 	withdraw_Machine();
+// 	print_list();
 
-	return 0;
-}
+// 	return 0;
+// }

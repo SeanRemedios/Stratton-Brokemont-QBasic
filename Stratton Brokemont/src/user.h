@@ -3,15 +3,18 @@
 	
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "types.h"
 #include "check.h"
+#include "machine.h"
+#include "agent.h"
 
 typedef struct {
-	int user;
+	Int user;
 	const char *valid_path;
 	const char *trans_path;
-	int *valid_accts;
+	Int *valid_accts;
 } Input;
 
 typedef enum {
@@ -24,5 +27,6 @@ typedef enum {
  *	
  */
 void createStruct(Users e_user);
+void commandPrompt(void);
 
 #endif
