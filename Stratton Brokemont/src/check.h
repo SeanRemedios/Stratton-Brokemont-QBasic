@@ -12,6 +12,7 @@
 #include "types.h"
 #include "agent.h"
 #include "machine.h"
+#include "user.h"
 
 #define ACCT_NUM_LEN		7
 #define MIN_AMOUNT			0
@@ -36,12 +37,13 @@ typedef enum {
  *
  *	Returns 1 (TRUE) or 0 (FASLE)
  */
-Bool check(const Char* input, CheckField e_digOrAl);
-Bool checkAccountNum(const Char* input);
-Bool checkAmount(const Char* input, Int i_lengths);
+Bool check(const Char* cs_input, CheckField e_digOrAl);
+Bool checkAccountNum(const Char* cs_input);
+Bool checkAmount(const Char* cs_input, Int i_lengths);
+Bool checkValAcct(Int i_account, Int *i_validAccounts);
 
 void clear_newlines(void);
 
-Int getInfo (const Char* printstring, Int length);
+Int getInfo (const Char* cs_printstring, Int i_length);
 
 #endif

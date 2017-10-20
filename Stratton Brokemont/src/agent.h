@@ -6,13 +6,14 @@
 |
 |***********************************************************************/
 
+
 #ifndef ___INCLUDE_AGENT___
 	#define ___INCLUDE_AGENT___
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "types.h"
-//#include "user.h"
+#include "user.h"
 
 #define INVALID_ACCOUNT		0000000
 #define AMOUNT_LEN_AGENT	8
@@ -22,9 +23,11 @@
 
 
 typedef enum {
-	AGENTDEP,
-	AGENTWDR,
-	AGENTXFR
+	AGENTDEP = 1,
+	AGENTWDR = 2,
+	AGENTXFR = 3,
+	AGENTNEW = 4,
+	AGENTDEL = 5;
 } AgentTransactions;
 
 typedef struct {
@@ -43,7 +46,7 @@ typedef struct {
 			};
 			Int amount;
 		};
-} AgentInfo;
+} AgentInfo;	// Holds all the agent info
 
 
 Bool deposit_Agent(void);

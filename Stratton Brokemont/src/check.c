@@ -6,6 +6,7 @@
 |
 |***********************************************************************/
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,51 +14,62 @@
 
 #include "types.h"
 #include "check.h"
+#include "user.h"
 #include "agent.h"
 #include "machine.h"
 
+extern Input s_input;
 
+
+/*
+ Asks for the users info and verifies it. A general function that can take any input and length
+ and get it from the user
+*/
 Int getInfo (const Char* cs_printstring, Int i_length) {
 
-	Char s_input[i_length];			// Holds the input from the keyboard
+	Char cs_input[i_length];		// Holds the input from the keyboard
 	Int i_output = 0;				// Integer version of the input
 	Bool b_checkResult = FALSE;		// Checks the constraints
 	Bool b_checkValidity = FALSE;	// Checks the validity 
 
 	do {
 		printf("%s", cs_printstring);
-		scanf("%9s", s_input);	
+		scanf("%9s", cs_input);	
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
 		// Checks for specific constraints on account numbers and amounts
 		if (i_length == ACCT_NUM_LEN) {
-			b_checkResult = checkAccountNum((const Char*)s_input);
+			b_checkResult = checkAccountNum((const Char*)cs_input);
 		} else if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
-			b_checkResult = checkAmount((const Char*)s_input, i_length);
+			b_checkResult = checkAmount((const Char*)cs_input, i_length);
 		} else {}
 
 		// Checks the validity of the input for numbers
-		b_checkValidity = check((const Char*)s_input, DIGIT);
+		b_checkValidity = check((const Char*)cs_input, DIGIT);
 
 		// Prints if one check failed
 		if ((!b_checkResult) || (!b_checkValidity)) {
 			printf("Error: Invalid Entry.\n");
-			memset(s_input, RESERVED, i_length);
+			memset(cs_input, RESERVED, i_length);
 		}
 
 		// Clears any extra newlines from stdin
 		clear_newlines();
 
+		if (i_length == ACCT_NUM_LEN) {
+			checkValAcct(atoi(cs_input), s_input.valid_accts);
+		}
+
 	// Continues while one of them is false
 	} while (!(b_checkResult && b_checkValidity));
 
 	// Converts char* to int
-	i_output = atoi(s_input);
+	i_output = atoi(cs_input);
 
 	return i_output;
 }
 
-// Clears the new line character from the standard s_input so fgets does not read
+// Clears the new line i_character from the standard s_input so fgets does not read
 // another line when an s_input is received. 
 // Doesn't work with the amount, says it has one too many.
 void clear_newlines(void) {
@@ -65,19 +77,22 @@ void clear_newlines(void) {
 
 	//while ((c = getchar()) != '\n' && c != EOF) { }
 	while ((c = fgetc(stdin)) != '\n' && c != EOF) { }
-	// Gets a character from the standard input to clear the buffer
+	// Gets a i_character from the standard input to clear the buffer
 }
 
 
-Bool checkAccountNum(const Char* s_input) {
+/* 
+ Checks that the account number is semantically correct
+ */
+Bool checkAccountNum(const Char* cs_input) {
 	Bool b_checkResult = TRUE;
 
 	// Checks for 7 digit account number
-	if (strlen(s_input) != ACCT_NUM_LEN) {
+	if (strlen(cs_input) != ACCT_NUM_LEN) {
 		b_checkResult = FALSE;
 	}
 	// Covers case of "0000000" because it starts with a '0'
-	if (s_input[0] == NOT_START_ZERO) {	
+	if (cs_input[0] == NOT_START_ZERO) {	
 		b_checkResult = FALSE;
 	}
 
@@ -85,18 +100,21 @@ Bool checkAccountNum(const Char* s_input) {
 }
 
 
-Bool checkAmount(const Char* s_input, Int i_length) {
+/*
+ Checks that the amount is semantically correct
+*/
+Bool checkAmount(const Char* cs_input, Int i_length) {
 	Bool b_checkResult = TRUE;
 	Int i_amount = 0;
 	
 	if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
 		// Checks for minimum and maximum amount lengths
-		if ((strlen(s_input) < MIN_AMOUNT_LEN) || (strlen(s_input) > MAX_AMOUNT_LEN)) {
+		if ((strlen(cs_input) < MIN_AMOUNT_LEN) || (strlen(cs_input) > MAX_AMOUNT_LEN)) {
 			b_checkResult = FALSE;
 		}
 	}
 
-	i_amount = atoi(s_input);
+	i_amount = atoi(cs_input);
 
 	if (i_length == AMOUNT_LEN_AGENT) {
 		// Checks for minimum and maximum amounts
@@ -112,25 +130,28 @@ Bool checkAmount(const Char* s_input, Int i_length) {
 	return b_checkResult;
 }
 
-Bool check(const Char* s_input, CheckField e_digOrAl) {
+/*
+ A general check function to check every input to see if it is semantically correct
+*/
+Bool check(const Char* cs_input, CheckField e_digOrAl) {
 	Bool b_checkResult = TRUE;
-	Int character;
+	Int i_character;
 
-	// Loops through every character in the input
-	for (character = 0; character < (strlen(s_input)); character++) {
+	// Loops through every i_character in the input
+	for (i_character = 0; i_character < (strlen(cs_input)); i_character++) {
 		// If an account number of amount is being looked at
 		if (e_digOrAl == DIGIT) {
-			if (!isdigit(s_input[character])) {
+			if (!isdigit(cs_input[i_character])) {
 				b_checkResult = FALSE;
 				break;
 			}
 		// If a name is being looked at
 		} else if ((e_digOrAl == ALPHA) || (e_digOrAl == COMMAND)) {
-			if ((s_input[character] == SPACE) && (!(e_digOrAl == COMMAND))) {
+			if ((cs_input[i_character] == SPACE) && (!(e_digOrAl == COMMAND))) {
 				continue;
 			}
 			// Check for spaces at the start of the word and alphanumeric
-			if (!isalnum(s_input[character]) || (s_input[0] == SPACE)) {
+			if (!isalnum(cs_input[i_character]) || (cs_input[0] == SPACE)) {
 				b_checkResult = FALSE;
 				break;
 			}
@@ -140,6 +161,22 @@ Bool check(const Char* s_input, CheckField e_digOrAl) {
 }
 
 
+/*
+ Checks for a valid account number from the file
+*/
+Bool checkValAcct(Int i_account, Int *i_validAccounts) {
+	Int i_counter;
+	Bool b_resultAcct = FALSE;	// Account does not exist
+
+	for (i_counter = 0; i_counter < (sizeof(i_validAccounts) / sizeof(Int)); i_counter++) {
+		if (i_account == i_validAccounts[i_counter]) {
+			b_resultAcct = TRUE;	// Account exists
+			break;
+		}
+	}
+
+	return b_resultAcct;
+}
 
 
 
