@@ -27,7 +27,7 @@ Input s_input;
  *
  */
 void commandPrompt(void) {
-	char* cs_choice;
+	char* cs_choice = NULL;
 
 	do {
 		Int i;
@@ -50,31 +50,31 @@ void commandPrompt(void) {
 			printf("\n");
 
 		} else if(!strncmp(cs_choice, "deposit", 7)) {
-			if(s_input.user = 1) 
+			if(s_input.user == 1) 
 				deposit_Machine();
 			else
 				deposit_Agent();
 
 		} else if(!strncmp(cs_choice, "withdraw", 8)) {
-			if(s_input.user = 1) 
+			if(s_input.user == 1) 
 				withdraw_Machine();
 			else
 				withdraw_Agent();
 
 		} else if(!strncmp(cs_choice, "transfer", 8)) {
-			if(s_input.user = 1) 
+			if(s_input.user == 1) 
 				transfer_Machine();
 			else
 				transfer_Agent();
 
 		} else if(!strncmp(cs_choice, "createacct", 10)) {
-			if(s_input.user = 1) 
+			if(s_input.user == 1) 
 				printf("You do not have the authority");
 			else
 				createacct_Agent();
 
 		} else if(!strncmp(cs_choice, "deleteacct", 10)) {
-			if(s_input.user = 1) 
+			if(s_input.user == 1) 
 				printf("You do not have the authority\n");
 			else
 				deleteacct_Agent();
@@ -98,7 +98,7 @@ void createStruct(Users e_user) {
 	char * line = NULL;
 	ssize_t read;
 	size_t len = ACCT_NUM_LEN;
-	Int *arr, i=0;
+	Int *arr = NULL, i=0;
 
 	FILE *valid_accts = fopen(s_input.valid_path, "r");
   	while ((read = getline(&line, &len, valid_accts)) != -1) {
