@@ -21,6 +21,11 @@ extern Bool deleteacct_Agent(void);
 
 Input s_input;
 
+/*	Main loop for user command input
+ *	Accepts input for all user commands, calls corrisponding fuinction
+ *	according to user permissions
+ *
+ */
 void commandPrompt(void) {
 	char* cs_choice;
 
@@ -83,6 +88,10 @@ void commandPrompt(void) {
 	//createTransaction(6);
 }
 
+/*	Creates a struct of user type.
+ *	Inclides array of all valid accounts file.
+ *	
+ */
 void createStruct(Users e_user) {
 	s_input.valid_path = "../../Valid_Accounts.txt";
 	s_input.trans_path = "../../Transaciton.txt";

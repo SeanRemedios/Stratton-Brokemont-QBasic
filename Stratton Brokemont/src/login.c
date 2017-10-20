@@ -11,7 +11,11 @@
 
 extern void createStruct(Users e_user);
 
-// Works, but backwards? --check
+/*	Called by main.c 	
+ *
+ *	prompts user for an input, looking for login. Proceeds to call promptUser()
+ *	if input is valid.
+ */
 void promptLogin(void) {
 	char* cs_choice;
 
@@ -25,6 +29,11 @@ void promptLogin(void) {
 	}
 }
 
+/*	Called by promptLogin()
+ *	
+ *	prompts user to enter user type (Machine or Agent), in which it calls
+ *	user.c to handle the rest of the machine with given user permissions
+ */
 void promptUser(void) {
 	char* cs_choice;
 

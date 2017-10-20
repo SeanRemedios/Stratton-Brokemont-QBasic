@@ -38,6 +38,8 @@ typedef enum {
 void createStruct(Users e_user);
 
 /*	Main loop for user command input
+ *	Accepts input for all user commands, calls corrisponding fuinction
+ *	according to user permissions
  *
  */
 void commandPrompt(void);
