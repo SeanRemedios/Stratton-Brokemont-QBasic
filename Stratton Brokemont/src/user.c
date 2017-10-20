@@ -1,11 +1,10 @@
-/*************************************************
+/**********************************************************************
 |
+|	user.c is property of Stratton Brokemont™
+|	Created: October 19, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
 |
-|
-|
-|
-|
-|*************************************************/
+|***********************************************************************/
 
 #include "user.h"
 
@@ -79,6 +78,7 @@ void commandPrompt(void) {
 
 	} while(strncmp(cs_choice, "logout", 6));
 
+	printf("\e[1;1H\e[2J");
 	printf("DONE");
 	//createTransaction(6);
 }

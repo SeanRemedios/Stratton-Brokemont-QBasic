@@ -1,11 +1,11 @@
-/*************************************************
+/**********************************************************************
 |
+|	machine.c is property of Stratton Brokemont™
+|	Created: October 19, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
 |
-|
-|
-|
-|
-|*************************************************/
+|***********************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
