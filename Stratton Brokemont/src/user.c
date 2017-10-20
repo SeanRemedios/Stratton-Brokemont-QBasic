@@ -27,8 +27,10 @@ void commandPrompt() {
 
 	printf("\nEnter Command (enter help for options) > ");
 	scanf("%s", cs_choice);
+	cs_choice = toLower(cs_choice);
 
 	if(!strncmp(cs_choice, "help", 4)) {
+		printf("\nend\t\tquits program");
 		printf("\ndeposit\t\tdeposit money into your account");
 		printf("\nwithdraw\twithdraw money from your account");
 		printf("\ntransfer\ttransfer money into another account");
