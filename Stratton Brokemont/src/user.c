@@ -20,104 +20,88 @@ extern Bool transfer_Agent(void);
 extern Bool createacct_Agent(void);
 extern Bool deleteacct_Agent(void);
 
-Input u_input;
+Input s_input;
 
-void commandPrompt() {
+void commandPrompt(void) {
 	char* cs_choice;
 
-	printf("\nEnter Command (enter help for options) > ");
-	scanf("%s", cs_choice);
-	cs_choice = toLower(cs_choice);
+	do {
+		Int i;
 
-	if(!strncmp(cs_choice, "help", 4)) {
-		printf("\nend\t\tquits program");
-		printf("\ndeposit\t\tdeposit money into your account");
-		printf("\nwithdraw\twithdraw money from your account");
-		printf("\ntransfer\ttransfer money into another account");
-		if(u_input.user == 2) {
-			printf("\ncreateacct\tcreate an account");
-			printf("\ndeleteacct\tdelete an account");
-		}
-		printf("\n");
+		printf("\nEnter Command (enter help for options) > ");
+		scanf("%s", cs_choice);
 
-	} else if(!strncmp(cs_choice, "deposit", 4)) {
-		if(u_input.user = 1) 
-			deposit_Machine();
-		else
-			deposit_Agent();
+		for(i = 0; cs_choice[i]; i++)
+	  		cs_choice[i] = tolower(cs_choice[i]);
 
-	} else if(!strncmp(cs_choice, "withdraw", 4)) {
-		if(u_input.user = 1) 
-		withdraw_Machine();
-		else
-			withdraw_Agent();
+		if(!strncmp(cs_choice, "help", 4)) {
+			printf("\nlogout\t\tlogs out of current user");
+			printf("\ndeposit\t\tdeposit money into your account");
+			printf("\nwithdraw\twithdraw money from your account");
+			printf("\ntransfer\ttransfer money into another account");
+			if(s_input.user == 2) {
+				printf("\ncreateacct\tcreate an account");
+				printf("\ndeleteacct\tdelete an account");
+			}
+			printf("\n");
 
-	} else if(!strncmp(cs_choice, "transfer", 4)) {
-		if(u_input.user = 1) 
-			transfer_Machine();
-		else
-			transfer_Agent();
+		} else if(!strncmp(cs_choice, "deposit", 7)) {
+			if(s_input.user = 1) 
+				deposit_Machine();
+			else
+				deposit_Agent();
 
-	} else if(!strncmp(cs_choice, "createacct", 4)) {
-		if(u_input.user = 1) 
-			printf("You do not have the authority");
-		else
-			createacct_Agent();
+		} else if(!strncmp(cs_choice, "withdraw", 8)) {
+			if(s_input.user = 1) 
+				withdraw_Machine();
+			else
+				withdraw_Agent();
 
-	} else if(!strncmp(cs_choice, "deleteacct", 4)) {
-		if(u_input.user = 1) 
-			printf("You do not have the authority\n");
-		else
-			deleteacct_Agent();
-	} else
-		printf("Invalid command\n");
+		} else if(!strncmp(cs_choice, "transfer", 8)) {
+			if(s_input.user = 1) 
+				transfer_Machine();
+			else
+				transfer_Agent();
 
-	commandPrompt();
+		} else if(!strncmp(cs_choice, "createacct", 10)) {
+			if(s_input.user = 1) 
+				printf("You do not have the authority");
+			else
+				createacct_Agent();
+
+		} else if(!strncmp(cs_choice, "deleteacct", 10)) {
+			if(s_input.user = 1) 
+				printf("You do not have the authority\n");
+			else
+				deleteacct_Agent();
+		} else
+			printf("Invalid command\n");
+
+	} while(strncmp(cs_choice, "logout", 6));
+
+	printf("DONE");
+	//createTransaction(6);
 }
 
 void createStruct(Users e_user) {
-	u_input.valid_path = "../../Valid_Accounts.txt";
-	u_input.trans_path = "../../Transaciton.txt";
+	s_input.valid_path = "../../Valid_Accounts.txt";
+	s_input.trans_path = "../../Transaciton.txt";
 	char * line = NULL;
 	ssize_t read;
 	size_t len = ACCT_NUM_LEN;
 	Int *arr, i=0;
 
-	FILE *valid_accts = fopen(u_input.valid_path, "r");
+	FILE *valid_accts = fopen(s_input.valid_path, "r");
   	while ((read = getline(&line, &len, valid_accts)) != -1) {
         arr[i] = atoi(line);
     }
     fclose(valid_accts);
-    u_input.valid_accts = arr;
+    s_input.valid_accts = arr;
 
     if (line)
     	free(line);
 
-	u_input.user = e_user; 
+	s_input.user = e_user; 
 
 	commandPrompt();
-}
-
-void deposit(void) {
-
-	if(u_input.user = 1) 
-		deposit_Machine();
-	else
-		deposit_Agent();
-}
-
-void withdraw(void) {
-
-	if(u_input.user = 1) 
-		withdraw_Machine();
-	else
-		withdraw_Agent();
-}
-
-void transfer(void) {
-
-	if(u_input.user = 1) 
-		transfer_Machine();
-	else
-		transfer_Agent();
 }

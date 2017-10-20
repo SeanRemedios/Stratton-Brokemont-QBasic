@@ -18,8 +18,8 @@ void promptLogin(void) {
 
 	printf("\n> ");
 	scanf("%s", cs_choice);
-
-	if(!strncmp(toLower(cs_choice), "login", 5)) {
+	
+	if(!strncmp(cs_choice, "login", 5)) {
 		promptUser();
 	} else {
 		promptLogin();
@@ -32,10 +32,10 @@ void promptUser(void) {
 	printf("\nEnter User > ");
 	scanf("%s", cs_choice);
 
-	if(!strncmp(toLower(cs_choice), "agent", 5)) {
+	if(!strncmp(cs_choice, "agent", 5)) {
 		createStruct(2);
 
-	} else if(!strncmp(toLower(cs_choice), "machine", 7)) {
+	} else if(!strncmp(cs_choice, "machine", 7)) {
 		createStruct(1);
 
 	} else {

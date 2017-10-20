@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "types.h"
 #include "check.h"
@@ -27,6 +28,10 @@ typedef enum {
  *	
  */
 void createStruct(Users e_user);
+
+/*	Main loop for user command input
+ *
+ */
 void commandPrompt(void);
 
 #endif
