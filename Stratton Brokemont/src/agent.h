@@ -27,7 +27,7 @@ typedef enum {
 	AGENTWDR = 2,
 	AGENTXFR = 3,
 	AGENTNEW = 4,
-	AGENTDEL = 5;
+	AGENTDEL = 5
 } AgentTransactions;
 
 typedef struct {
