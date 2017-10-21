@@ -4,6 +4,10 @@ Decimelli.
 
 for CISC 327, Fall 2017			
 
+Compiling & Starting the program:
+	1. The program can be compiled by typing 'make' in the terminal window.
+	2. The program can be started by typing ./QBasic "validAccounts.txt" "transaction.txt"
+
 Starting the automated test:
 	1. Open a terminal window
 	2. Move into the Stratton Brokemont folder:
