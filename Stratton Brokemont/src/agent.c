@@ -59,7 +59,7 @@ Bool transfer_Agent(void) {
 /*
  Prompts the agent to create an account
  */
-Bool createacct(void){
+Bool createacct_Agent(void){
 	u_agentInfo.mod_acct_num = getInfo("Enter an account number to crete account: ", ACCT_NUM_LEN);
 	getName();
 
@@ -69,7 +69,7 @@ Bool createacct(void){
 /*
  Prompts the agent to delete an account
 */
-Bool deleteacct(void){
+Bool deleteacct_Agent(void){
 	u_agentInfo.mod_acct_num = getInfo("Enter an account number to delete account: ", ACCT_NUM_LEN);
 	getName();
 

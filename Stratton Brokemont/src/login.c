@@ -19,7 +19,7 @@ extern void clear_list(void);
  *	if input is valid.
  */
 void promptLogin(void) {
-	char* cs_choice;
+	char* cs_choice = NULL;
 
 	clear_list();
 	printf("\e[1;1H\e[2J");
@@ -40,7 +40,7 @@ void promptLogin(void) {
  *	user.c to handle the rest of the machine with given user permissions
  */
 void promptUser(void) {
-	char* cs_choice;
+	char* cs_choice = NULL;
 
 	printf("\nEnter User > ");
 	scanf("%s", cs_choice);
