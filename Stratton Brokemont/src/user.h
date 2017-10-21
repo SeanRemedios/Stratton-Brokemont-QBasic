@@ -19,6 +19,9 @@
 #include "machine.h"
 #include "agent.h"
 
+#define INVALID_ACCOUNT		0000000
+#define TEMP_FILE			".tmp.txt"
+
 typedef struct {
 	Int user;
 	const char *valid_path;
@@ -31,11 +34,38 @@ typedef enum {
 	AGENT = 2
 } Users;
 
+typedef enum {
+	DEP = 1,
+	WDR = 2,
+	XFR = 3,
+	NEW = 4,
+	DEL = 5
+} Transactions;
+
+typedef struct {
+		Transactions trans;
+		AccountWithdrawTotals *wdr_totals;
+		struct {
+			union {
+				Int acct_num;
+				struct {
+					Int to_acct_num;
+					Int from_acct_num;
+				};
+				struct {
+					Int mod_acct_num;
+					Char* acct_name;
+				};
+			};
+			Int amount;
+		};
+} UserInfo;	// Holds all the agent info
+
 /*	Creates a struct of user type.
  *	Inclides array of all valid accounts file.
  *	
  */
-void createStruct(Users e_user);
+void createStruct(Users e_user, int argc, char* argv[]);
 
 /*	Main loop for user command input
  *	Accepts input for all user commands, calls corrisponding fuinction

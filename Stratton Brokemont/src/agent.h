@@ -15,38 +15,37 @@
 #include "types.h"
 #include "user.h"
 
-#define INVALID_ACCOUNT		0000000
 #define AMOUNT_LEN_AGENT	8
 #define MAX_AMOUNT_AGENT	99999999 // Cents
 #define MAX_NAME_LENGTH		30
 #define MIN_NAME_LENGTH		3
 
 
-typedef enum {
-	AGENTDEP = 1,
-	AGENTWDR = 2,
-	AGENTXFR = 3,
-	AGENTNEW = 4,
-	AGENTDEL = 5
-} AgentTransactions;
+// typedef enum {
+// 	AGENTDEP = 1,
+// 	AGENTWDR = 2,
+// 	AGENTXFR = 3,
+// 	AGENTNEW = 4,
+// 	AGENTDEL = 5
+// } AgentTransactions;
 
-typedef struct {
-		AgentTransactions agent_trans;
-		struct {
-			union {
-				Int acct_num;
-				struct {
-					Int to_acct_num;
-					Int from_acct_num;
-				};
-				struct {
-					Int mod_acct_num;
-					Char* acct_name;
-				};
-			};
-			Int amount;
-		};
-} AgentInfo;	// Holds all the agent info
+// typedef struct {
+// 		AgentTransactions agent_trans;
+// 		struct {
+// 			union {
+// 				Int acct_num;
+// 				struct {
+// 					Int to_acct_num;
+// 					Int from_acct_num;
+// 				};
+// 				struct {
+// 					Int mod_acct_num;
+// 					Char* acct_name;
+// 				};
+// 			};
+// 			Int amount;
+// 		};
+// } AgentInfo;	// Holds all the agent info
 
 
 Bool deposit_Agent(void);

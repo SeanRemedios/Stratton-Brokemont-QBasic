@@ -1,10 +1,11 @@
-/**********************************************************************
+/*************************************************
 |
-|	login.h is property of Stratton Brokemont™
-|	Created: October 19, 2017
-|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
 |
-|***********************************************************************/
+|
+|
+|
+|
+|*************************************************/
 
 #ifndef __INCLUDE_CHECK__
 	#define __INCLUDE_CHECK__
@@ -21,13 +22,13 @@
  *	prompts user for an input, looking for login. Proceeds to call promptUser()
  *	if input is valid.
  */
-void promptLogin(void);
+void promptLogin(int argc, char* argv[]);
 
 /*	Called by promptLogin()
  *	
  *	prompts user to enter user type (Machine or Agent), in which it calls
  *	user.c to handle the rest of the machine with given user permissions
  */
-void promptUser(void);
+void promptUser(int argc, char* argv[]);
 
 #endif

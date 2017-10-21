@@ -1,17 +1,18 @@
-/**********************************************************************
+/*************************************************
 |
-|	main.c is property of Stratton Brokemont™
-|	Created: October 19, 2017
-|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
 |
-|***********************************************************************/
+|
+|
+|
+|
+|*************************************************/
 
 #include "login.h"
 
-extern void promptLogin(void);
+extern void promptLogin(int argc, char* argv[]);
 
 int main(int argc, char* argv[]) {
 
-	promptLogin();
+	promptLogin(argc, argv);
 	return 0;
 }

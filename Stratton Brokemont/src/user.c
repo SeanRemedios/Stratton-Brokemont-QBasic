@@ -18,6 +18,7 @@ extern Bool withdraw_Agent(void);
 extern Bool transfer_Agent(void);
 extern Bool createacct_Agent(void);
 extern Bool deleteacct_Agent(void);
+extern Bool createTransaction(Int i_trans);
 
 Input s_input;
 
@@ -27,13 +28,14 @@ Input s_input;
  *
  */
 void commandPrompt(void) {
-	char* cs_choice = NULL;
+	char cs_choice[255] = "\0";
 
 	do {
 		Int i;
 
 		printf("\nEnter Command (enter help for options) > ");
 		scanf("%s", cs_choice);
+
 
 		for(i = 0; cs_choice[i]; i++)
 	  		cs_choice[i] = tolower(cs_choice[i]);
@@ -83,33 +85,44 @@ void commandPrompt(void) {
 
 	} while(strncmp(cs_choice, "logout", 6));
 
+	rename("temp.txt", s_input.trans_path);
+
 	printf("\e[1;1H\e[2J");
-	printf("DONE");
-	//createTransaction(6);
+	printf("DONE\n");
+
+	createTransaction(6);
+	rename(TEMP_FILE, s_input.trans_path);
 }
 
 /*	Creates a struct of user type.
  *	Inclides array of all valid accounts file.
  *	
  */
-void createStruct(Users e_user) {
-	s_input.valid_path = "../../Valid_Accounts.txt";
-	s_input.trans_path = "../../Transaciton.txt";
-	char * line = NULL;
+void createStruct(Users e_user, int argc, char* argv[]) {
+	FILE *valid_accts;
+	char *line = NULL;
+	size_t len = 0;
 	ssize_t read;
-	size_t len = ACCT_NUM_LEN;
-	Int *arr = NULL, i=0;
+	Int arr[10000], i=0;
 
-	FILE *valid_accts = fopen(s_input.valid_path, "r");
-  	while ((read = getline(&line, &len, valid_accts)) != -1) {
-        arr[i] = atoi(line);
-    }
+	s_input.valid_path = argv[1];
+	s_input.trans_path = argv[2];
+	//printf("%s - %s\n", s_input.valid_path, s_input.trans_path);
+
+	valid_accts = fopen(s_input.valid_path, "r");
+	if (valid_accts == NULL) {
+		printf("Failed\n");
+	} else {
+		while ((read = getline(&line, &len, valid_accts)) != -1) {
+			arr[i] = atoi(line);
+			i++;
+		}
+	}
+
+	free(line);
     fclose(valid_accts);
+
     s_input.valid_accts = arr;
-
-    if (line)
-    	free(line);
-
 	s_input.user = e_user; 
 
 	commandPrompt();

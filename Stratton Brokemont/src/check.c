@@ -46,19 +46,19 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 
 		// Checks the validity of the input for numbers
 		b_checkValidity = check((const Char*)cs_input, DIGIT);
-
+		
 		// Prints if one check failed
 		if ((!b_checkResult) || (!b_checkValidity)) {
 			printf("Error: Invalid Entry.\n");
 			memset(cs_input, RESERVED, i_length);
+		} else {
+			if (i_length == ACCT_NUM_LEN) {
+				checkValAcct(atoi(cs_input), s_input.valid_accts);
+			}
 		}
 
 		// Clears any extra newlines from stdin
 		clear_newlines();
-
-		if (i_length == ACCT_NUM_LEN) {
-			checkValAcct(atoi(cs_input), s_input.valid_accts);
-		}
 
 	// Continues while one of them is false
 	} while (!(b_checkResult && b_checkValidity));
@@ -106,7 +106,7 @@ Bool checkAccountNum(const Char* cs_input) {
 Bool checkAmount(const Char* cs_input, Int i_length) {
 	Bool b_checkResult = TRUE;
 	Int i_amount = 0;
-	
+
 	if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
 		// Checks for minimum and maximum amount lengths
 		if ((strlen(cs_input) < MIN_AMOUNT_LEN) || (strlen(cs_input) > MAX_AMOUNT_LEN)) {
