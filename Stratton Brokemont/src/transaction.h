@@ -21,21 +21,16 @@
 // Number of transactions plus the number of error codes
 #define MAX_TRANSACTIONS	(6+NUM_ERROR_CODES) 
 #define STR_RESERVED		"\0"
+/* Strings for writing to the ouput file */
 #define STR_NEWLINE			"\n"
 #define UNUSED_NAME			"***"
 #define INT_UNUSED_AMOUNT	000
 #define STR_UNUSED_AMOUNT	"000"
 #define STR_INVAL_ACCOUNT	"0000000"
 
-enum {
-	TRANS_MACHINE = 1,
-	TRANS_ATM = 2,
-};
-
-
-Bool createTransaction(Int i_trans);
+void createTransaction(Int i_trans);
 Bool getTransString(Int i_trans, UserInfo *s_info);
-void createString(const Char* sc_trans, Int i_toAccount, Int i_amount, 
+Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount, 
 	Int i_fromAccount, const Char* sc_name);
 Bool writeFile(const Char* filename, const Char* output);
 

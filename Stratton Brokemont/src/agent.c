@@ -124,12 +124,14 @@ void getName (void){
 		scanf("%30s", cs_input);	
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
+		// Checks the name constraints
 		if ((strlen(cs_input) < MIN_NAME_LENGTH) || (strlen(cs_input) > MAX_NAME_LENGTH)) {
 			b_checkResult = FALSE;
 		} else {
 			b_checkResult = TRUE;
 		}
 
+		// Checks the general constraints
 		b_checkValidity = check((const Char*)cs_input, ALPHA);
 
 		if ((!b_checkValidity) || (!b_checkResult)) {
