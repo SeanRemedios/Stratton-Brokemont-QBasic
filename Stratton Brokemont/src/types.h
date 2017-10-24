@@ -12,6 +12,7 @@
 
 #define FALSE           (0)
 #define TRUE            (1)
+#define RESERVED		'\0'
 
 typedef char           		Char;
 typedef unsigned char  		Uint8;

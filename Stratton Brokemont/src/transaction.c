@@ -10,12 +10,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "types.h"
 #include "transaction.h"
 #include "check.h"
 #include "agent.h"
 #include "machine.h"
-#include "user.h"
 
 extern UserInfo s_agentInfo;
 extern UserInfo s_machineInfo;
@@ -32,7 +30,7 @@ extern Input s_input;
 /*
  Creates the transaction list to go out to the transaction file
 */
-void createTransaction(Int i_trans) {
+void createTransaction(Transactions i_trans) {
 	Bool result = TRUE;
 
 	if (i_trans) {
@@ -44,7 +42,7 @@ void createTransaction(Int i_trans) {
 		}
 	}
 
-	if (!result) {
+	if (result) {
 		printf("Error while creating transaction string.\n");
 	}
 }
@@ -53,22 +51,13 @@ void createTransaction(Int i_trans) {
 /*
  Gets the transaction and the coresponding string 
 */
-Bool getTransString(Int i_trans, UserInfo *s_info) {
+Bool getTransString(Transactions i_trans, UserInfo *s_info) {
 	Bool result = TRUE;
 	Char* sc_trans;
 	Int i_toAccount;
 	Int i_amount; 
 	Int i_fromAccount;
 	Char* sc_name;
-
-	enum {
-		DEPOSIT 	= 1,
-		WITHDRAW 	= 2,
-		TRANSFER 	= 3,
-		NEW 		= 4,
-		DELETE 		= 5,
-		EOS 		= 6
-	}; // Possible transactions
 
 	// Checks the transaction performed and gets the data for it
 	switch (i_trans) {
@@ -110,7 +99,8 @@ Bool getTransString(Int i_trans, UserInfo *s_info) {
 	}
 
 	// Concatenates the string
-	result = createString(sc_trans, i_toAccount, i_amount, i_fromAccount, sc_name);
+	result = createString((const Char*)sc_trans, i_toAccount, 
+						i_amount, i_fromAccount, (const Char*)sc_name);
 
 	return result;
 }
@@ -133,32 +123,29 @@ Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount,
 	// To account (Deposit, Transfer, New, Delete)
 	if (i_toAccount == INVALID_ACCOUNT) {
 		strcat(sc_transactionOutput, STR_INVAL_ACCOUNT);
-		strcat(sc_transactionOutput, " ");
 	} else {
 		sprintf(sc_tempBuffer, "%d", i_toAccount);
 		strcat(sc_transactionOutput, sc_tempBuffer);
-		strcat(sc_transactionOutput, " ");
 	}
+	strcat(sc_transactionOutput, " ");
 
 	// Amount
 	if (i_amount == INT_UNUSED_AMOUNT) {
 		strcat(sc_transactionOutput, STR_UNUSED_AMOUNT);
-		strcat(sc_transactionOutput, " ");
 	} else {
 		sprintf(sc_tempBuffer, "%d", i_amount);
 		strcat(sc_transactionOutput, sc_tempBuffer);
-		strcat(sc_transactionOutput, " ");
 	}
+	strcat(sc_transactionOutput, " ");
 
 	// From account (Withdraw, Transfer)
 	if (i_fromAccount == INVALID_ACCOUNT) {
 		strcat(sc_transactionOutput, STR_INVAL_ACCOUNT);
-		strcat(sc_transactionOutput, " ");
 	} else {
 		sprintf(sc_tempBuffer, "%d", i_fromAccount);
 		strcat(sc_transactionOutput, sc_tempBuffer);
-		strcat(sc_transactionOutput, " ");
 	}
+	strcat(sc_transactionOutput, " ");
 
 	// Name (New, Delete)
 	strcat(sc_transactionOutput, sc_name);
@@ -171,6 +158,7 @@ Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount,
 		result = FALSE;
 	}
 
+	memset(sc_transactionOutput, RESERVED, strlen(sc_transactionOutput));
 	free(sc_transactionOutput); // Free the space in memory
 
 	return result;
@@ -183,6 +171,8 @@ Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount,
 Bool writeFile(const Char* filename, const Char* output) {
 	Bool result = TRUE;
 	FILE *fp;
+
+	printf("%s\n", output);
 
 	fp = fopen(filename, "a+"); // Opens a file allowing appending
 	if (fwrite(output, strlen(output), 1, fp)) { // Writes the line
