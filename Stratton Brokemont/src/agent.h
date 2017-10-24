@@ -10,10 +10,7 @@
 #ifndef ___INCLUDE_AGENT___
 	#define ___INCLUDE_AGENT___
 
-#include <stdlib.h>
-#include <stdio.h>
 #include "types.h"
-#include "user.h"
 
 #define AMOUNT_LEN_AGENT	8
 #define MAX_AMOUNT_AGENT	99999999 // Cents

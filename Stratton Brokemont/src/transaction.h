@@ -10,8 +10,6 @@
 	#define __INCLUDE_TRANSACTION__
 
 #include "types.h"
-#include "agent.h"
-#include "machine.h"
 #include "user.h"
 
 #define TRANSACTION_LEN		62
@@ -28,10 +26,10 @@
 #define STR_UNUSED_AMOUNT	"000"
 #define STR_INVAL_ACCOUNT	"0000000"
 
-void createTransaction(Int i_trans);
-Bool getTransString(Int i_trans, UserInfo *s_info);
+void createTransaction(Transactions i_trans);
+Bool getTransString(Transactions i_trans, UserInfo *s_info);
 Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount, 
-	Int i_fromAccount, const Char* sc_name);
+Int i_fromAccount, const Char* sc_name);
 Bool writeFile(const Char* filename, const Char* output);
 
 

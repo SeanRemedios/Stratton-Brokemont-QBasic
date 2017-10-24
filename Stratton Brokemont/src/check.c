@@ -12,7 +12,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "types.h"
 #include "check.h"
 #include "user.h"
 #include "agent.h"
@@ -37,21 +36,23 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 		scanf("%9s", cs_input);	
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
-		// Checks for specific constraints on account numbers and amounts
-		if (i_length == ACCT_NUM_LEN) {
-			b_checkResult = checkAccountNum((const Char*)cs_input);
-		} else if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
-			b_checkResult = checkAmount((const Char*)cs_input, i_length);
-		} else {}
-
 		// Checks the validity of the input for numbers
 		b_checkValidity = check((const Char*)cs_input, DIGIT);
+
+		if (b_checkValidity) {
+			// Checks for specific constraints on account numbers and amounts
+			if (i_length == ACCT_NUM_LEN) {
+				b_checkResult = checkAccountNum((const Char*)cs_input);
+			} else if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
+				b_checkResult = checkAmount((const Char*)cs_input, i_length);
+			} else {}
+		}
 		
 		// Prints if one check failed
 		if ((!b_checkResult) || (!b_checkValidity)) {
 			printf("Error: Invalid Entry.\n");
-			memset(cs_input, RESERVED, i_length);
-		} else {
+			memset(cs_input, RESERVED, i_length); // Clears Char* array
+		} else if (b_checkResult && b_checkValidity){
 			if (i_length == ACCT_NUM_LEN) {
 				checkValAcct(atoi(cs_input), s_input.valid_accts);
 			}
@@ -87,12 +88,9 @@ void clear_newlines(void) {
 Bool checkAccountNum(const Char* cs_input) {
 	Bool b_checkResult = TRUE;
 
-	// Checks for 7 digit account number
-	if (strlen(cs_input) != ACCT_NUM_LEN) {
-		b_checkResult = FALSE;
-	}
+	// Checks for 7 digit account number OR
 	// Covers case of "0000000" because it starts with a '0'
-	if (cs_input[0] == NOT_START_ZERO) {	
+	if ((strlen(cs_input) != ACCT_NUM_LEN) || (cs_input[0] == NOT_START_ZERO)) {
 		b_checkResult = FALSE;
 	}
 
@@ -114,6 +112,7 @@ Bool checkAmount(const Char* cs_input, Int i_length) {
 		}
 	}
 
+	// isDigit is checked in check()
 	i_amount = atoi(cs_input);
 
 	if (i_length == AMOUNT_LEN_AGENT) {
@@ -136,9 +135,10 @@ Bool checkAmount(const Char* cs_input, Int i_length) {
 Bool check(const Char* cs_input, CheckField e_digOrAl) {
 	Bool b_checkResult = TRUE;
 	Int i_character;
+	Int i_inputLen = strlen(cs_input);
 
 	// Loops through every i_character in the input
-	for (i_character = 0; i_character < (strlen(cs_input)); i_character++) {
+	for (i_character = 0; i_character < i_inputLen; i_character++) {
 		// If an account number of amount is being looked at
 		if (e_digOrAl == DIGIT) {
 			if (!isdigit(cs_input[i_character])) {
@@ -167,8 +167,9 @@ Bool check(const Char* cs_input, CheckField e_digOrAl) {
 Bool checkValAcct(Int i_account, Int *i_validAccounts) {
 	Int i_counter;
 	Bool b_resultAcct = FALSE;	// Account does not exist
+	Int i_sizeValAcctArr = sizeof(i_validAccounts) / sizeof(Int);
 
-	for (i_counter = 0; i_counter < (sizeof(i_validAccounts) / sizeof(Int)); i_counter++) {
+	for (i_counter = 0; i_counter < i_sizeValAcctArr; i_counter++) {
 		if (i_account == i_validAccounts[i_counter]) {
 			b_resultAcct = TRUE;	// Account exists
 			break;

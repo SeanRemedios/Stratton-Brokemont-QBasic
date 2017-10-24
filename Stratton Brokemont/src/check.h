@@ -10,13 +10,9 @@
 	#define __INCLUDE_CHECK__
 
 #include "types.h"
-#include "agent.h"
-#include "machine.h"
-#include "user.h"
 
 #define ACCT_NUM_LEN		7
 #define MIN_AMOUNT			0
-#define RESERVED			'\0'
 #define NOT_START_ZERO		'0'
 #define MIN_AMOUNT_LEN		3
 #define MAX_AMOUNT_LEN		8

@@ -8,11 +8,8 @@
 
 #ifndef ___INCLUDE_MACHINE___
 	#define ___INCLUDE_MACHINE___
-	
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "types.h"
-#include "user.h"
 
 #define AMOUNT_LEN_MACHINE	6
 #define MAX_AMOUNT_MACHINE	100000	// Cents
@@ -43,7 +40,7 @@ Bool createacct_Machine(void);
 Bool deleteacct_Machine(void);
 
 WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amount);
-Bool init_wdrList(void);
+Bool init_WDRList(void);
 void add_node(Int i_accountNumber, Int i_amount);
 void print_list(void);
 void clear_list(void);

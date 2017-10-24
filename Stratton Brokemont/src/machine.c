@@ -24,31 +24,30 @@ extern Bool createTransaction(Int i_trans);
  Prompts the machine for an account to deposit to and amount 
 */
 Bool deposit_Machine(void) {
-	Bool result = FALSE;
+	Bool b_result = FALSE;
 
 	// Keeps track of what transaction is occuring for the transaction file
-	s_machineInfo.trans = DEP;	
+	s_machineInfo.trans = DEPOSIT;	
 
 	s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
 	if (createTransaction(s_machineInfo.trans)) {
-		result = TRUE;
+		b_result = TRUE;
 	}
 
-	return FALSE;
+	return b_result;
 }
 
 /*
  Prompts the machine for an account to withdraw from and amount
 */
 Bool withdraw_Machine(void) {
-	Bool result = FALSE;
-
+	Bool b_result = FALSE;
 	// Checks whether the account number is already in the withdraw lists
 	WDRAddList e_addToList = FAIL;	
 
-	s_machineInfo.trans = WDR;
+	s_machineInfo.trans = WITHDRAW;
 
 	while (e_addToList == FAIL) {
 		e_addToList = PASS;
@@ -64,11 +63,13 @@ Bool withdraw_Machine(void) {
 		add_node(s_machineInfo.acct_num, s_machineInfo.amount);
 	}
 
+	print_list();
+
 	if (createTransaction(s_machineInfo.trans)) {
-		result = TRUE;
+		b_result = TRUE;
 	}
 
-	return TRUE;
+	return b_result;
 }
 
 
@@ -76,19 +77,19 @@ Bool withdraw_Machine(void) {
  Prompts the machine for an account to deposit to and withdraw from and an amount
 */
 Bool transfer_Machine(void) {
-	Bool result = FALSE;
+	Bool b_result = FALSE;
 
-	s_machineInfo.trans = XFR;
+	s_machineInfo.trans = TRANSFER;
 
 	s_machineInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
 	s_machineInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
 	if (createTransaction(s_machineInfo.trans)) {
-		result = TRUE;
+		b_result = TRUE;
 	}
 
-	return TRUE;
+	return b_result;
 }
 
 /*
@@ -122,7 +123,7 @@ WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amoun
 /*
 	Initializes the withdraw linked list
 */
-Bool init_wdrList(void) {
+Bool init_WDRList(void) {
 	Bool b_listEmpty = TRUE; // Checks if the list is empty
 
 	printf("Linked List Created\n");
@@ -152,15 +153,21 @@ void add_node(Int i_accountNumber, Int i_amount) {
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 
 	// Iterate through the list until we get to the end
-	while (s_current->next != NULL) {
-		s_current = s_current->next;
-	}
+	// while (s_current->next != NULL) {
+	// 	s_current = s_current->next;
+	// }
 
 	// Allocate space for a new node and add it to the end
-	s_current->next = malloc(sizeof(AccountWithdrawTotals));
-	s_current->next->acct_num = i_accountNumber;
-	s_current->next->amt_num = i_amount;
-	s_current->next->next = NULL;
+	// s_current->next = malloc(sizeof(AccountWithdrawTotals));
+	// s_current->next->acct_num = i_accountNumber;
+	// s_current->next->amt_num = i_amount;
+	// s_current->next->next = NULL;
+
+	s_current = malloc(sizeof(AccountWithdrawTotals));
+	s_current->acct_num = i_accountNumber;
+	s_current->amt_num = i_amount;
+	s_current->next = s_machineInfo.wdr_totals;
+	s_machineInfo.wdr_totals = s_current;
 }
 
 /*
