@@ -22,24 +22,14 @@ typedef enum {
 	DIGIT,
 	ALPHA,
 	COMMAND
-} CheckField;
+} CheckField; // For check function
 
 
-/*	Called by login.c or user.c
- *	
- *	Checks given input string for 
- *	symbols, numbers, and any other 
- *	threatenning input vlaues
- *
- *	Returns 1 (TRUE) or 0 (FASLE)
- */
+Int getInfo (const Char* cs_printstring, Int i_length);
 Bool check(const Char* cs_input, CheckField e_digOrAl);
 Bool checkAccountNum(const Char* cs_input);
 Bool checkAmount(const Char* cs_input, Int i_lengths);
 Bool checkValAcct(Int i_account, Int *i_validAccounts);
-
 void clear_newlines(void);
-
-Int getInfo (const Char* cs_printstring, Int i_length);
 
 #endif

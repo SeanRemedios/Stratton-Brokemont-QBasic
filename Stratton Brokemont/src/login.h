@@ -17,6 +17,9 @@
 #include "types.h"
 #include "check.h"
 
+#define ARG_VALIDACCOUNTS	1
+#define ARG_TRANSACTION		2
+
 /*	Called by main.c 	
  *
  *	prompts user for an input, looking for login. Proceeds to call promptUser()

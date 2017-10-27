@@ -21,9 +21,16 @@ extern Input s_input;
 
 
 /*
- Asks for the users info and verifies it. A general function that can take any input and length
- and get it from the user
-*/
+ * Asks for the users info and verifies it. A general function that can take any input and length
+ * and get it from the user.
+ * 
+ * Input:	cs_printstring - A string to be printed to the command prompt window
+ *			i_length - The max length of an input being taken from the user
+ *
+ * Output:	i_output - An account number or amount
+ *
+ * 
+ */
 Int getInfo (const Char* cs_printstring, Int i_length) {
 
 	Char cs_input[i_length];		// Holds the input from the keyboard
@@ -70,9 +77,15 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 	return i_output;
 }
 
-// Clears the new line i_character from the standard s_input so fgets does not read
-// another line when an s_input is received. 
-// Doesn't work with the amount, says it has one too many.
+/*
+ * Clears the new line i_character from the standard s_input so fgets does not read
+ * another line when an s_input is received. 
+ * Doesn't work with the amount, says it has one too many.
+ *
+ * Input:	None
+ * 
+ * Output:	None
+ */
 void clear_newlines(void) {
 	Int c;
 
@@ -83,7 +96,11 @@ void clear_newlines(void) {
 
 
 /* 
- Checks that the account number is semantically correct
+ * Checks that the account number is semantically correct
+ * 
+ * Input:	cs_input - The input from the user
+ * 
+ * Output:	b_checkResult - TRUE: input passed, FALSE: input failed
  */
 Bool checkAccountNum(const Char* cs_input) {
 	Bool b_checkResult = TRUE;
@@ -99,15 +116,21 @@ Bool checkAccountNum(const Char* cs_input) {
 
 
 /*
- Checks that the amount is semantically correct
-*/
+ * Checks that the amount is semantically correct
+ *
+ * Input:	cs_input - The input from the user
+ *			i_length - The length of the input that is being checked
+ *
+ * Output:	b_checkResult - TRUE: The input passed, FALSE: The input failed
+ */
 Bool checkAmount(const Char* cs_input, Int i_length) {
 	Bool b_checkResult = TRUE;
 	Int i_amount = 0;
+	Int i_inputLen = strlen(cs_input);
 
 	if ((i_length == AMOUNT_LEN_AGENT) || (i_length == AMOUNT_LEN_MACHINE)) {
 		// Checks for minimum and maximum amount lengths
-		if ((strlen(cs_input) < MIN_AMOUNT_LEN) || (strlen(cs_input) > MAX_AMOUNT_LEN)) {
+		if ((i_inputLen < MIN_AMOUNT_LEN) || (i_inputLen > MAX_AMOUNT_LEN)) {
 			b_checkResult = FALSE;
 		}
 	}
@@ -130,8 +153,13 @@ Bool checkAmount(const Char* cs_input, Int i_length) {
 }
 
 /*
- A general check function to check every input to see if it is semantically correct
-*/
+ * A general check function to check every input to see if it is semantically correct
+ *
+ * Input:	cs_input: The input from the user
+ * 			e_digOrAl: The type of input being checked (String, Digit or Command))
+ * 
+ * Output: 	b_checkResult: TRUE: input passed checks, FALSE: input failed checks
+ */
 Bool check(const Char* cs_input, CheckField e_digOrAl) {
 	Bool b_checkResult = TRUE;
 	Int i_character;
@@ -162,15 +190,20 @@ Bool check(const Char* cs_input, CheckField e_digOrAl) {
 
 
 /*
- Checks for a valid account number from the file
-*/
-Bool checkValAcct(Int i_account, Int *i_validAccounts) {
+ * Checks for a valid account number from the file
+ *
+ * Input:	i_account - The account number being checked
+ * 			i_validAccounts - An array of valid accounts
+ * 
+ * Output: 	b_resultAcct - TRUE: Account is valid, FALSE: Account is not valid
+ */
+Bool checkValAcct(Int i_account, Int *ia_validAccounts) {
 	Int i_counter;
 	Bool b_resultAcct = FALSE;	// Account does not exist
-	Int i_sizeValAcctArr = sizeof(i_validAccounts) / sizeof(Int);
+	Int i_sizeValAcctArr = sizeof(ia_validAccounts) / sizeof(Int);
 
 	for (i_counter = 0; i_counter < i_sizeValAcctArr; i_counter++) {
-		if (i_account == i_validAccounts[i_counter]) {
+		if (i_account == ia_validAccounts[i_counter]) {
 			b_resultAcct = TRUE;	// Account exists
 			break;
 		}

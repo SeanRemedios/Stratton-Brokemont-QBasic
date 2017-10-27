@@ -27,7 +27,7 @@ void promptLogin(int argc, char* argv[]) {
 	Char cs_choice[MAX_SIZE] = "\0";
 
 	clear_list();
-	if (!init_wdrList()) {
+	if (!init_WDRList()) {
 		printf("Linked List Error, Exiting to avoid Segmentation Fault\n");
 		exit(-1);
 	}

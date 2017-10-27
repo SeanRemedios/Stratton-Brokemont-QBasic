@@ -35,11 +35,13 @@ typedef enum {
 } Users;
 
 typedef enum {
-	DEP = 1,
-	WDR = 2,
-	XFR = 3,
-	NEW = 4,
-	DEL = 5
+	ERROR,
+	DEPOSIT,
+	WITHDRAW,
+	TRANSFER,
+	NEW,
+	DELETE,
+	EOS
 } Transactions;
 
 typedef struct {

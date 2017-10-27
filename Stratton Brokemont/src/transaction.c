@@ -28,31 +28,39 @@ extern Input s_input;
 #define STR_ERROR		"ERR"	// Incase an error occurs
 
 /*
- Creates the transaction list to go out to the transaction file
-*/
-void createTransaction(Transactions i_trans) {
-	Bool result = TRUE;
+ * Creates the transaction list to go out to the transaction file
+ *
+ * Input:	e_trans - A possible transaction
+ * 
+ * Output: 	None
+ */
+void createTransaction(Transactions e_trans) {
+	Bool b_result = TRUE;
 
-	if (i_trans) {
+	if (e_trans) {
 		// Uses a different structure for each user
 		if (s_input.user == MACHINE) {
-			result = getTransString(i_trans, &s_machineInfo);
+			b_result = getTransString(e_trans, &s_machineInfo);
 		} else if (s_input.user == AGENT) {
-			result = getTransString(i_trans, &s_agentInfo);
+			b_result = getTransString(e_trans, &s_agentInfo);
 		}
 	}
 
-	if (result) {
+	if (b_result) {
 		printf("Error while creating transaction string.\n");
 	}
 }
 
 
 /*
- Gets the transaction and the coresponding string 
-*/
-Bool getTransString(Transactions i_trans, UserInfo *s_info) {
-	Bool result = TRUE;
+ * Gets the transaction and the coresponding string 
+ * 
+ * Input:	e_trans - A possible transaction
+ * 
+ * Output:	s_info - A structure corresponding to the agent or machine information
+ */
+Bool getTransString(Transactions e_trans, UserInfo *s_info) {
+	Bool b_result = TRUE;
 	Char* sc_trans;
 	Int i_toAccount;
 	Int i_amount; 
@@ -60,7 +68,7 @@ Bool getTransString(Transactions i_trans, UserInfo *s_info) {
 	Char* sc_name;
 
 	// Checks the transaction performed and gets the data for it
-	switch (i_trans) {
+	switch (e_trans) {
 		case DEPOSIT:
 			sc_trans = STR_DEPOSIT; sc_name = UNUSED_NAME;
 			i_toAccount = s_info->acct_num; i_fromAccount = INVALID_ACCOUNT;
@@ -99,22 +107,31 @@ Bool getTransString(Transactions i_trans, UserInfo *s_info) {
 	}
 
 	// Concatenates the string
-	result = createString((const Char*)sc_trans, i_toAccount, 
+	b_result = createString((const Char*)sc_trans, i_toAccount, 
 						i_amount, i_fromAccount, (const Char*)sc_name);
 
-	return result;
+	return b_result;
 }
 
 
 /*
- Creates the transaction string by concatentating all the information
- together.
-*/
+ * Creates the transaction string by concatentating all the information
+ * together.
+ * 
+ * Input:	sc_trans - The transaction string
+ * 			i_toAccount - The account to which money is going in to
+ * 			i_amount - The amount of the transaction
+ * 			i_fromAccount - The account from which money is coming from
+ * 			sc_name - The name of the account
+ *
+ * Output:	b_result - TRUE: Write to file was successful
+ * 					   FALSE: Write to file failed
+ */
 Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount, 
 	Int i_fromAccount, const Char* sc_name) {
 	Char *sc_transactionOutput = malloc(TRANSACTION_LEN);
 	Char sc_tempBuffer[MAX_LEN];
-	Bool result = TRUE;
+	Bool b_result = TRUE;
 
 	// Type of transaction
 	strcat(sc_transactionOutput, sc_trans);
@@ -155,32 +172,38 @@ Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount,
 
 	// Write to the temp file
 	if (!writeFile(TEMP_FILE, sc_transactionOutput)) {
-		result = FALSE;
+		b_result = FALSE;
 	}
 
 	memset(sc_transactionOutput, RESERVED, strlen(sc_transactionOutput));
 	free(sc_transactionOutput); // Free the space in memory
 
-	return result;
+	return b_result;
 }
 
 
 /*
- Appends the transaction output to a file 
-*/
-Bool writeFile(const Char* filename, const Char* output) {
-	Bool result = TRUE;
-	FILE *fp;
+ * Appends the transaction output to a file 
+ * 
+ * Input:	sc_filename - The name of the file being appended
+ *			sc_output - The string being written to the file
+ * 
+ * Output:	b_result - TRUE: Write to file was successful
+ * 					   FALSE: Write to file failed
+ */
+Bool writeFile(const Char* sc_filename, const Char* sc_output) {
+	Bool b_result = TRUE;
+	FILE *f_fp;
 
-	printf("%s\n", output);
+	printf("%s\n", sc_output);
 
-	fp = fopen(filename, "a+"); // Opens a file allowing appending
-	if (fwrite(output, strlen(output), 1, fp)) { // Writes the line
-		result = FALSE;
+	f_fp = fopen(sc_filename, "a+"); // Opens a file allowing appending
+	if (fwrite(sc_output, strlen(sc_output), 1, f_fp)) { // Writes the line
+		b_result = FALSE;
 	}
-	fclose(fp);
+	fclose(f_fp);
 
-	return result;
+	return b_result;
 }
 
 
