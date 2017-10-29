@@ -1,1 +1,6 @@
-login agentdeleteacct 10000001 testnamelogout
+login
+agent
+deleteacct
+10000001
+testname
+logout

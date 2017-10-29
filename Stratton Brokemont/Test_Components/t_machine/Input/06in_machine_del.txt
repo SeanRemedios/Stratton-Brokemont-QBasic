@@ -1,1 +1,6 @@
-loginmachinedeleteacct 10000001 testnamelogout
+login
+machine
+deleteacct
+10000001
+testname
+logout

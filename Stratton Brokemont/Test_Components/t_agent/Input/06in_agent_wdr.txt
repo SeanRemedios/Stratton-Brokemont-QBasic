@@ -1,2 +1,6 @@
-loginagentwithdraw 1000001 500000
+login
+agent
+withdraw 
+1000001 
+500000
 logout

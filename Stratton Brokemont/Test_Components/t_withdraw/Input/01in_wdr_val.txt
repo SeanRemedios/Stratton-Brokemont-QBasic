@@ -1,1 +1,6 @@
-loginmachinewithdraw 1000101 100logout
+login
+machine
+withdraw
+1000101
+100
+logout

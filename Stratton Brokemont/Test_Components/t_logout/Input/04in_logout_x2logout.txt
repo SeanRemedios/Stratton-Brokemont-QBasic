@@ -1,1 +1,4 @@
-loginmachinelogoutlogout
+login
+machine
+logout
+logout

@@ -1,1 +1,6 @@
-loginmachinelogoutdeposit 100000150000
+login
+machine
+logout
+deposit
+1000001
+50000

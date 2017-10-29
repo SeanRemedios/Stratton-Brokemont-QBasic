@@ -1,0 +1,2 @@
+[1;1H[2J
+> Error while creating transaction string.
