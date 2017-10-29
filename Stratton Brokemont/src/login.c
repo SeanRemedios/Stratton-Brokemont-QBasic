@@ -18,6 +18,8 @@ extern void createStruct(Users e_user, int argc, char* argv[]);
 extern void clear_list(void);
 extern Bool init_wdrList(void);
 
+extern void testFailure(void);
+
 /*	Called by main.c 	
  *
  *	prompts user for an input, looking for login. Proceeds to call promptUser()
@@ -40,6 +42,7 @@ void promptLogin(int argc, char* argv[]) {
 	if(!strncmp(cs_choice, "login", 5)) {
 		promptUser(argc, argv);
 	} else {
+		testFailure();
 		promptLogin(argc, argv);
 	}
 }
@@ -63,6 +66,9 @@ void promptUser(int argc, char* argv[]) {
 
 	} else {
 		printf("No User Selected\n");
+
+		testFailure();
+
 		promptLogin(argc, argv);
 	}
 }

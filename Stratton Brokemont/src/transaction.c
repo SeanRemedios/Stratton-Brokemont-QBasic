@@ -207,3 +207,12 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 }
 
 
+void testFailure(void) {
+	#ifdef TESTING
+		createTransaction(6);
+		rename(".tmp.txt", s_input.trans_path);
+		exit(-1);
+	#endif
+}
+
+

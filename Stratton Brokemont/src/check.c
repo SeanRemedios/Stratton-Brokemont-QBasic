@@ -19,6 +19,7 @@
 
 extern Input s_input;
 
+extern Bool createTransaction(Int i_trans);
 
 /*
  * Asks for the users info and verifies it. A general function that can take any input and length
@@ -39,8 +40,13 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 	Bool b_checkValidity = FALSE;	// Checks the validity 
 
 	do {
+		memset(cs_input, RESERVED, i_length); // Clears Char* array
+
 		printf("%s", cs_printstring);
-		scanf("%9s", cs_input);	
+		if (scanf("%9s", cs_input) == EOF) {
+			printf("End of File\n");
+			break;
+		}
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
 		// Checks the validity of the input for numbers
@@ -59,6 +65,12 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 		if ((!b_checkResult) || (!b_checkValidity)) {
 			printf("Error: Invalid Entry.\n");
 			memset(cs_input, RESERVED, i_length); // Clears Char* array
+
+			#ifdef TESTING
+				createTransaction(6);
+				rename(".tmp.txt", s_input.trans_path);
+				exit(-1);
+			#endif
 		} else if (b_checkResult && b_checkValidity){
 			if (i_length == ACCT_NUM_LEN) {
 				checkValAcct(atoi(cs_input), s_input.valid_accts);

@@ -20,6 +20,8 @@ extern Int getInfo(const Char* cs_printString, Int i_length);
 extern void clear_newlines(void);
 extern Bool createTransaction(Int i_trans);
 
+extern void testFailure(void);
+
 /*
  Prompts the agent to enter an account and amount for deposit
 */
@@ -85,7 +87,7 @@ Bool createacct_Agent(void){
 
 	s_agentInfo.trans = NEW;
 
-	s_agentInfo.mod_acct_num = getInfo("Enter an account number to crete account: ", ACCT_NUM_LEN);
+	s_agentInfo.mod_acct_num = getInfo("Enter an account number to create account: ", ACCT_NUM_LEN);
 	getName();
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -123,7 +125,7 @@ void getName (void){
 
 	do {
 		printf("%s", "Enter an account name: ");
-		scanf("%30s", cs_input);	
+		scanf("%30s", cs_input);
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
 		// Checks the general constraints
@@ -141,6 +143,8 @@ void getName (void){
 		if ((!b_checkValidity) || (!b_checkb_result)) {
 			printf("Error: Invalid Entry.\n");
 			memset(cs_input, RESERVED, MAX_NAME_LENGTH);
+
+			testFailure();
 		}
 
 		clear_newlines();

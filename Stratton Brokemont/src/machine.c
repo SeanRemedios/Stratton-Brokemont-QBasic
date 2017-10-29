@@ -18,7 +18,7 @@ UserInfo s_machineInfo;
 
 extern Int getInfo(const Char* cs_printString, Int i_length);
 extern Bool createTransaction(Int i_trans);
-
+extern void testFailure(void);
 
 /*
  Prompts the machine for an account to deposit to and amount 
@@ -55,7 +55,7 @@ Bool withdraw_Machine(void) {
 		s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
 		s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
-		// Finds if the account number is in the withdraw account list list.
+		// Finds if the account number is in the withdraw account list.
 		e_addToList = findWDRTotal(e_addToList, s_machineInfo.acct_num, s_machineInfo.amount);
 	}
 
@@ -63,7 +63,7 @@ Bool withdraw_Machine(void) {
 		add_node(s_machineInfo.acct_num, s_machineInfo.amount);
 	}
 
-	print_list();
+	//print_list();
 
 	if (createTransaction(s_machineInfo.trans)) {
 		b_result = TRUE;
@@ -109,6 +109,8 @@ WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amoun
 			if ((s_current->amt_num + i_amount) >= MAX_WDR_SESSION) {
 				printf("Error: Withdraw session total will exceed $1000\n");
 				e_addToList = FAIL; // Account has made a withdrawal (don't add to list)
+
+				testFailure();
 			} else {
 				s_current->amt_num += i_amount;
 				e_addToList = EXIT;
@@ -126,7 +128,7 @@ WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amoun
 Bool init_WDRList(void) {
 	Bool b_listEmpty = TRUE; // Checks if the list is empty
 
-	printf("Linked List Created\n");
+	//printf("Linked List Created\n");
 
 	s_machineInfo.wdr_totals = NULL;
 	// Allocate space in memory for the linked list
@@ -199,7 +201,7 @@ void clear_list(void) {
        s_current = s_next;
     }
 
-    printf("Cleared\n");
+    //printf("Cleared\n");
     s_machineInfo.wdr_totals = NULL;
     free(s_machineInfo.wdr_totals);	// Free the actual list pointer
 }

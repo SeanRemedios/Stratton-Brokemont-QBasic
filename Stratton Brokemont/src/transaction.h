@@ -31,6 +31,7 @@ Bool getTransString(Transactions i_trans, UserInfo *s_info);
 Bool createString(const Char* sc_trans, Int i_toAccount, Int i_amount, 
 Int i_fromAccount, const Char* sc_name);
 Bool writeFile(const Char* filename, const Char* output);
+void testFailure(void);
 
 
 #endif

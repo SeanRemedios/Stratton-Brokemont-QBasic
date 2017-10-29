@@ -80,12 +80,13 @@ void commandPrompt(void) {
 				printf("You do not have the authority\n");
 			else
 				deleteacct_Agent();
-		} else
+		} else if(!strncmp(cs_choice, "logout", 6)) {
+			break;
+		} else {
 			printf("Invalid command\n");
+		}
 
 	} while(strncmp(cs_choice, "logout", 6));
-
-	rename("temp.txt", s_input.trans_path);
 
 	printf("\e[1;1H\e[2J");
 	printf("DONE\n");
