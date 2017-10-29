@@ -3,6 +3,7 @@ echo "Withdraw Test"
 if [ -n "$1" ] # 1:Program
 	then
 	
+	path="$PWD"
 	outputPath="$PWD/Output"
 	cd "Output"
 	echo "Withdraw Test Cases: #40-#46" > wdr_transaction.txt
@@ -20,7 +21,7 @@ if [ -n "$1" ] # 1:Program
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "wdr_transaction.txt" ]
 			then
 			echo $FILE_IN
-			$1 /Users/seanr/Documents/Stratton_Brokemont/validaccounts.txt transaction.txt < $FILE_IN >> output.txt
+			$1 "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
 			cp "$inputPath"/transaction.txt "$outputPath"
 			cp "$inputPath"/output.txt "$outputPath"
 			cd .. # Out of Input

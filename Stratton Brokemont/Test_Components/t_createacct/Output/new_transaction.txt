@@ -1,4 +1,7 @@
 Create Account Test Cases: #19-#28
+
+Test Output: 							 Exepected Output: 
+
 Test Case 01: FAILED
 NEW 1000102 000 0000000 testname			      |	NEW 1000101 000 0000000 testname								
 DEP 1000102 50000 0000000 ***				      <

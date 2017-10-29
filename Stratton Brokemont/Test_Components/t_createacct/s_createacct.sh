@@ -3,9 +3,11 @@ echo "Create Account Test"
 if [ -n "$1" ] # 1:Program
 	then
 	
+	path="$PWD"
 	outputPath="$PWD/Output"
 	cd "Output"
 	echo "Create Account Test Cases: #19-#28" > new_transaction.txt
+	echo -e "\nTest Output: \t\t\t\t\t\t\t Exepected Output: \n" >> new_transaction.txt
 	cd .. # Out of Output
 	cd "Input"
 	touch ".tmp.txt"
@@ -19,7 +21,7 @@ if [ -n "$1" ] # 1:Program
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "new_transaction.txt" ]
 			then
 			echo $FILE_IN
-			$1 /Users/seanr/Documents/Stratton_Brokemont/validaccounts.txt transaction.txt < $FILE_IN >> output.txt
+			$1 "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
 			cp "$inputPath"/transaction.txt "$outputPath"
 			cp "$inputPath"/output.txt "$outputPath"
 			cd .. # Out of Input
