@@ -6,8 +6,9 @@ if [ -n "$1" ] # 1:Program
 	path="$PWD"
 	outputPath="$PWD/Output"
 	cd "Output"
-	echo "Agent Test Cases: #13-#18" > agent_transaction.txt
-	echo -e "\nTest Output: \t\t\t\t\t\t\t Exepected Output: \n" >> agent_transaction.txt
+	echo "===========================================================================" > agent_transaction.log
+	echo "Agent Test Cases: #13-#18" >> agent_transaction.log
+	echo -e "\nTest Output: \t\t\t\t\t\t\t Exepected Output: \n" >> agent_transaction.log
 	cd .. # Out of Output
 	cd "Input"
 	touch ".tmp.txt"
@@ -18,7 +19,7 @@ if [ -n "$1" ] # 1:Program
 	do
 
 		ext="${FILE_IN##*.}"
-		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "agent_transaction.txt" ]
+		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "agent_transaction.log" ]
 			then
 			echo $FILE_IN
 			$1 "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
@@ -29,7 +30,7 @@ if [ -n "$1" ] # 1:Program
 
 			for FILE_OUT in *
 			do
-				if [ "$FILE_OUT" != "agent_transaction.txt" ] && [ "$FILE_OUT" != "output.txt" ]
+				if [ "$FILE_OUT" != "agent_transaction.log" ] && [ "$FILE_OUT" != "output.txt" ]
 					then
 					OUT="${FILE_OUT:1:1}"
 					if [[ "$OUT" -eq "$INC" ]]
@@ -37,11 +38,11 @@ if [ -n "$1" ] # 1:Program
 						RESULT="$(diff transaction.txt "$FILE_OUT")"
 						if [ "$RESULT" != "" ]
 							then
-							echo "Test Case 0"$INC": FAILED" >> agent_transaction.txt
-							sdiff "transaction.txt" "$FILE_OUT" >> agent_transaction.txt
-							printf "\n" >> agent_transaction.txt
+							echo "Test Case 0"$INC": FAILED" >> agent_transaction.log
+							sdiff "transaction.txt" "$FILE_OUT" >> agent_transaction.log
+							printf "\n" >> agent_transaction.log
 						else
-							echo "Test Case 0"$INC": PASSED" >> agent_transaction.txt
+							echo "Test Case 0"$INC": PASSED" >> agent_transaction.log
 						fi
 					fi
 				fi

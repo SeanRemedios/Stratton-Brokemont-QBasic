@@ -1,4 +1,5 @@
-Deposit Test Cases: #35-#39
+===========================================================================
+Login Test Cases: #1-#6
 
 Test Output: 							 Exepected Output: 
 
@@ -7,3 +8,4 @@ Test Case 02: PASSED
 Test Case 03: PASSED
 Test Case 04: PASSED
 Test Case 05: PASSED
+Test Case 06: PASSED
