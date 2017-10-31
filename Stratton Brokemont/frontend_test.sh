@@ -40,7 +40,7 @@ if [ -n "$1" ] && [ -n "$2" ] # 1:Program - 2:Test_Components Folder
 			bash "$SCRIPT" "$1" # Executes the script
 			rm "validAccounts.txt"
 		done
-		cp Output/*.log "$RESPATH/Components Results"
+		cp *.log "$RESPATH/Components Results"
 		cd .. # Out of $FOLDER
 	done
 

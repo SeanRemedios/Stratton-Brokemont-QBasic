@@ -4,12 +4,19 @@ if [ -n "$1" ] # 1:Program
 	then
 	
 	path="$PWD"
-	outputPath="$PWD/Output"
-	cd "Output"
-	echo "===========================================================================" > del_transaction.log
-	echo "Delete Account Test Cases: #29-#34" >> del_transaction.log
-	echo -e "\nTest Output: \t\t\t\t\t\t\t Expected Output: \n" >> del_transaction.log
-	cd .. # Out of Output
+	transoutPath="$PWD/TransactionOutput"
+	logoutPath="$PWD/LogOutput"
+	echo "===========================================================================" > del.log
+	echo "Delete Account Test Cases: #29-#34" >> del.log
+
+	cd "TransactionOutput"
+	echo -e "\nTransaction Test Output: \t\t\t\t\t\t Expected Output: \n" > del_transaction.log
+	cd .. # Out of TransactionOutput
+
+	cd "LogOutput"
+	echo -e "\nLog Test Output:\n" > del_out.log
+	cd .. # Out of LogOutput
+
 	cd "Input"
 	touch ".tmp.txt"
 	INC=1
@@ -19,14 +26,16 @@ if [ -n "$1" ] # 1:Program
 	do
 
 		ext="${FILE_IN##*.}"
-		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "del_transaction.log" ]
+		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] \
+			&& [ "$FILE_IN" != "del_transaction.log" ] && [ "$FILE_IN" != "del_out.log" ] && [ "$FILE_IN" != "del.log" ]
 			then
 			echo "$FILE_IN"
-			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
-			cp "$inputPath"/transaction.txt "$outputPath"
-			cp "$inputPath"/output.txt "$outputPath"
+			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN > output.txt
+			cp "$inputPath"/transaction.txt "$transoutPath"
+			cp "$inputPath"/output.txt "$logoutPath"
 			cd .. # Out of Input
-			cd "Output" # Into Output
+			
+			cd "TransactionOutput" # Into TransactionOutput
 
 			for FILE_OUT in *
 			do
@@ -49,14 +58,42 @@ if [ -n "$1" ] # 1:Program
 			done
 
 			rm transaction.txt
+			cd .. # Out of TransactionOutput
 
-			cd .. # Out of Output
+			cd "LogOutput" # Into LogOutput
+			for FILE_LOG in *
+			do
+				if [ "$FILE_LOG" != "del_out.log" ]
+					then
+					LOUT="${FILE_LOG:1:1}"
+					if [[ "$LOUT" -eq "$INC" ]]
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then							
+							echo "Test Case 0"$INC": FAILED" >> del_out.log
+							echo -e "-----------------------------------------------------------------------" >> del_out.log
+							cat "output.txt" >> del_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> del_out.log
+						else
+							echo "Test Case 0"$INC": PASSED" >> del_out.log
+						fi
+					fi
+				fi
+			done
+			rm output.txt
+			cd .. # Out of LogOutput
+
 			cd "Input" # Into Input
 			rm transaction.txt
 			rm output.txt
 			let "INC++"
 		fi
 	done
+
+	cd .. # Out of Input
+	cat "$transoutPath/del_transaction.log" >> del.log
+	cat "$logoutPath/del_out.log" >> del.log
 fi
 
 printf "\n"

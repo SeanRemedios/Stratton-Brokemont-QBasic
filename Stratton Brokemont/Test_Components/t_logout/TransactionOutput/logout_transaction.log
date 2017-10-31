@@ -1,0 +1,9 @@
+
+Transaction Test Output: 						 Expected Output: 
+
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: FAILED
+EOS 0000000 000 0000000 ***				      /	LOGOUT FAILED
+

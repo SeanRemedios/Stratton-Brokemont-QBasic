@@ -4,12 +4,19 @@ if [ -n "$1" ] # 1:Program
 	then
 	
 	path="$PWD"
-	outputPath="$PWD/Output"
-	cd "Output"
-	echo "===========================================================================" > xfr_transaction.log
-	echo "Transfer Test Cases: #47-#53" >> xfr_transaction.log
-	echo -e "\nTest Output: \t\t\t\t\t\t\t Expected Output: \n" >> xfr_transaction.log
-	cd .. # Out of Output
+	transoutPath="$PWD/TransactionOutput"
+	logoutPath="$PWD/LogOutput"
+	echo "===========================================================================" > xfr.log
+	echo "Transfer Test Cases: #47-#53" >> xfr.log
+
+	cd "TransactionOutput"
+	echo -e "\nTransaction Test Output: \t\t\t\t\t\t Expected Output: \n" > xfr_transaction.log
+	cd .. # Out of TransactionOutput
+
+	cd "LogOutput"
+	echo -e "\nLog Test Output:\n" > xfr_out.log
+	cd .. # Out of LogOutput
+
 	cd "Input"
 	touch ".tmp.txt"
 	INC=1
@@ -19,14 +26,16 @@ if [ -n "$1" ] # 1:Program
 	do
 
 		ext="${FILE_IN##*.}"
-		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "xfr_transaction.log" ]
+		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] \
+			&& [ "$FILE_IN" != "xfr_transaction.log" ] && [ "$FILE_IN" != "xfr_out.log" ] && [ "$FILE_IN" != "xfr.log" ]
 			then
 			echo "$FILE_IN"
-			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
-			cp "$inputPath"/transaction.txt "$outputPath"
-			cp "$inputPath"/output.txt "$outputPath"
+			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN > output.txt
+			cp "$inputPath"/transaction.txt "$transoutPath"
+			cp "$inputPath"/output.txt "$logoutPath"
 			cd .. # Out of Input
-			cd "Output" # Into Output
+			
+			cd "TransactionOutput" # Into TransactionOutput
 
 			for FILE_OUT in *
 			do
@@ -49,14 +58,42 @@ if [ -n "$1" ] # 1:Program
 			done
 
 			rm transaction.txt
+			cd .. # Out of TransactionOutput
 
-			cd .. # Out of Output
+			cd "LogOutput" # Into LogOutput
+			for FILE_LOG in *
+			do
+				if [ "$FILE_LOG" != "xfr_out.log" ]
+					then
+					LOUT="${FILE_LOG:1:1}"
+					if [[ "$LOUT" -eq "$INC" ]]
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then
+							echo "Test Case 0"$INC": FAILED" >> xfr_out.log
+							echo -e "-----------------------------------------------------------------------" >> xfr_out.log
+							cat "output.txt" >> xfr_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> xfr_out.log
+						else
+							echo "Test Case 0"$INC": PASSED" >> xfr_out.log
+						fi
+					fi
+				fi
+			done
+			rm output.txt
+			cd .. # Out of LogOutput
+
 			cd "Input" # Into Input
 			rm transaction.txt
 			rm output.txt
 			let "INC++"
 		fi
 	done
+
+	cd .. # Out of Input
+	cat "$transoutPath/xfr_transaction.log" >> xfr.log
+	cat "$logoutPath/xfr_out.log" >> xfr.log
 fi
 
 printf "\n"

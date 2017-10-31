@@ -1,0 +1,36 @@
+===========================================================================
+Create Account Test Cases: #19-#28
+
+Transaction Test Output: 						 Expected Output: 
+
+Test Case 01: FAILED
+NEW 9000102 000 0000000 testname			      |	NEW 1000101 000 0000000 testname								
+DEP 9000102 50000 0000000 ***				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 02: PASSED
+Test Case 03: FAILED
+NEW 1000102 000 0000000 testname			      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 04: PASSED
+Test Case 05: FAILED
+NEW 9000102 000 0000000 qwertyuiopasdfghjkl		      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 06: FAILED
+NEW 9000102 000 0000000 logout				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 07: PASSED
+Test Case 08: FAILED
+NEW 9000102 000 0000000 test				      |	NEW 100102 000 0000000 test name								
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 09: FAILED
+NEW 9000102 000 0000000 testname			      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+
+Log Test Output:
+

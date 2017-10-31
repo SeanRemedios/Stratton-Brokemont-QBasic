@@ -1,0 +1,35 @@
+===========================================================================
+Delete Account Test Cases: #29-#34
+
+Transaction Test Output: 						 Expected Output: 
+
+Test Case 01: FAILED
+DEL 1000101 000 0000000 testtname			      |	DEL 1000101 000 0000000 testname								
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 02: FAILED
+DEL 1000101 000 0000000 testname			      <
+DEP 1000101 50000 0000000 ***				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 03: FAILED
+DEL 1000101 000 0000000 testname			      <
+WDR 0000000 50000 1000101 ***				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 04: FAILED
+DEL 1000101 000 0000000 testname			      <
+XFR 1100011 50000 1000101 ***				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 05: FAILED
+DEL 1000101 000 0000000 testname			      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+Test Case 06: FAILED
+DEL 1000101 000 0000000 logout				      <
+EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
+
+
+Log Test Output:
+

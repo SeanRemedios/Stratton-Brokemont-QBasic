@@ -1,3 +1,0 @@
-
-> LOGIN FAILED
-Error while creating transaction string.
