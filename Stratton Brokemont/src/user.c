@@ -81,6 +81,7 @@ void commandPrompt(void) {
 			else
 				deleteacct_Agent();
 		} else if(!strncmp(cs_choice, "logout", 6)) {
+			printf("LOGOUT SUCCESSFUL\n");
 			break;
 		} else {
 			printf("Invalid command\n");
@@ -88,7 +89,7 @@ void commandPrompt(void) {
 
 	} while(strncmp(cs_choice, "logout", 6));
 
-	printf("\e[1;1H\e[2J");
+	//printf("\e[1;1H\e[2J");
 	printf("DONE\n");
 
 	createTransaction(6);

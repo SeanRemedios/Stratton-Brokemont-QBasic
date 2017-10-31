@@ -3,3 +3,4 @@ agent
 createacct
 1000102
 logout
+logout

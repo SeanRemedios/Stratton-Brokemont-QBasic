@@ -34,14 +34,16 @@ void promptLogin(int argc, char* argv[]) {
 		exit(-1);
 	}
 
-	printf("\e[1;1H\e[2J");
+	//printf("\e[1;1H\e[2J");
 
 	printf("\n> ");
 	scanf("%s", cs_choice);
 	
 	if(!strncmp(cs_choice, "login", 5)) {
+		printf("LOGIN SUCCESSFUL\n");
 		promptUser(argc, argv);
 	} else {
+		printf("LOGIN FAILED\n");
 		testFailure();
 		promptLogin(argc, argv);
 	}
@@ -59,9 +61,11 @@ void promptUser(int argc, char* argv[]) {
 	scanf("%s", cs_choice);
 
 	if(!strncmp(cs_choice, "agent", 5)) {
+		printf("Passed\n");
 		createStruct(2, argc, argv);
 
 	} else if(!strncmp(cs_choice, "machine", 7)) {
+		printf("Passed\n");
 		createStruct(1, argc, argv);
 
 	} else {

@@ -1,7 +1,7 @@
-[1;1H[2J
-> 
-Enter User > Failed
 
-Enter Command (enter help for options) > [1;1H[2JDONE
-EOS 0000000 000 0000000 ***
+> LOGIN SUCCESSFUL
 
+Enter User > Passed
+
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE

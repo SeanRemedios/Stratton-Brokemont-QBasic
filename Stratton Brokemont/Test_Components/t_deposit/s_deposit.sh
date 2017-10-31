@@ -8,7 +8,7 @@ if [ -n "$1" ] # 1:Program
 	cd "Output"
 	echo "===========================================================================" > dep_transaction.log
 	echo "Deposit Test Cases: #35-#39" >> dep_transaction.log
-	echo -e "\nTest Output: \t\t\t\t\t\t\t Exepected Output: \n" >> dep_transaction.log
+	echo -e "\nTest Output: \t\t\t\t\t\t\t Expected Output: \n" >> dep_transaction.log
 	cd .. # Out of Output
 	cd "Input"
 	touch ".tmp.txt"
@@ -21,8 +21,8 @@ if [ -n "$1" ] # 1:Program
 		ext="${FILE_IN##*.}"
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] && [ "$FILE_IN" != "dep_transaction.log" ]
 			then
-			echo $FILE_IN
-			$1 "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
+			echo "$FILE_IN"
+			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN >> output.txt
 			cp "$inputPath"/transaction.txt "$outputPath"
 			cp "$inputPath"/output.txt "$outputPath"
 			cd .. # Out of Input

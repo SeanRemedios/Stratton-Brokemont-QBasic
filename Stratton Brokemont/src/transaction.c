@@ -195,7 +195,7 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 	Bool b_result = TRUE;
 	FILE *f_fp;
 
-	printf("%s\n", sc_output);
+	//printf("%s\n", sc_output);
 
 	f_fp = fopen(sc_filename, "a+"); // Opens a file allowing appending
 	if (fwrite(sc_output, strlen(sc_output), 1, f_fp)) { // Writes the line

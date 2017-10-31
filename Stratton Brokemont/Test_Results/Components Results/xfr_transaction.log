@@ -1,7 +1,7 @@
 ===========================================================================
 Transfer Test Cases: #47-#53
 
-Test Output: 							 Exepected Output: 
+Test Output: 							 Expected Output: 
 
 Test Case 01: FAILED
 XFR 1010011 50000 1000001 ***				      |	XFR 1000001 50000 1010011 ***								
