@@ -31,7 +31,7 @@ Bool deposit_Machine(void) {
 
 	do {
 		s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)) || (!recentAccount(s_machineInfo.acct_num))); // Check if account exists
 	
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
@@ -57,7 +57,7 @@ Bool withdraw_Machine(void) {
 
 		do {
 			s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
-		} while (!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)); // Check if account exists
+		} while ((!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)) || (!recentAccount(s_machineInfo.acct_num))); // Check if account exists
 		
 		s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
@@ -66,7 +66,7 @@ Bool withdraw_Machine(void) {
 	}
 
 	if (e_addToList == PASS) {
-		add_node(s_machineInfo.acct_num, s_machineInfo.amount);
+		add_node_machine(s_machineInfo.acct_num, s_machineInfo.amount);
 	}
 
 	//print_list();
@@ -89,10 +89,10 @@ Bool transfer_Machine(void) {
 
 	do {
 		s_machineInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_machineInfo.from_acct_num, s_machineInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_machineInfo.from_acct_num, s_machineInfo.trans)) || (!recentAccount(s_machineInfo.from_acct_num))); // Check if account exists
 	do {
 		s_machineInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_machineInfo.to_acct_num, s_machineInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_machineInfo.to_acct_num, s_machineInfo.trans)) || (!recentAccount(s_machineInfo.to_acct_num))); // Check if account exists
 
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
@@ -146,7 +146,7 @@ Bool init_WDRList(void) {
 	s_machineInfo.wdr_totals = malloc(sizeof(AccountWithdrawTotals));
 
 	if (s_machineInfo.wdr_totals == NULL) {
-    	b_listEmpty = FALSE;	// List was null
+		b_listEmpty = FALSE;	// List was null
 	} else {
 		// Add a default, inital value, without this, we get a
 		// Sementation Fault
@@ -161,7 +161,7 @@ Bool init_WDRList(void) {
 /*
  Adds an acccount and an amount
 */
-void add_node(Int i_accountNumber, Int i_amount) {
+void add_node_machine(Int i_accountNumber, Int i_amount) {
 	// A pointer to the linked list so we don't modify original pointer
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 
@@ -186,33 +186,33 @@ void add_node(Int i_accountNumber, Int i_amount) {
 /*
  Prints the linked list
 */
-void print_list(void) {
-    AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
+void print_list_machine(void) {
+	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 
-    // Iterate over the list and print every node
+	// Iterate over the list and print every node
 	while (s_current != NULL) {
 		printf("%d - %d\n", s_current->acct_num, s_current->amt_num);
 		s_current = s_current->next;
-    }
+	}
 }
 
 /*
  Clears the list
 */
-void clear_list(void) {
+void clear_list_machine(void) {
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 	// next holds the rest of the temporary list
 	AccountWithdrawTotals *s_next = s_machineInfo.wdr_totals;
 
 	// Loop through the list and delete everything
 	while (s_current != NULL)
-    {
-       s_next = s_current->next;
-       free(s_current);
-       s_current = s_next;
-    }
+	{
+		s_next = s_current->next;
+		free(s_current);
+		s_current = s_next;
+	}
 
-    //printf("Cleared\n");
-    s_machineInfo.wdr_totals = NULL;
-    free(s_machineInfo.wdr_totals);	// Free the actual list pointer
+	//printf("Cleared\n");
+	s_machineInfo.wdr_totals = NULL;
+	free(s_machineInfo.wdr_totals);	// Free the actual list pointer
 }

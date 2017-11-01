@@ -11,12 +11,15 @@
 #include "login.h"
 #include "user.h"
 #include "machine.h"
+#include "agent.h"
 
 #define MAX_SIZE	255
 
 extern void createStruct(Users e_user, int argc, char* argv[]);
-extern void clear_list(void);
+extern void clear_list_machine(void);
+extern void clear_list_acctTrack(void);
 extern Bool init_wdrList(void);
+extern Bool init_AccountTracking(void);
 
 extern void testFailure(void);
 
@@ -28,8 +31,9 @@ extern void testFailure(void);
 void promptLogin(int argc, char* argv[]) {
 	Char cs_choice[MAX_SIZE] = "\0";
 
-	clear_list();
-	if (!init_WDRList()) {
+	clear_list_machine();
+	clear_list_acctTrack();
+	if (!init_WDRList() || !init_AccountTracking()) {
 		printf("Linked List Error, Exiting to avoid Segmentation Fault\n");
 		exit(-1);
 	}

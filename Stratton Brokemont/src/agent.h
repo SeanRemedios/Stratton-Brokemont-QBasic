@@ -18,12 +18,18 @@
 #define MIN_NAME_LENGTH		3
 
 
+typedef struct acct_node {
+    Int account;
+    struct acct_node * next;
+} Track_newdel_Accounts;
+
 Bool deposit_Agent(void);
 Bool withdraw_Agent(void);
 Bool transfer_Agent(void);
 Bool createacct_Agent(void);
 Bool deleteacct_Agent(void);
 void getName(void);
+
 
 
 #endif

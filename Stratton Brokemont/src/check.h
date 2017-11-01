@@ -32,6 +32,11 @@ Bool checkAccountNum(const Char* cs_input);
 Bool checkAmount(const Char* cs_input, Int i_lengths);
 Bool checkValAcct(Int i_account, Int *i_validAccounts);
 Bool checkAccountExists(Int i_account, Transactions e_trans);
+Bool recentAccount(Int i_accountNumber);
+Bool init_AccountTracking(void);
+void add_node_acctTrack(Int i_accountNumber);
+void clear_list_acctTrack(void);
+void print_list_acctTrack(void);
 void clear_newlines(void);
 
 #endif

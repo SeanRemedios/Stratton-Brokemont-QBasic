@@ -41,9 +41,9 @@ Bool deleteacct_Machine(void);
 
 WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amount);
 Bool init_WDRList(void);
-void add_node(Int i_accountNumber, Int i_amount);
-void print_list(void);
-void clear_list(void);
+void add_node_machine(Int i_accountNumber, Int i_amount);
+void print_list_machine(void);
+void clear_list_machine(void);
 
 
 #endif

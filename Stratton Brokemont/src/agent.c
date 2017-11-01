@@ -19,8 +19,10 @@ UserInfo s_agentInfo;
 extern Int getInfo(const Char* cs_printString, Int i_length);
 extern void clear_newlines(void);
 extern Bool createTransaction(Int i_trans);
-
+extern void add_node_acctTrack(Int i_accountNumber);
 extern void testFailure(void);
+
+extern void print_list_acctTrack(void);
 
 /*
  Prompts the agent to enter an account and amount for deposit
@@ -34,7 +36,7 @@ Bool deposit_Agent(void) {
 	do {
 		// Get the information
 		s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)) || (!recentAccount(s_agentInfo.acct_num))); // Check if account exists
 	
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
@@ -55,7 +57,7 @@ Bool withdraw_Agent(void) {
 
 	do {
 		s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)) || (!recentAccount(s_agentInfo.acct_num))); // Check if account exists
 
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
@@ -76,10 +78,10 @@ Bool transfer_Agent(void) {
 
 	do {
 		s_agentInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.from_acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.from_acct_num, s_agentInfo.trans)) || (!recentAccount(s_agentInfo.from_acct_num))); // Check if account exists
 	do {
 		s_agentInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.to_acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.to_acct_num, s_agentInfo.trans)) && (!recentAccount(s_agentInfo.to_acct_num))); // Check if account exists
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -99,13 +101,15 @@ Bool createacct_Agent(void){
 
 	do {
 		s_agentInfo.mod_acct_num = getInfo("Enter an account number to create account: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)) || (!recentAccount(s_agentInfo.mod_acct_num))); // Check if account exists
 
 	getName();
 
 	if (createTransaction(s_agentInfo.trans)) {
 		b_result = TRUE;
 	}
+
+	add_node_acctTrack(s_agentInfo.mod_acct_num);
 
 	return b_result;
 }
@@ -120,13 +124,16 @@ Bool deleteacct_Agent(void){
 
 	do {
 		s_agentInfo.mod_acct_num = getInfo("Enter an account number to delete account: ", ACCT_NUM_LEN);
-	} while (!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)); // Check if account exists
+	} while ((!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)) || (!recentAccount(s_agentInfo.mod_acct_num))); // Check if account exists
 
 	getName();
 
 	if (createTransaction(s_agentInfo.trans)) {
 		b_result = TRUE;
 	}
+
+	add_node_acctTrack(s_agentInfo.mod_acct_num);
+
 	return b_result;
 }
 

@@ -17,6 +17,8 @@
 #include "agent.h"
 #include "machine.h"
 
+Track_newdel_Accounts *trackedAccounts = NULL;
+
 extern Input s_input;
 
 extern Bool createTransaction(Int i_trans);
@@ -252,7 +254,7 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
 				b_result = TRUE;
 			} else if (s_input.valid_accts[i] == i_account) {
-				printf("Account exists.\n");
+				printf("Account already exists.\n");
 				b_result = FALSE;
 				break;
 			}
@@ -262,6 +264,100 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 	return b_result;
 }
 
+
+/*
+ * Checks if account was recently created or deleted
+ *
+ * Input:	i_accountNumber - An account number being checked
+ *
+ * Output:	b_result - If the account was recently created or deleted
+ */
+Bool recentAccount(Int i_accountNumber) {
+	Bool b_result = TRUE;
+
+	Track_newdel_Accounts *s_current = trackedAccounts;
+
+	while (s_current != NULL) {
+		if (s_current->account == i_accountNumber) {
+			printf("Account was recently created or deleted.\n");
+			b_result = FALSE;
+			break;
+		}
+		s_current = s_current->next;
+	}
+
+	return b_result;
+}
+
+
+
+/*
+
+ */
+Bool init_AccountTracking(void) {
+	Bool b_result = TRUE;
+
+	trackedAccounts = malloc(sizeof(Track_newdel_Accounts));
+
+	if (trackedAccounts == NULL) {
+		b_result = FALSE;	// List was null
+	} else {
+		trackedAccounts->account = 0;
+		trackedAccounts->next = NULL;
+	}
+
+	return b_result;
+}
+
+
+/*
+ Prints the linked list
+*/
+void print_list_acctTrack(void) {
+	Track_newdel_Accounts *s_current = trackedAccounts;
+
+	// Iterate over the list and print every node
+	while (s_current != NULL) {
+		printf("%d\n", s_current->account);
+		s_current = s_current->next;
+	}
+}
+
+
+/*
+ Clears the list
+*/
+void clear_list_acctTrack(void) {
+	Track_newdel_Accounts *s_current = trackedAccounts;
+	// next holds the rest of the temporary list
+	Track_newdel_Accounts *s_next = trackedAccounts;
+
+	// Loop through the list and delete everything
+	while (s_current != NULL)
+	{
+		s_next = s_current->next;
+		free(s_current);
+		s_current = s_next;
+	}
+
+	//printf("Cleared\n");
+	trackedAccounts = NULL;
+	free(trackedAccounts);	// Free the actual list pointer
+}
+
+
+/*
+ Adds an acccount and an amount
+*/
+void add_node_acctTrack(Int i_accountNumber) {
+	// A pointer to the linked list so we don't modify original pointer
+	Track_newdel_Accounts *s_current = trackedAccounts;
+
+	s_current = malloc(sizeof(Track_newdel_Accounts));
+	s_current->account = i_accountNumber;
+	s_current->next = trackedAccounts;
+	trackedAccounts = s_current;
+}
 
 
 
