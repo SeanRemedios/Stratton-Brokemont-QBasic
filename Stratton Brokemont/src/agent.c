@@ -10,9 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "check.h"
 #include "user.h"
 #include "agent.h"
-#include "check.h"
 
 UserInfo s_agentInfo;
 
@@ -31,8 +31,11 @@ Bool deposit_Agent(void) {
 	// Sets the transaction
 	s_agentInfo.trans = DEPOSIT;
 
-	// Get the information
-	s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	do {
+		// Get the information
+		s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)); // Check if account exists
+	
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -50,7 +53,10 @@ Bool withdraw_Agent(void) {
 
 	s_agentInfo.trans = WITHDRAW;
 
-	s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	do {
+		s_agentInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.acct_num, s_agentInfo.trans)); // Check if account exists
+
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -68,8 +74,12 @@ Bool transfer_Agent(void) {
 
 	s_agentInfo.trans = TRANSFER;
 
-	s_agentInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
-	s_agentInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
+	do {
+		s_agentInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.from_acct_num, s_agentInfo.trans)); // Check if account exists
+	do {
+		s_agentInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.to_acct_num, s_agentInfo.trans)); // Check if account exists
 	s_agentInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_AGENT);
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -87,7 +97,10 @@ Bool createacct_Agent(void){
 
 	s_agentInfo.trans = NEW;
 
-	s_agentInfo.mod_acct_num = getInfo("Enter an account number to create account: ", ACCT_NUM_LEN);
+	do {
+		s_agentInfo.mod_acct_num = getInfo("Enter an account number to create account: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)); // Check if account exists
+
 	getName();
 
 	if (createTransaction(s_agentInfo.trans)) {
@@ -105,7 +118,10 @@ Bool deleteacct_Agent(void){
 
 	s_agentInfo.trans = DELETE;
 
-	s_agentInfo.mod_acct_num = getInfo("Enter an account number to delete account: ", ACCT_NUM_LEN);
+	do {
+		s_agentInfo.mod_acct_num = getInfo("Enter an account number to delete account: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_agentInfo.mod_acct_num, s_agentInfo.trans)); // Check if account exists
+
 	getName();
 
 	if (createTransaction(s_agentInfo.trans)) {

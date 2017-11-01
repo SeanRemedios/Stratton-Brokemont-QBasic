@@ -10,9 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "user.h"
 #include "machine.h"
 #include "check.h"
+#include "user.h"
 
 UserInfo s_machineInfo;
 
@@ -29,7 +29,10 @@ Bool deposit_Machine(void) {
 	// Keeps track of what transaction is occuring for the transaction file
 	s_machineInfo.trans = DEPOSIT;	
 
-	s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	do {
+		s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)); // Check if account exists
+	
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
 	if (createTransaction(s_machineInfo.trans)) {
@@ -52,7 +55,10 @@ Bool withdraw_Machine(void) {
 	while (e_addToList == FAIL) {
 		e_addToList = PASS;
 
-		s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+		do {
+			s_machineInfo.acct_num = getInfo("Enter an account number: ", ACCT_NUM_LEN);
+		} while (!checkAccountExists(s_machineInfo.acct_num, s_machineInfo.trans)); // Check if account exists
+		
 		s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
 		// Finds if the account number is in the withdraw account list.
@@ -81,8 +87,13 @@ Bool transfer_Machine(void) {
 
 	s_machineInfo.trans = TRANSFER;
 
-	s_machineInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
-	s_machineInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
+	do {
+		s_machineInfo.from_acct_num = getInfo("Enter an account number to transfer from: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_machineInfo.from_acct_num, s_machineInfo.trans)); // Check if account exists
+	do {
+		s_machineInfo.to_acct_num = getInfo("Enter an account number to transfer to: ", ACCT_NUM_LEN);
+	} while (!checkAccountExists(s_machineInfo.to_acct_num, s_machineInfo.trans)); // Check if account exists
+
 	s_machineInfo.amount = getInfo("Enter an amount (in cents): ", AMOUNT_LEN_MACHINE);
 
 	if (createTransaction(s_machineInfo.trans)) {

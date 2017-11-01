@@ -225,7 +225,42 @@ Bool checkValAcct(Int i_account, Int *ia_validAccounts) {
 }
 
 
+/*
+ * Checks for an account that exists or doesn't exist
+ * 
+ * Input:	i_account - The account number being checked
+ * 			e_trans - The transaction being performed
+ *
+ * Output:	b_result - If the account already exists or not
+ */
+Bool checkAccountExists(Int i_account, Transactions e_trans) {
+	Bool b_result = FALSE;
+	Int i;
 
+	if ((e_trans != NEW) && (e_trans != EOS) && (e_trans != ERROR)) {
+		for (i = 0; i < sizeof(s_input.valid_accts)+1; i++) {
+			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
+				printf("Account does not exist.\n");
+				b_result = FALSE;
+			} else if (s_input.valid_accts[i] == i_account) {
+				b_result = TRUE;
+				break;
+			}
+		}
+	} else if (e_trans == NEW) {
+		for (i = 0; i < sizeof(s_input.valid_accts)+1; i++) {
+			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
+				b_result = TRUE;
+			} else if (s_input.valid_accts[i] == i_account) {
+				printf("Account exists.\n");
+				b_result = FALSE;
+				break;
+			}
+		}
+	}
+
+	return b_result;
+}
 
 
 

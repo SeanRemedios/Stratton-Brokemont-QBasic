@@ -7,6 +7,7 @@
 |***********************************************************************/
 
 #include "user.h"
+#include "check.h"
 
 extern Bool deposit_Machine(void);
 extern Bool withdraw_Machine(void);

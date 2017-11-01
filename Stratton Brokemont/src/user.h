@@ -15,7 +15,6 @@
 #include <ctype.h>
 
 #include "types.h"
-#include "check.h"
 #include "machine.h"
 #include "agent.h"
 

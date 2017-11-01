@@ -10,8 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "transaction.h"
 #include "check.h"
+#include "transaction.h"
 #include "agent.h"
 #include "machine.h"
 
