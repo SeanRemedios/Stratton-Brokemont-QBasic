@@ -242,7 +242,7 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 	if ((e_trans != NEW) && (e_trans != EOS) && (e_trans != ERROR)) {
 		for (i = 0; i < sizeof(s_input.valid_accts)+1; i++) {
 			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
-				printf("Account does not exist.\n");
+				printf("Error: Account does not exist.\n");
 				b_result = FALSE;
 			} else if (s_input.valid_accts[i] == i_account) {
 				b_result = TRUE;
@@ -254,7 +254,7 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
 				b_result = TRUE;
 			} else if (s_input.valid_accts[i] == i_account) {
-				printf("Account already exists.\n");
+				printf("Error: Account already exists.\n");
 				b_result = FALSE;
 				break;
 			}
@@ -279,7 +279,7 @@ Bool recentAccount(Int i_accountNumber) {
 
 	while (s_current != NULL) {
 		if (s_current->account == i_accountNumber) {
-			printf("Account was recently created or deleted.\n");
+			printf("Error: Account was recently created or deleted.\n");
 			b_result = FALSE;
 			break;
 		}
@@ -292,7 +292,11 @@ Bool recentAccount(Int i_accountNumber) {
 
 
 /*
-
+ * Initializes the account tracking list
+ *
+ * Input:	None
+ *
+ * Output: 	b_result: If the list was successfully created or not
  */
 Bool init_AccountTracking(void) {
 	Bool b_result = TRUE;
@@ -311,8 +315,12 @@ Bool init_AccountTracking(void) {
 
 
 /*
- Prints the linked list
-*/
+ * Prints the linked list for account tracking
+ *
+ * Input:	None
+ * 
+ * Output:	None
+ */
 void print_list_acctTrack(void) {
 	Track_newdel_Accounts *s_current = trackedAccounts;
 
@@ -325,8 +333,12 @@ void print_list_acctTrack(void) {
 
 
 /*
- Clears the list
-*/
+ * Clears the account tracking list
+ * 
+ * Input:	None
+ *
+ * Output: NOne
+ */
 void clear_list_acctTrack(void) {
 	Track_newdel_Accounts *s_current = trackedAccounts;
 	// next holds the rest of the temporary list
@@ -347,8 +359,12 @@ void clear_list_acctTrack(void) {
 
 
 /*
- Adds an acccount and an amount
-*/
+ * Adds an acccount and an amount to the tracker list
+ *
+ * Input:	i_accountNumber - An account number
+ * 
+ * Output:	None
+ */
 void add_node_acctTrack(Int i_accountNumber) {
 	// A pointer to the linked list so we don't modify original pointer
 	Track_newdel_Accounts *s_current = trackedAccounts;
