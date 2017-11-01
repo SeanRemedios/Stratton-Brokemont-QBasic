@@ -3,14 +3,10 @@ Transaction Test Output: 						 Expected Output:
 
 Test Case 01: FAILED
 NEW 9000102 000 0000000 testname			      |	NEW 1000101 000 0000000 testname								
-DEP 9000102 50000 0000000 ***				      <
 EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
 
 Test Case 02: PASSED
-Test Case 03: FAILED
-NEW 1000102 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 03: PASSED
 Test Case 04: PASSED
 Test Case 05: FAILED
 NEW 9000102 000 0000000 qwertyuiopasdfghjkl		      <

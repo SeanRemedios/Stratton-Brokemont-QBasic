@@ -1,3 +1,75 @@
 
 Log Test Output:
 
+Test Case 01: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
+-----------------------------------------------------------------------
+
+Test Case 02: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > Enter an account number: Account was recently created or deleted.
+Enter an account number: Error: Invalid Entry.
+-----------------------------------------------------------------------
+
+Test Case 03: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > Enter an account number: Account was recently created or deleted.
+Enter an account number: Error: Invalid Entry.
+-----------------------------------------------------------------------
+
+Test Case 04: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > Enter an account number to transfer from: Account was recently created or deleted.
+Enter an account number to transfer from: Enter an account number to transfer to: Error: Invalid Entry.
+-----------------------------------------------------------------------
+
+Test Case 05: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
+-----------------------------------------------------------------------
+
+Test Case 06: FAILED
+-----------------------------------------------------------------------
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
+-----------------------------------------------------------------------
+
