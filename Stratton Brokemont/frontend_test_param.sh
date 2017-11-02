@@ -17,8 +17,12 @@ COMPONENTS="$2"
 RESULTS="$3"
 
 cd src
+echo -e "Compiling QBasic..."
 gcc *.c -o QBasic -D TESTING
+echo -e "Compiling Finished\n"
 cd ..
+
+echo "Starting Testing..."
 
 if [ -n "$RESULTS" ] # 3:Test_Results Folder
 	then
@@ -70,8 +74,7 @@ fi
 cd "$RESULTS" # Into Test_Results
 cd "Components Results"
 cat *.log >> "$RESPATH/$FILENAME"
-#chmod 444 "$RESPATH/$FILENAME" # Read only
+chmod 444 "$RESPATH/$FILENAME" # Read only
 cd .. # Out of Test_Results
 
-
-
+echo "Finished Testing"
