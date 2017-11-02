@@ -3,26 +3,12 @@ Agent Test Cases: #13-#18
 
 Transaction Test Output: 						 Expected Output: 
 
-Test Case 01: FAILED
-EOS 0000000 000 0000000 ***				      |	LOGIN AGENT SUCCESSFUL
-
-Test Case 02: FAILED
-NEW 9000001 000 0000000 testname			      |	NEW 1000001 000 0000000 testname
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 01: PASSED
+Test Case 02: PASSED
 Test Case 03: PASSED
-Test Case 04: FAILED
-							      >	DEL 1000001 000 0000000 testname
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 05: FAILED
-XFR 1000002 50000 1000001 ***				      |	XFR 1000001 5000 1000002 *** 
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 06: FAILED
-WDR 0000000 500000 1000001 ***				      |	WDR 1000001 500000 0000000 ***								
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED
 
 Log Test Output:
 
@@ -68,7 +54,9 @@ Test Case 04: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to delete account: Error: Invalid Entry.
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
 -----------------------------------------------------------------------
 
 Test Case 05: FAILED

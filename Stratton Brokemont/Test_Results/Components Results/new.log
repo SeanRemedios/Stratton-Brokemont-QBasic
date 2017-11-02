@@ -3,30 +3,16 @@ Create Account Test Cases: #19-#28
 
 Transaction Test Output: 						 Expected Output: 
 
-Test Case 01: FAILED
-NEW 9000102 000 0000000 testname			      |	NEW 1000101 000 0000000 testname								
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 01: PASSED
 Test Case 02: PASSED
 Test Case 03: PASSED
 Test Case 04: PASSED
-Test Case 05: FAILED
-NEW 9000102 000 0000000 qwertyuiopasdfghjkl		      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 06: FAILED
-NEW 9000102 000 0000000 logout				      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 05: PASSED
+Test Case 06: PASSED
 Test Case 07: PASSED
-Test Case 08: FAILED
-NEW 9000102 000 0000000 test				      |	NEW 100102 000 0000000 test name								
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 09: FAILED
-NEW 9000102 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 08: PASSED
+Test Case 09: PASSED
+Test Case 10: PASSED
 
 Log Test Output:
 
@@ -38,7 +24,7 @@ Test Case 01: FAILED
 Enter User > Passed
 
 Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number: Account does not exist.
+Enter Command (enter help for options) > Enter an account number: Error: Account does not exist.
 Enter an account number: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
@@ -59,7 +45,7 @@ Test Case 03: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Account already exists.
+Enter Command (enter help for options) > Enter an account number to create account: Error: Account already exists.
 Enter an account number to create account: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
@@ -80,9 +66,7 @@ Test Case 05: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
+Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Name too long.
 -----------------------------------------------------------------------
 
 Test Case 06: FAILED
@@ -126,8 +110,6 @@ Test Case 09: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
+Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
