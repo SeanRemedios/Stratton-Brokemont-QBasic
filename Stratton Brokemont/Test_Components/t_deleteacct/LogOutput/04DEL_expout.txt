@@ -1,1 +1,8 @@
 
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > Enter an account number to transfer from: Error: Account was recently created or deleted.
+Enter an account number to transfer from: Enter an account number to transfer to: Error: Invalid Entry.

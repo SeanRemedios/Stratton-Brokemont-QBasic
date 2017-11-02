@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Create Account Test"
 
 if [ -n "$1" ] # 1:Program
@@ -41,12 +42,14 @@ if [ -n "$1" ] # 1:Program
 			do
 				if [ "$FILE_OUT" != "new_transaction.log" ] && [ "$FILE_OUT" != "output.txt" ]
 					then
-					OUT="${FILE_OUT:1:1}"
-					if [[ "$OUT" -eq "$INC" ]]
+					OUT="${FILE_OUT:1:1}" # < 10
+					OUT2="${FILE_OUT:0:2}" # <= 10
+					if [[ "$OUT" -eq "$INC" ]] # Test case is < 10
 						then
 						RESULT="$(diff transaction.txt "$FILE_OUT")"
 						if [ "$RESULT" != "" ]
 							then
+							echo "$RESULT"
 							echo "Test Case 0"$INC": FAILED" >> new_transaction.log
 							sdiff "transaction.txt" "$FILE_OUT" >> new_transaction.log
 							printf "\n" >> new_transaction.log
@@ -54,6 +57,19 @@ if [ -n "$1" ] # 1:Program
 							echo "Test Case 0"$INC": PASSED" >> new_transaction.log
 						fi
 					fi
+					# if  [[ "$OUT" -ne "$INC" ]] # Test case is >= 10
+					# 	then
+					# 	RESULT="$(diff transaction.txt "$FILE_OUT")"
+					# 	if [ "$RESULT" != "" ]
+					# 		then
+					# 		echo "$RESULT"
+					# 		echo "Test Case "$INC": FAILED" >> new_transaction.log
+					# 		sdiff "transaction.txt" "$FILE_OUT" >> new_transaction.log
+					# 		printf "\n" >> new_transaction.log
+					# 	else
+					# 		echo "Test Case "$INC": PASSED" >> new_transaction.log
+					# 	fi
+					# fi
 				fi
 			done
 

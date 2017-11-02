@@ -2,5 +2,5 @@ login
 agent
 deleteacct
 1000101
-testtname
+testname
 logout

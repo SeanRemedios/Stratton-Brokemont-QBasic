@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Accounts Test"
 
 if [ -n "$1" ] # 1:Program

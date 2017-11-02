@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Delete Account Test"
 
 if [ -n "$1" ] # 1:Program

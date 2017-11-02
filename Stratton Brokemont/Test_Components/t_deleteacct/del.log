@@ -3,103 +3,18 @@ Delete Account Test Cases: #29-#34
 
 Transaction Test Output: 						 Expected Output: 
 
-Test Case 01: FAILED
-DEL 1000101 000 0000000 logout				      |	DEL 1000101 000 0000000 testname								
-DEL 1000101 000 0000000 testtname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 02: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 03: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 04: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 05: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 06: FAILED
-DEL 1000101 000 0000000 logout				      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED
 
 Log Test Output:
 
-Test Case 01: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 02: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number: Account was recently created or deleted.
-Enter an account number: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 03: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number: Account was recently created or deleted.
-Enter an account number: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 04: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number to transfer from: Account was recently created or deleted.
-Enter an account number to transfer from: Enter an account number to transfer to: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 05: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 06: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED

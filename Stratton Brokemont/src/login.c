@@ -48,7 +48,9 @@ void promptLogin(int argc, char* argv[]) {
 		promptUser(argc, argv);
 	} else {
 		printf("LOGIN FAILED\n");
-		testFailure();
+		#ifdef TESTING
+			exit(-1);
+		#endif
 		promptLogin(argc, argv);
 	}
 }
@@ -75,7 +77,9 @@ void promptUser(int argc, char* argv[]) {
 	} else {
 		printf("No User Selected\n");
 
-		testFailure();
+		#ifdef TESTING
+			exit(-1);
+		#endif
 
 		promptLogin(argc, argv);
 	}

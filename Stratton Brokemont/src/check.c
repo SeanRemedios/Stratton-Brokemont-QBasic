@@ -45,7 +45,7 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 		memset(cs_input, RESERVED, i_length); // Clears Char* array
 
 		printf("%s", cs_printstring);
-		if (scanf("%9s", cs_input) == EOF) {
+		if (scanf("%10s", cs_input) == EOF) {
 			printf("End of File\n");
 			break;
 		}
@@ -189,11 +189,16 @@ Bool check(const Char* cs_input, CheckField e_digOrAl) {
 			}
 		// If a name is being looked at
 		} else if ((e_digOrAl == ALPHA) || (e_digOrAl == COMMAND)) {
-			if ((cs_input[i_character] == SPACE) && (!(e_digOrAl == COMMAND))) {
+			// Check for spaces at the start of the word 
+			if (cs_input[0] == SPACE) {
+				b_checkResult = FALSE;
+				break;
+			}
+			if (((cs_input[i_character] == SPACE)) && (e_digOrAl != COMMAND)) {
 				continue;
 			}
-			// Check for spaces at the start of the word and alphanumeric
-			if (!isalnum(cs_input[i_character]) || (cs_input[0] == SPACE)) {
+			// Check alphanumeric
+			if (!isalnum(cs_input[i_character])) {
 				b_checkResult = FALSE;
 				break;
 			}

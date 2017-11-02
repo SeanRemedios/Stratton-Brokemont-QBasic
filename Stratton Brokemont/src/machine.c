@@ -21,8 +21,13 @@ extern Bool createTransaction(Int i_trans);
 extern void testFailure(void);
 
 /*
- Prompts the machine for an account to deposit to and amount 
-*/
+ *Prompts the machine for an account to deposit to and amount 
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool deposit_Machine(void) {
 	Bool b_result = FALSE;
 
@@ -43,9 +48,14 @@ Bool deposit_Machine(void) {
 }
 
 /*
- Prompts the machine for an account to withdraw from and amount
-*/
-Bool withdraw_Machine(void) {
+ * Prompts the machine for an account to withdraw from and amount
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
+ Bool withdraw_Machine(void) {
 	Bool b_result = FALSE;
 	// Checks whether the account number is already in the withdraw lists
 	WDRAddList e_addToList = FAIL;	
@@ -80,8 +90,13 @@ Bool withdraw_Machine(void) {
 
 
 /*
- Prompts the machine for an account to deposit to and withdraw from and an amount
-*/
+ *Prompts the machine for an account to deposit to and withdraw from and an amount
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool transfer_Machine(void) {
 	Bool b_result = FALSE;
 
@@ -104,8 +119,14 @@ Bool transfer_Machine(void) {
 }
 
 /*
- Function looks for an account in a linked list to see if it is over the $1000
- session withdrawal limit
+ * Function looks for an account in a linked list to see if it is over the $1000
+ * session withdrawal limit
+ * 
+ * Input:	e_addToList - Pass, Fail or Exit
+ *			i_accountNumber - An account number
+ *			i_amount - An amount to withdraw
+ *
+ * Output:	e_addToList - Pass, Fail or Exit
 */
 WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amount) {
 	// Assign the linked list to a temporary pointer
@@ -134,8 +155,13 @@ WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amoun
 }
 
 /*
-	Initializes the withdraw linked list
-*/
+ * Initializes the withdraw linked list
+ * 
+ * Input:	None
+ *
+ * Output:	b_listEmpty - List created successfully or not
+ *
+ */
 Bool init_WDRList(void) {
 	Bool b_listEmpty = TRUE; // Checks if the list is empty
 
@@ -159,8 +185,14 @@ Bool init_WDRList(void) {
 }
 
 /*
- Adds an acccount and an amount
-*/
+ * Adds an acccount and an amount
+ *
+ * Input: 	i_accountNumber - An account number
+ *			i_amount - An amount
+ *
+ * Output:	None
+ *
+ */
 void add_node_machine(Int i_accountNumber, Int i_amount) {
 	// A pointer to the linked list so we don't modify original pointer
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
@@ -184,8 +216,13 @@ void add_node_machine(Int i_accountNumber, Int i_amount) {
 }
 
 /*
- Prints the linked list
-*/
+ * Prints the linked list
+ *
+ * Input:	None
+ *
+ * Output:	None
+ *
+ */
 void print_list_machine(void) {
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 
@@ -197,8 +234,13 @@ void print_list_machine(void) {
 }
 
 /*
- Clears the list
-*/
+ * Clears the list
+ *
+ * Input: 	None
+ *
+ * Output:	None
+ *
+ */
 void clear_list_machine(void) {
 	AccountWithdrawTotals *s_current = s_machineInfo.wdr_totals;
 	// next holds the rest of the temporary list

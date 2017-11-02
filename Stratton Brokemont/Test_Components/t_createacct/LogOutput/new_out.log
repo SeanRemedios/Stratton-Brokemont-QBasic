@@ -9,7 +9,7 @@ Test Case 01: FAILED
 Enter User > Passed
 
 Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number: Account does not exist.
+Enter Command (enter help for options) > Enter an account number: Error: Account does not exist.
 Enter an account number: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ Test Case 03: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Account already exists.
+Enter Command (enter help for options) > Enter an account number to create account: Error: Account already exists.
 Enter an account number to create account: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
@@ -51,9 +51,7 @@ Test Case 05: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
+Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Name too long.
 -----------------------------------------------------------------------
 
 Test Case 06: FAILED
@@ -97,8 +95,6 @@ Test Case 09: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
+Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Invalid Entry.
 -----------------------------------------------------------------------
 

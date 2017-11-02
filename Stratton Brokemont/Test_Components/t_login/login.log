@@ -12,49 +12,9 @@ Test Case 06: PASSED
 
 Log Test Output:
 
-Test Case 01: FAILED
------------------------------------------------------------------------
-
-> LOGIN FAILED
-Error while creating transaction string.
------------------------------------------------------------------------
-
-Test Case 02: FAILED
------------------------------------------------------------------------
-
-> LOGIN FAILED
-Error while creating transaction string.
------------------------------------------------------------------------
-
-Test Case 03: FAILED
------------------------------------------------------------------------
-
-> LOGIN FAILED
-Error while creating transaction string.
------------------------------------------------------------------------
-
-Test Case 04: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > No User Selected
-Error while creating transaction string.
------------------------------------------------------------------------
-
-Test Case 05: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > No User Selected
-Error while creating transaction string.
------------------------------------------------------------------------
-
-Test Case 06: FAILED
------------------------------------------------------------------------
-
-> LOGIN FAILED
-Error while creating transaction string.
------------------------------------------------------------------------
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED

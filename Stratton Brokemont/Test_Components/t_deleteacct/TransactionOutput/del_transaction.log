@@ -1,28 +1,9 @@
 
 Transaction Test Output: 						 Expected Output: 
 
-Test Case 01: FAILED
-DEL 1000101 000 0000000 logout				      |	DEL 1000101 000 0000000 testname								
-DEL 1000101 000 0000000 testtname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 02: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 03: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 04: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 05: FAILED
-DEL 1000101 000 0000000 testname			      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 06: FAILED
-DEL 1000101 000 0000000 logout				      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED

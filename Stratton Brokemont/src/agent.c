@@ -25,8 +25,13 @@ extern void testFailure(void);
 extern void print_list_acctTrack(void);
 
 /*
- Prompts the agent to enter an account and amount for deposit
-*/
+ * Prompts the agent to enter an account and amount for deposit
+ *
+ * Input:	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool deposit_Agent(void) {
 	Bool b_result = FALSE;
 
@@ -48,8 +53,13 @@ Bool deposit_Agent(void) {
 }
 
 /*
- Prompts the agent to enter an account to withdraw from and an amount
-*/
+ * Prompts the agent to enter an account to withdraw from and an amount
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool withdraw_Agent(void) {
 	Bool b_result = FALSE;
 
@@ -69,8 +79,13 @@ Bool withdraw_Agent(void) {
 }
 
 /*
- Prompts the agent to enter an account to withdraw from, an account to deposit to and an amount
-*/
+ * Prompts the agent to enter an account to withdraw from, an account to deposit to and an amount
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool transfer_Agent(void) {
 	Bool b_result = FALSE;
 
@@ -92,7 +107,12 @@ Bool transfer_Agent(void) {
 }
 
 /*
- Prompts the agent to create an account
+ *Prompts the agent to create an account
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
  */
 Bool createacct_Agent(void){
 	Bool b_result = FALSE;
@@ -115,8 +135,13 @@ Bool createacct_Agent(void){
 }
 
 /*
- Prompts the agent to delete an account
-*/
+ *Prompts the agent to delete an account
+ *
+ * Input: 	None
+ *
+ * Output:	b_result - Transaction created successfully or not
+ *
+ */
 Bool deleteacct_Agent(void){
 	Bool b_result = FALSE;
 
@@ -138,8 +163,13 @@ Bool deleteacct_Agent(void){
 }
 
 /*
- Gets the name for the account being deleted or created 
-*/
+ * Gets the name for the account being deleted or created 
+ *
+ * Input:	None
+ *
+ * Output:	None
+ *
+ */
 void getName (void){
 
 	Char *cs_input = malloc(MAX_NAME_LENGTH);
@@ -148,7 +178,23 @@ void getName (void){
 
 	do {
 		printf("%s", "Enter an account name: ");
-		scanf("%30s", cs_input);
+
+		// Get the name, with size limit.
+		// +1 allows us to detect error if it's over MAX_NAME_LENGTH
+		if (fgets (cs_input, MAX_NAME_LENGTH+2, stdin) == NULL) {
+			printf("End of File\n");
+			break;
+		}
+		if (strlen(cs_input) > MAX_NAME_LENGTH) {
+			printf("Error: Name too long.\n");
+			memset(cs_input, RESERVED, MAX_NAME_LENGTH+2);
+			clear_newlines();
+
+			testFailure();
+			continue;
+		}
+		cs_input[MAX_NAME_LENGTH-1] = '\0';
+		strtok(cs_input, "\n");	// Remove new line character from stdin input
 		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
 		// Checks the general constraints
@@ -170,9 +216,10 @@ void getName (void){
 			testFailure();
 		}
 
-		clear_newlines();
+		//clear_newlines();
 
 	} while (!(b_checkValidity && b_checkb_result));
 
 	s_agentInfo.acct_name = cs_input; 
+	free(cs_input);
 }

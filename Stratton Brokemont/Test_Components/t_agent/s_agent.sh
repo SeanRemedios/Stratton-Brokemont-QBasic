@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Agent Test"
 
 if [ -n "$1" ] # 1:Program

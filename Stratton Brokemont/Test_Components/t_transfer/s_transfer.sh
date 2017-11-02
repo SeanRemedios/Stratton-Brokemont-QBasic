@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Transfer Test"
 
 if [ -n "$1" ] # 1:Program
@@ -27,7 +28,7 @@ if [ -n "$1" ] # 1:Program
 
 		ext="${FILE_IN##*.}"
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] \
-			&& [ "$FILE_IN" != "xfr_transaction.log" ] && [ "$FILE_IN" != "xfr_out.log" ] && [ "$FILE_IN" != "xfr.log" ]
+			&& [ "$FILE_IN" != "xfr_transaction.log" ] && [ "$FILE_IN" != "xfr_out.log" ] && [ "$FILE_IN" != ".log" ]
 			then
 			echo "$FILE_IN"
 			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN > output.txt

@@ -207,6 +207,16 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 }
 
 
+/*
+ * For testing purposes, allows any failure to automatically get the program to
+ * exit and adds the EOS line at the end of the file. Otherwise the program 
+ * would run forever
+ *
+ * Input:	None
+ *
+ * Output:	None
+ *
+ */
 void testFailure(void) {
 	#ifdef TESTING
 		createTransaction(6);

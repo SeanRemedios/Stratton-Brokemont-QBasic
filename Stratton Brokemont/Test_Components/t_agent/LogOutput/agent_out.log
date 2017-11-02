@@ -43,7 +43,9 @@ Test Case 04: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to delete account: Error: Invalid Entry.
+Enter Command (enter help for options) > Enter an account number to delete account: Enter an account name: 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
 -----------------------------------------------------------------------
 
 Test Case 05: FAILED
