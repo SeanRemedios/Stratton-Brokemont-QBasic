@@ -31,7 +31,7 @@ if [ -n "$1" ] # 1:Program
 			&& [ "$FILE_IN" != "wdr_transaction.log" ] && [ "$FILE_IN" != "wdr_out.log" ] && [ "$FILE_IN" != "wdr.log" ]
 			then
 			echo "$FILE_IN"
-			"$1" "$path/validaccounts.txt" transaction.txt < $FILE_IN > output.txt
+			"$1" "$path/validAccounts.txt" transaction.txt < $FILE_IN > output.txt
 			cp "$inputPath"/transaction.txt "$transoutPath"
 			cp "$inputPath"/output.txt "$logoutPath"
 			cd .. # Out of Input

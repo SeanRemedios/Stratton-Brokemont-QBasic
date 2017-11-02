@@ -8,9 +8,8 @@ Test Case 01: FAILED
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
+Enter Command (enter help for options) > Enter an account number: Error: Account does not exist.
+Enter an account number: Error: Invalid Entry.
 -----------------------------------------------------------------------
 
 Test Case 02: FAILED
