@@ -1,11 +1,27 @@
+#!/bin/bash
 VERSION="V1-1"
 NAME=`date +%d%m%g_%S%M%k` #DayMonthYear_MinuteHour
-if [ -n "$3" ] # 3:Test_Results Folder
+
+if [ "$#" -ne 3 ]
 	then
-	cd "$3"	# Into Test_Results
+	echo "Error: Illegal Number of Parameters"
+	echo "Parameters:"
+	echo -e "\t1. Program Path"
+	echo -e "\t2. Test Components Folder Name"
+	echo -e "\t3. Test Results Folder Name"
+	exit -1
+fi
+
+PROGRAM="$1"
+COMPONENTS="$2"
+RESULTS="$3"
+
+if [ -n "$RESULTS" ] # 3:Test_Results Folder
+	then
+	cd "$RESULTS"	# Into Test_Results
 	RESPATH="$PWD"
 	
-	if [ "$(ls -A "$3" 2> /dev/null)" == "" ]
+	if [ "$(ls -A "$RESULTS" 2> /dev/null)" == "" ]
 		then
 		LATEST="$(ls -rt | tail -n 1)"
 		INC="${LATEST:1:1}"
@@ -20,15 +36,15 @@ if [ -n "$3" ] # 3:Test_Results Folder
 	cd ..	# Out of Test_Results
 fi
 
-if [ -n "$1" ] && [ -n "$2" ] # 1:Program - 2:Test_Components Folder
+if [ -n "$PROGRAM" ] && [ -n "$COMPONENTS" ] # 1:Program - 2:Test_Components Folder
 	then 
 	
 	path="$PWD"
-	cd "$2"	# Into Test_Components
+	cd "$COMPONENTS"	# Into Test_Components
 
 	for DIR in */
 		do 
-		cp "$1" "$DIR"
+		cp "$PROGRAM" "$DIR"
 		cp "$path/validAccounts.txt" "$DIR"
 	done
 
@@ -37,7 +53,7 @@ if [ -n "$1" ] && [ -n "$2" ] # 1:Program - 2:Test_Components Folder
 		cd "$FOLDER"
 		for SCRIPT in *.sh # Every shell script in each folder
 		do
-			bash "$SCRIPT" "$1" # Executes the script
+			bash "$SCRIPT" "$PROGRAM" # Executes the script
 			rm "validAccounts.txt"
 		done
 		cp *.log "$RESPATH/Components Results"
@@ -47,10 +63,10 @@ if [ -n "$1" ] && [ -n "$2" ] # 1:Program - 2:Test_Components Folder
 	cd .. # Out of Test_Components
 fi
 
-cd "$3" # Into Test_Results
+cd "$RESULTS" # Into Test_Results
 cd "Components Results"
 cat *.log >> "$RESPATH/$FILENAME"
-chmod 444 "$RESPATH/$FILENAME"
+chmod 444 "$RESPATH/$FILENAME" # Read only
 cd .. # Out of Test_Results
 
 
