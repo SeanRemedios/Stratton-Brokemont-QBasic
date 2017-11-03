@@ -16,35 +16,47 @@ PROGRAM="$1"
 COMPONENTS="$2"
 RESULTS="$3"
 
-cd src
-echo -e "Compiling QBasic..."
-gcc *.c -o QBasic -D TESTING
-echo -e "Compiling Finished\n"
-cd ..
+echo -e "Starting Testing...\n"
 
-echo "Starting Testing..."
-
-if [ -n "$RESULTS" ] # 3:Test_Results Folder
+if [ -d "$RESULTS" ] # 3:Test_Results Folder
 	then
 	cd "$RESULTS"	# Into Test_Results
 	RESPATH="$PWD"
 	
-	if [ "$(ls -A "$RESULTS" 2> /dev/null)" == "" ]
+	if [ "$(ls -A "$RESULTS" 2> /dev/null)" == "" ] # Lists all entries except . and ..
 		then
-		LATEST="$(ls -rt | tail -n 1)"
+		LATEST="$(ls -rt | tail -n 1)" # Gets latest file based on time
 		INC="${LATEST:1:1}"
+		INC2="${LATEST:1:2}"
+		C="${LATEST:2:1}"
 		#echo "$(($INC+1))"
-		let "INC++"
-		FILENAME="T"$INC"_"$VERSION"_"$NAME".txt" # [Test Number]_[Version Number]_[Date]
-		echo "Test #"$INC" - Version: "$VERSION"" > "$FILENAME"
+		# Following checks to see what the latest file name was and then
+		# creates a new file based on if it was <=10 or >=10
+		if [ "$C" == "_" ]
+			then
+			let "INC++"
+			if  [[ "$INC" -le 10 ]]
+				then
+				NUM="$INC"
+			fi
+		else
+			let "INC2++"
+			if [[ "$INC2" -ge 10 ]]
+				then
+				NUM="$INC2"
+			fi
+		fi
+		# Making it .log allows for read only
+		FILENAME="T"$NUM"_"$VERSION"_"$NAME".log" # [Test Number]_[Version Number]_[Date]
+		echo "Test #"$NUM" - Version: "$VERSION"" > "$FILENAME"
 	else
-		echo > "T1_"$VERSION"_"$NAME".txt" # [Test Number]_[Version Number]_[Date]
+		echo > "T1_"$VERSION"_"$NAME".log" # [Test Number]_[Version Number]_[Date]
 	fi
 	
 	cd ..	# Out of Test_Results
 fi
 
-if [ -n "$PROGRAM" ] && [ -n "$COMPONENTS" ] # 1:Program - 2:Test_Components Folder
+if [ -f "$PROGRAM" ] && [ -d "$COMPONENTS" ] # 1:Program - 2:Test_Components Folder
 	then 
 	
 	path="$PWD"
@@ -72,9 +84,7 @@ if [ -n "$PROGRAM" ] && [ -n "$COMPONENTS" ] # 1:Program - 2:Test_Components Fol
 fi
 
 cd "$RESULTS" # Into Test_Results
-cd "Components Results"
-cat *.log >> "$RESPATH/$FILENAME"
-chmod 444 "$RESPATH/$FILENAME" # Read only
+cat "Components Results/"*.log >> "$RESPATH/$FILENAME"
 cd .. # Out of Test_Results
 
 echo "Finished Testing"

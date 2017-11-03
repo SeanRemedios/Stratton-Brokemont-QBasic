@@ -1,1 +1,6 @@
 
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to transfer from: Error: Invalid Entry.

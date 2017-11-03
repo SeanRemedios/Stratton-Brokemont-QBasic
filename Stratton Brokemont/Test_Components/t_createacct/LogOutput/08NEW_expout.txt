@@ -1,1 +1,9 @@
 
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to create an account: Enter an account name: 
+Enter Command (enter help for options) > Enter account number: Enter an amount (in cents):
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE

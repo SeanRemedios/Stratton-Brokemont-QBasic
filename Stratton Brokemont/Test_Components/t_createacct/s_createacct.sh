@@ -49,7 +49,6 @@ if [ -n "$1" ] # 1:Program
 						RESULT="$(diff transaction.txt "$FILE_OUT")"
 						if [ "$RESULT" != "" ]
 							then
-							echo "$RESULT"
 							echo "Test Case 0"$INC": FAILED" >> new_transaction.log
 							sdiff "transaction.txt" "$FILE_OUT" >> new_transaction.log
 							printf "\n" >> new_transaction.log
@@ -82,7 +81,8 @@ if [ -n "$1" ] # 1:Program
 				if [ "$FILE_LOG" != "new_out.log" ]
 					then
 					LOUT="${FILE_LOG:1:1}"
-					if [[ "$LOUT" -eq "$INC" ]]
+					LOUT2="${FILE_LOG:0:2}"
+					if [[ "$LOUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]]
 						then
 						LRESULT="$(diff output.txt "$FILE_LOG")"
 						if [ "$LRESULT" != "" ] # == are no differences
@@ -93,6 +93,19 @@ if [ -n "$1" ] # 1:Program
 							echo -e "-----------------------------------------------------------------------\n" >> new_out.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> new_out.log
+						fi
+					fi
+					if [[ "$INC" -ge 10 ]] && [[ "$LOUT" -eq "$INC" ]]
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then
+							echo "Test Case "$INC": FAILED" >> new_out.log
+							echo -e "-----------------------------------------------------------------------" >> new_out.log
+							cat "output.txt" >> new_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> new_out.log
+						else
+							echo "Test Case "$INC": PASSED" >> new_out.log
 						fi
 					fi
 				fi

@@ -39,7 +39,7 @@ void commandPrompt(void) {
 
 
 		for(i = 0; cs_choice[i]; i++)
-	  		cs_choice[i] = tolower(cs_choice[i]);
+			cs_choice[i] = tolower(cs_choice[i]);
 
 		if(!strncmp(cs_choice, "help", 4)) {
 			printf("\nlogout\t\tlogs out of current user");
@@ -123,9 +123,9 @@ void createStruct(Users e_user, int argc, char* argv[]) {
 	}
 
 	free(line);
-    fclose(valid_accts);
+	fclose(valid_accts);
 
-    s_input.valid_accts = arr;
+	s_input.valid_accts = arr;
 	s_input.user = e_user; 
 
 	commandPrompt();

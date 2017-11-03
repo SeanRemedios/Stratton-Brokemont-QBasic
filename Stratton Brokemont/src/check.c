@@ -241,32 +241,56 @@ Bool checkValAcct(Int i_account, Int *ia_validAccounts) {
  * Output:	b_result - If the account already exists or not
  */
 Bool checkAccountExists(Int i_account, Transactions e_trans) {
-	Bool b_result = FALSE;
+	Bool b_result = TRUE;
 	Int i;
+	Int i_sizeValAcctArr = sizeof(s_input.valid_accts);
 
+	// Find if account doesn't exist
 	if ((e_trans != NEW) && (e_trans != EOS) && (e_trans != ERROR)) {
-		for (i = 0; i < sizeof(s_input.valid_accts)+1; i++) {
-			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
-				printf("Error: Account does not exist.\n");
-				b_result = FALSE;
-			} else if (s_input.valid_accts[i] == i_account) {
-				b_result = TRUE;
-				break;
-			}
+		if (binary_search(s_input.valid_accts, 0, i_sizeValAcctArr, i_account) == -1) {
+			printf("Error: Account does not exist.\n");
+			b_result = FALSE;
 		}
+
+	// Find if account already exists
 	} else if (e_trans == NEW) {
-		for (i = 0; i < sizeof(s_input.valid_accts)+1; i++) {
-			if (s_input.valid_accts[i] == INVALID_ACCOUNT) {
-				b_result = TRUE;
-			} else if (s_input.valid_accts[i] == i_account) {
-				printf("Error: Account already exists.\n");
-				b_result = FALSE;
-				break;
-			}
+		if (binary_search(s_input.valid_accts, 0, i_sizeValAcctArr, i_account) != -1) {
+			printf("Error: Account already exists.\n");
+			b_result = FALSE;
 		}
 	}
 
 	return b_result;
+}
+
+
+/*
+ * Simple binary search function to find an account
+ * 
+ * Input:	i_val_accts - Array of accounts (sorted descending)
+ * 			i_low - Lowest index
+ *			i_high - Highest index
+ *			i_account - Account searched for
+ *
+ * Ouput:	i_index - The index in array where account was found. -1 if not found
+ */
+Int binary_search(Int i_val_accts[], Int i_low, Int i_high, Int i_account) {
+	Int i_middle;
+	Int i_index = -1; // Not found
+
+	while (i_low <= i_high)
+	{
+		i_middle = i_low + (i_high - i_low)/2;
+		if (i_account < i_val_accts[i_middle])
+			i_low = i_middle + 1;
+		else if (i_account > i_val_accts[i_middle])
+			i_high = i_middle - 1;
+		else {
+			i_index = i_middle; // Found
+			break;
+		}
+	}
+	return i_index;
 }
 
 
