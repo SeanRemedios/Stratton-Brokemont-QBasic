@@ -7,14 +7,17 @@ for CISC 327, Fall 2017
 Compiling & Starting the program:
 	1. The program can be compiled by typing 'make' in the terminal window.
 	2. The program can be started by typing ./QBasic "validAccounts.txt" "transaction.txt"
+	3. The program can be compiled for testing using: gcc *.c -o QBasic -D TESTING 
 
 Starting the automated test:
 	1. Open a terminal window
 	2. Move into the Stratton Brokemont folder:
 		cd Stratton\ Brokemont
-	3. Call the automated test script with the program name and the test
+	3a. The automated test script can be started with the script frontend.sh. This file is used so the tester can compile the QBasic program first or create an accounts file. It is used so the user can't get the parameters wrong with the 3b script. The frontend.sh script can be run as:
+		./frontend.sh [Optional parameters: None, —help, -c, -v, -cv]
+	3b. Call the automated test script with the program name and the test
 	components folder as parameters:
-		./frontend_test.sh [program] Test_Components
+		./frontend_test_param.sh [program] Test_Components Test_Results
 
 Coding Standards
 	1. All functions are to begin with inline braces {

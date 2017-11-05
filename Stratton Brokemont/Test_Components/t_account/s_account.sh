@@ -1,8 +1,15 @@
 #!/bin/bash
+
+# All the shell scripts are the same with very minor differences so this is the only one that was commented
+
 echo "Accounts Test"
 
 if [ -n "$1" ] # 1:Program
 	then
+
+	# acct.log is the master output log
+	# acct_out.log is the expected log output file
+	# acct_transaction.log is the expected transaction output file
 	
 	path="$PWD"
 	transoutPath="$PWD/TransactionOutput"
