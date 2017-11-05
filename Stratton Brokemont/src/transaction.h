@@ -16,8 +16,8 @@
 #define MAX_CODE_LEN		3
 #define MAX_LEN 			9
 #define NUM_ERROR_CODES		1
-// Number of transactions plus the number of error codes
-#define MAX_TRANSACTIONS	(6+NUM_ERROR_CODES) 
+// Number of valid transactions plus the number of error codes
+#define MAX_TRANSACTIONS	(NUM_TRANSACTIONS+NUM_ERROR_CODES) 
 #define STR_RESERVED		"\0"
 /* Strings for writing to the ouput file */
 #define STR_NEWLINE			"\n"

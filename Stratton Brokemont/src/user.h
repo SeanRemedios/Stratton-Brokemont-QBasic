@@ -18,6 +18,7 @@
 #include "machine.h"
 #include "agent.h"
 
+#define MAX_SIZE			255
 #define INVALID_ACCOUNT		0000000
 #define TEMP_FILE			".tmp.txt"
 
@@ -42,6 +43,7 @@ typedef enum {
 	DELETE,
 	EOS
 } Transactions;
+#define NUM_TRANSACTIONS	EOS	// Number of valid transactions
 
 typedef struct {
 		Transactions trans;
@@ -66,7 +68,7 @@ typedef struct {
  *	Inclides array of all valid accounts file.
  *	
  */
-void createStruct(Users e_user, int argc, char* argv[]);
+void createStruct(Users e_user, Int argc, Char* argv[]);
 
 /*	Main loop for user command input
  *	Accepts input for all user commands, calls corrisponding fuinction

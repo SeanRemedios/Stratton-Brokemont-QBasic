@@ -12,9 +12,17 @@
 #include "login.h"
 #include "user.h"
 
-extern void promptLogin(int argc, char* argv[]);
+#define NUM_ARGS 3 // 1:Program, 2:validAccounts.txt, 3:transaction.txt
 
-int main(int argc, char* argv[]) {
+extern void promptLogin(Int argc, Char* argv[]);
+
+Int main(Int argc, Char* argv[]) {
+
+	if (argc != NUM_ARGS) {
+		printf("Incorrect number of arguments. Exiting...\n");
+		exit(-1);
+	}
+
 	remove(argv[ARG_TRANSACTION]);
 	
 	// Creates the temporary transaction file

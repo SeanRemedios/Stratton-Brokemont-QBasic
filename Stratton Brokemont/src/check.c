@@ -71,7 +71,7 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 
 			// If in testing mode and fails here
 			#ifdef TESTING
-				createTransaction(6);
+				createTransaction(6); // EOS Transaction
 				rename(".tmp.txt", s_input.trans_path);
 				exit(-1);
 			#endif

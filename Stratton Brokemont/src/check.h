@@ -24,7 +24,8 @@ typedef enum {
 	ALPHA,
 	COMMAND
 } CheckField; // For check function
-
+// Different checks are required for different types of input 
+// e.g. accounts/amounts, names, commands (deposit, withdraw etc.)
 
 Int getInfo (const Char* cs_printstring, Int i_length);
 Bool check(const Char* cs_input, CheckField e_digOrAl);

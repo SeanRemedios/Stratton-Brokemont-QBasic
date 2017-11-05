@@ -12,6 +12,20 @@ ACCOUNTS=\
 1000001
 0000000"
 
+# Function to compile QBasic program with TESTING definition
+function compilePrgm {
+	echo -e "Compiling QBasic..."
+	gcc src/*.c -o src/QBasic -D TESTING
+	echo -e "Compiling Finished\n"
+}
+
+# Function to create a valid accounts file
+function crtValAccts {
+	echo "Creating accounts file..."
+	echo -e	"$ACCOUNTS" > "validAccounts.txt"
+	echo -e "Valid Accounts File Created\n"
+}
+
 touch src/.tmp.txt # Temporary transaction file
 
 RUNTEST="TRUE"
@@ -31,26 +45,18 @@ do
 			;;
 		# Compile
 		-c) 
-			echo -e "Compiling QBasic..."
-			gcc src/*.c -o src/QBasic -D TESTING
-			echo -e "Compiling Finished\n"
+			compilePrgm
 			RUNTEST="TRUE"
 			;;
 		# Build valid accounts file
 		-v) 
-			echo "Creating accounts file..."
-			echo -e	"$ACCOUNTS" > "validAccounts.txt"
-			echo -e "Valid Accounts File Created\n"
+			crtValAccts
 			RUNTEST="TRUE"
 			;;
 		# Build valid accounts file and compile
 		-vc|-cv)
-			echo -e "Compiling QBasic..."
-			gcc src/*.c -o src/QBasic -D TESTING
-			echo -e "Compiling Finished\n"
-			echo "Creating Valid Accounts File..."
-			echo -e	"$ACCOUNTS" > "validAccounts.txt"
-			echo -e "Valid Accounts File Created\n"
+			compilePrgm
+			crtValAccts
 			RUNTEST="TRUE"
 			;;
 		# Any other argument
@@ -64,7 +70,12 @@ done
 # If valid accounts file doesn't exist
 if [ ! -f "validAccounts.txt" ]
 	then
-	echo -e	"$ACCOUNTS" > "validAccounts.txt"
+	crtValAccts
+fi
+
+if [ ! -f "src/QBasic" ]
+	then
+	compilePrgm
 fi
 
 # Run the tests

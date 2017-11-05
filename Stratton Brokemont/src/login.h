@@ -25,13 +25,13 @@
  *	prompts user for an input, looking for login. Proceeds to call promptUser()
  *	if input is valid.
  */
-void promptLogin(int argc, char* argv[]);
+void promptLogin(Int argc, Char* argv[]);
 
 /*	Called by promptLogin()
  *	
  *	prompts user to enter user type (Machine or Agent), in which it calls
  *	user.c to handle the rest of the machine with given user permissions
  */
-void promptUser(int argc, char* argv[]);
+void promptUser(Int argc, Char* argv[]);
 
 #endif

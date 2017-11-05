@@ -19,10 +19,11 @@
 
 
 typedef enum {
-	FAIL,
-	PASS,
-	EXIT
+	FAIL, // To continue with loop
+	PASS, // To add a node to the linked list
+	EXIT // To exit out of the loop but don't add a node
 } WDRAddList;
+// For machine linked list
 
 // Linked list structure
 typedef struct node {
@@ -32,13 +33,11 @@ typedef struct node {
 } AccountWithdrawTotals;
 
 
-
 Bool deposit_Machine(void);
 Bool withdraw_Machine(void);
 Bool transfer_Machine(void);
 Bool createacct_Machine(void);
 Bool deleteacct_Machine(void);
-
 WDRAddList findWDRTotal(WDRAddList e_addToList, Int i_accountNumber, Int i_amount);
 Bool init_WDRList(void);
 void add_node_machine(Int i_accountNumber, Int i_amount);

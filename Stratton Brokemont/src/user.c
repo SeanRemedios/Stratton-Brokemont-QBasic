@@ -9,6 +9,14 @@
 #include "user.h"
 #include "check.h"
 
+#define STR_HELP		"help"
+#define STR_DEPOSIT		"deposit"
+#define STR_WITHDRAW 	"withdraw"
+#define STR_TRANSFER	"transfer"
+#define STR_CREATEACCT	"createacct"
+#define STR_DELETEACCT	"deleteacct"
+#define STR_LOGOUT		"logout"
+
 extern Bool deposit_Machine(void);
 extern Bool withdraw_Machine(void);
 extern Bool transfer_Machine(void);
@@ -29,7 +37,7 @@ Input s_input;
  *
  */
 void commandPrompt(void) {
-	char cs_choice[255] = "\0";
+	Char cs_choice[MAX_SIZE] = "\0";
 
 	do {
 		Int i;
@@ -41,54 +49,54 @@ void commandPrompt(void) {
 		for(i = 0; cs_choice[i]; i++)
 			cs_choice[i] = tolower(cs_choice[i]);
 
-		if(!strncmp(cs_choice, "help", 4)) {
+		if(!strncmp(cs_choice, STR_HELP, strlen(STR_HELP))) {
 			printf("\nlogout\t\tlogs out of current user");
-			printf("\ndeposit\t\tdeposit money into your account");
+			printf("\ndeposit\t\tdeposit money Into your account");
 			printf("\nwithdraw\twithdraw money from your account");
-			printf("\ntransfer\ttransfer money into another account");
-			if(s_input.user == 2) {
+			printf("\ntransfer\ttransfer money Into another account");
+			if(s_input.user == AGENT) {
 				printf("\ncreateacct\tcreate an account");
 				printf("\ndeleteacct\tdelete an account");
 			}
 			printf("\n");
 
-		} else if(!strncmp(cs_choice, "deposit", 7)) {
-			if(s_input.user == 1) 
+		} else if(!strncmp(cs_choice, STR_DEPOSIT, strlen(STR_DEPOSIT))) {
+			if(s_input.user == MACHINE) 
 				deposit_Machine();
 			else
 				deposit_Agent();
 
-		} else if(!strncmp(cs_choice, "withdraw", 8)) {
-			if(s_input.user == 1) 
+		} else if(!strncmp(cs_choice, STR_WITHDRAW, strlen(STR_WITHDRAW))) {
+			if(s_input.user == MACHINE) 
 				withdraw_Machine();
 			else
 				withdraw_Agent();
 
-		} else if(!strncmp(cs_choice, "transfer", 8)) {
-			if(s_input.user == 1) 
+		} else if(!strncmp(cs_choice, STR_TRANSFER, strlen(STR_TRANSFER))) {
+			if(s_input.user == MACHINE) 
 				transfer_Machine();
 			else
 				transfer_Agent();
 
-		} else if(!strncmp(cs_choice, "createacct", 10)) {
-			if(s_input.user == 1) 
+		} else if(!strncmp(cs_choice, STR_CREATEACCT, strlen(STR_CREATEACCT))) {
+			if(s_input.user == MACHINE) 
 				printf("You do not have the authority");
 			else
 				createacct_Agent();
 
-		} else if(!strncmp(cs_choice, "deleteacct", 10)) {
-			if(s_input.user == 1) 
+		} else if(!strncmp(cs_choice, STR_DELETEACCT, strlen(STR_DELETEACCT))) {
+			if(s_input.user == MACHINE) 
 				printf("You do not have the authority\n");
 			else
 				deleteacct_Agent();
-		} else if(!strncmp(cs_choice, "logout", 6)) {
+		} else if(!strncmp(cs_choice, STR_LOGOUT, strlen(STR_LOGOUT))) {
 			printf("LOGOUT SUCCESSFUL\n");
 			break;
 		} else {
 			printf("Invalid command\n");
 		}
 
-	} while(strncmp(cs_choice, "logout", 6));
+	} while(strncmp(cs_choice, STR_LOGOUT, strlen(STR_LOGOUT)));
 
 	//printf("\e[1;1H\e[2J");
 	printf("DONE\n");
@@ -101,9 +109,9 @@ void commandPrompt(void) {
  *	Inclides array of all valid accounts file.
  *	
  */
-void createStruct(Users e_user, int argc, char* argv[]) {
+void createStruct(Users e_user, Int argc, Char* argv[]) {
 	FILE *valid_accts;
-	char *line = NULL;
+	Char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
 	Int arr[10000], i=0;

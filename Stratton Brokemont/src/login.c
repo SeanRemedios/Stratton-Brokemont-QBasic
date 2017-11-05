@@ -13,9 +13,11 @@
 #include "machine.h"
 #include "agent.h"
 
-#define MAX_SIZE	255
+#define STR_LOGIN 	"login"
+#define STR_AGENT 	"agent"
+#define STR_MACHINE "machine"
 
-extern void createStruct(Users e_user, int argc, char* argv[]);
+extern void createStruct(Users e_user, Int argc, Char* argv[]);
 extern void clear_list_machine(void);
 extern void clear_list_acctTrack(void);
 extern Bool init_wdrList(void);
@@ -28,9 +30,10 @@ extern void testFailure(void);
  *	prompts user for an input, looking for login. Proceeds to call promptUser()
  *	if input is valid.
  */
-void promptLogin(int argc, char* argv[]) {
+void promptLogin(Int argc, Char* argv[]) {
 	Char cs_choice[MAX_SIZE] = "\0";
 
+	// Clear the linked lists before we start (allows for multiple login sessions)
 	clear_list_machine();
 	clear_list_acctTrack();
 	if (!init_WDRList() || !init_AccountTracking()) {
@@ -43,7 +46,7 @@ void promptLogin(int argc, char* argv[]) {
 	printf("\n> ");
 	scanf("%s", cs_choice);
 	
-	if(!strncmp(cs_choice, "login", 5)) {
+	if(!strncmp(cs_choice, STR_LOGIN, strlen(STR_LOGIN))) {
 		printf("LOGIN SUCCESSFUL\n");
 		promptUser(argc, argv);
 	} else {
@@ -60,19 +63,19 @@ void promptLogin(int argc, char* argv[]) {
  *	prompts user to enter user type (Machine or Agent), in which it calls
  *	user.c to handle the rest of the machine with given user permissions
  */
-void promptUser(int argc, char* argv[]) {
+void promptUser(Int argc, Char* argv[]) {
 	Char cs_choice[MAX_SIZE] = "\0";
 
 	printf("\nEnter User > ");
 	scanf("%s", cs_choice);
 
-	if(!strncmp(cs_choice, "agent", 5)) {
+	if(!strncmp(cs_choice, STR_AGENT, strlen(STR_AGENT))) {
 		printf("Passed\n");
-		createStruct(2, argc, argv);
+		createStruct(AGENT, argc, argv);
 
-	} else if(!strncmp(cs_choice, "machine", 7)) {
+	} else if(!strncmp(cs_choice, STR_MACHINE, strlen(STR_MACHINE))) {
 		printf("Passed\n");
-		createStruct(1, argc, argv);
+		createStruct(MACHINE, argc, argv);
 
 	} else {
 		printf("No User Selected\n");
