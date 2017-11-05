@@ -195,7 +195,6 @@ void getName (void){
 		}
 		cs_input[MAX_NAME_LENGTH-1] = '\0';
 		strtok(cs_input, "\n");	// Remove new line character from stdin input
-		// BAD, BUFFER OVERFLOW CAN OCCUR - CHANGE LATER?
 
 		// Checks the general constraints
 		b_checkValidity = check((const Char*)cs_input, ALPHA);

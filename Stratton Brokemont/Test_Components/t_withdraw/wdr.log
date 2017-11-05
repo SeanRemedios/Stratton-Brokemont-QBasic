@@ -5,96 +5,18 @@ Transaction Test Output: 						 Expected Output:
 
 Test Case 01: PASSED
 Test Case 02: PASSED
-Test Case 03: FAILED
-WDR 0000000 200000 1000101 ***				      |	WDR 0000000 2000000 1000101 ***
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 03: PASSED
 Test Case 04: PASSED
-Test Case 05: FAILED
-WDR 0000000 50000 1000101 ***					WDR 0000000 50000 1000101 ***
-WDR 0000000 75000 1000101 ***				      <
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 05: PASSED
 Test Case 06: PASSED
 Test Case 07: PASSED
 
 Log Test Output:
 
-Test Case 01: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Error: Account does not exist.
-Enter an account number: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 02: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 03: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 04: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): Error: Withdraw session total will exceed $1000
------------------------------------------------------------------------
-
-Test Case 05: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 06: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): Error: Withdraw session total will exceed $1000
------------------------------------------------------------------------
-
-Test Case 07: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): Error: Invalid Entry.
------------------------------------------------------------------------
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED
+Test Case 07: PASSED

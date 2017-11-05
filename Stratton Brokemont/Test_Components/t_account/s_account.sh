@@ -16,20 +16,22 @@ if [ -n "$1" ] # 1:Program
 
 	cd "LogOutput"
 	echo -e "\nLog Test Output:\n" > acct_out.log
-	cd ..
+	cd .. # Out of LogOutput
 
 	cd "Input"
 	touch ".tmp.txt"
 	INC=1
 	inputPath="$PWD"
 
-	for FILE_IN in *
+	for FILE_IN in * # In Input
 	do
 
-		ext="${FILE_IN##*.}"
+		ext="${FILE_IN##*.}" # Extension of file
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] \
 			&& [ "$FILE_IN" != "acct_transaction.log" ] && [ "$FILE_IN" != "acct_out.log" ] && [ "$FILE_IN" != "acct.log" ]
 			then
+
+			# Run the file
 			echo "$FILE_IN"
 			"$1" "$path/validAccounts.txt" transaction.txt < $FILE_IN > output.txt
 			cp "$inputPath"/transaction.txt "$transoutPath"
@@ -37,21 +39,35 @@ if [ -n "$1" ] # 1:Program
 			cd .. # Out of Input
 			
 			cd "TransactionOutput" # Into TransactionOutput
-			for FILE_OUT in *
+			for FILE_OUT in * # Expected transaction file
 			do
 				if [ "$FILE_OUT" != "acct_transaction.log" ] && [ "$FILE_OUT" != "output.txt" ]
 					then
-					OUT="${FILE_OUT:1:1}"
-					if [[ "$OUT" -eq "$INC" ]] # Checks if the counter is the file we are looking for
+					OUT="${FILE_OUT:1:1}" # < 10
+					OUT2="${FILE_OUT:0:2}" # <= 10
+					if [[ "$OUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]] # Test case is < 10
 						then
-						RESULT="$(diff transaction.txt "$FILE_OUT")"
-						if [ "$RESULT" != "" ] # == are no differences
+						RESULT="$(diff transaction.txt "$FILE_OUT")" # Get the differences
+						if [ "$RESULT" != "" ] # Output is not expected
 							then
 							echo "Test Case 0"$INC": FAILED" >> acct_transaction.log
 							sdiff "transaction.txt" "$FILE_OUT" >> acct_transaction.log
 							printf "\n" >> acct_transaction.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> acct_transaction.log
+						fi
+					fi
+					if  [[ "$INC" -ge 10 ]] && [[ "$OUT2" == "$INC" ]] # Test case is >= 10
+						then
+						RESULT="$(diff transaction.txt "$FILE_OUT")"
+						if [ "$RESULT" != "" ] # Output is not expected
+							then
+							echo "$RESULT"
+							echo "Test Case "$INC": FAILED" >> acct_transaction.log
+							sdiff "transaction.txt" "$FILE_OUT" >> acct_transaction.log
+							printf "\n" >> acct_transaction.log
+						else
+							echo "Test Case "$INC": PASSED" >> acct_transaction.log
 						fi
 					fi
 				fi
@@ -63,10 +79,11 @@ if [ -n "$1" ] # 1:Program
 			cd "LogOutput" # Into LogOutput
 			for FILE_LOG in *
 			do
-				if [ "$FILE_LOG" != "acct_out.log" ] && [ "$FILE_LOG" != "output.txt" ]
+				if [ "$FILE_LOG" != "acct_out.log" ] # Make sure it is not the output log
 					then
 					LOUT="${FILE_LOG:1:1}"
-					if [[ "$LOUT" -eq "$INC" ]]
+					LOUT2="${FILE_LOG:0:2}"
+					if [[ "$LOUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]] # <10 file number
 						then
 						LRESULT="$(diff output.txt "$FILE_LOG")"
 						if [ "$LRESULT" != "" ] # == are no differences
@@ -77,6 +94,19 @@ if [ -n "$1" ] # 1:Program
 							echo -e "-----------------------------------------------------------------------\n" >> acct_out.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> acct_out.log
+						fi
+					fi
+					if [[ "$INC" -ge 10 ]] && [[ "$LOUT2" == "$INC" ]] # >=10 file number
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then
+							echo "Test Case "$INC": FAILED" >> acct_out.log
+							echo -e "-----------------------------------------------------------------------" >> acct_out.log
+							cat "output.txt" >> acct_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> acct_out.log
+						else
+							echo "Test Case "$INC": PASSED" >> acct_out.log
 						fi
 					fi
 				fi

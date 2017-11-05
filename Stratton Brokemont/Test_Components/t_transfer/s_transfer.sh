@@ -28,7 +28,7 @@ if [ -n "$1" ] # 1:Program
 
 		ext="${FILE_IN##*.}"
 		if [ "txt" == "$ext" ] && [ "$FILE_IN" != "output.txt" ] && [ "$FILE_IN" != "transaction.txt" ] \
-			&& [ "$FILE_IN" != "xfr_transaction.log" ] && [ "$FILE_IN" != "xfr_out.log" ] && [ "$FILE_IN" != ".log" ]
+			&& [ "$FILE_IN" != "xfr_transaction.log" ] && [ "$FILE_IN" != "xfr_out.log" ] && [ "$FILE_IN" != "xfr.log" ]
 			then
 			echo "$FILE_IN"
 			"$1" "$path/validAccounts.txt" transaction.txt < $FILE_IN > output.txt
@@ -42,8 +42,9 @@ if [ -n "$1" ] # 1:Program
 			do
 				if [ "$FILE_OUT" != "xfr_transaction.log" ] && [ "$FILE_OUT" != "output.txt" ]
 					then
-					OUT="${FILE_OUT:1:1}"
-					if [[ "$OUT" -eq "$INC" ]]
+					OUT="${FILE_OUT:1:1}" # < 10
+					OUT2="${FILE_OUT:0:2}" # <= 10
+					if [[ "$OUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]] # Test case is < 10
 						then
 						RESULT="$(diff transaction.txt "$FILE_OUT")"
 						if [ "$RESULT" != "" ]
@@ -53,6 +54,19 @@ if [ -n "$1" ] # 1:Program
 							printf "\n" >> xfr_transaction.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> xfr_transaction.log
+						fi
+					fi
+					if  [[ "$INC" -ge 10 ]] && [[ "$OUT2" == "$INC" ]] # Test case is >= 10
+						then
+						RESULT="$(diff transaction.txt "$FILE_OUT")"
+						if [ "$RESULT" != "" ]
+							then
+							echo "$RESULT"
+							echo "Test Case "$INC": FAILED" >> xfr_transaction.log
+							sdiff "transaction.txt" "$FILE_OUT" >> xfr_transaction.log
+							printf "\n" >> xfr_transaction.log
+						else
+							echo "Test Case "$INC": PASSED" >> xfr_transaction.log
 						fi
 					fi
 				fi
@@ -67,7 +81,8 @@ if [ -n "$1" ] # 1:Program
 				if [ "$FILE_LOG" != "xfr_out.log" ]
 					then
 					LOUT="${FILE_LOG:1:1}"
-					if [[ "$LOUT" -eq "$INC" ]]
+					LOUT2="${FILE_LOG:0:2}"
+					if [[ "$LOUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]]
 						then
 						LRESULT="$(diff output.txt "$FILE_LOG")"
 						if [ "$LRESULT" != "" ] # == are no differences
@@ -78,6 +93,19 @@ if [ -n "$1" ] # 1:Program
 							echo -e "-----------------------------------------------------------------------\n" >> xfr_out.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> xfr_out.log
+						fi
+					fi
+					if [[ "$INC" -ge 10 ]] && [[ "$LOUT2" == "$INC" ]]
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then
+							echo "Test Case "$INC": FAILED" >> xfr_out.log
+							echo -e "-----------------------------------------------------------------------" >> xfr_out.log
+							cat "output.txt" >> xfr_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> xfr_out.log
+						else
+							echo "Test Case "$INC": PASSED" >> xfr_out.log
 						fi
 					fi
 				fi

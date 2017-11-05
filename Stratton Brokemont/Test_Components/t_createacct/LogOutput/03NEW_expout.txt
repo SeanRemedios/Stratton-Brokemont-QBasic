@@ -3,4 +3,5 @@
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create an account:
+Enter Command (enter help for options) > Enter an account number to create account: Error: Account already exists.
+Enter an account number to create account: Error: Invalid Entry.

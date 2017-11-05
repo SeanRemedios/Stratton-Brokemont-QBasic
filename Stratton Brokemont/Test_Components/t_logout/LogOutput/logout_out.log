@@ -1,47 +1,7 @@
 
 Log Test Output:
 
-Test Case 01: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 02: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 03: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 04: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED

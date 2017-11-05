@@ -3,4 +3,6 @@
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number: Enter an amount: Error: Invalid Entry.
+Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE

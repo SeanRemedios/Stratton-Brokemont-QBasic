@@ -1,14 +1,8 @@
 
 Transaction Test Output: 						 Expected Output: 
 
-Test Case 01: FAILED
-XFR 1000001 50000 1010011 ***				      |	XFR 1000001 50000 1010011 ***								
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
-Test Case 02: FAILED
-XFR 1000001 8000000 1010011 ***				      |	XFR 1000001 8000000 1010011 ***								
-EOS 0000000 000 0000000 ***					EOS 0000000 000 0000000 ***
-
+Test Case 01: PASSED
+Test Case 02: PASSED
 Test Case 03: PASSED
 Test Case 04: PASSED
 Test Case 05: PASSED

@@ -3,4 +3,4 @@
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number to create an account: Enter an account name: Error: Invalid Entry.
+Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Invalid Entry.

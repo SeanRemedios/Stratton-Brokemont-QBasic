@@ -18,6 +18,7 @@
 #define MIN_NAME_LENGTH		3
 
 
+// Tracks accounts that were recently created or deleted
 typedef struct acct_node {
     Int account;
     struct acct_node * next;

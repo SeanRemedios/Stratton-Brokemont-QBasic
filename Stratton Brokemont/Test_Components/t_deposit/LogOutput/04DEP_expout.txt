@@ -1,1 +1,6 @@
-I don't think we need to test this
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): Error: Invalid Entry.

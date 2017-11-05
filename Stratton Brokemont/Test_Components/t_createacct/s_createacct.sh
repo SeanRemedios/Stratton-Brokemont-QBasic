@@ -95,7 +95,7 @@ if [ -n "$1" ] # 1:Program
 							echo "Test Case 0"$INC": PASSED" >> new_out.log
 						fi
 					fi
-					if [[ "$INC" -ge 10 ]] && [[ "$LOUT" -eq "$INC" ]]
+					if [[ "$INC" -ge 10 ]] && [[ "$LOUT2" == "$INC" ]]
 						then
 						LRESULT="$(diff output.txt "$FILE_LOG")"
 						if [ "$LRESULT" != "" ] # == are no differences

@@ -23,6 +23,7 @@ extern Input s_input;
 
 extern Bool createTransaction(Int i_trans);
 
+
 /*
  * Asks for the users info and verifies it. A general function that can take any input and length
  * and get it from the user.
@@ -68,6 +69,7 @@ Int getInfo (const Char* cs_printstring, Int i_length) {
 			printf("Error: Invalid Entry.\n");
 			memset(cs_input, RESERVED, i_length); // Clears Char* array
 
+			// If in testing mode and fails here
 			#ifdef TESTING
 				createTransaction(6);
 				rename(".tmp.txt", s_input.trans_path);
@@ -166,6 +168,7 @@ Bool checkAmount(const Char* cs_input, Int i_length) {
 	return b_checkResult;
 }
 
+
 /*
  * A general check function to check every input to see if it is semantically correct
  *
@@ -246,18 +249,21 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 	Int i_sizeValAcctArr = sizeof(s_input.valid_accts);
 
 	// Find if account doesn't exist
+	// All transactions except create account
 	if ((e_trans != NEW) && (e_trans != EOS) && (e_trans != ERROR)) {
 		if (binary_search(s_input.valid_accts, 0, i_sizeValAcctArr, i_account) == -1) {
 			printf("Error: Account does not exist.\n");
 			b_result = FALSE;
 		}
-
 	// Find if account already exists
-	} else if (e_trans == NEW) {
+	// All transactions except create account
+	} else if ((e_trans == NEW) && (e_trans != EOS) && (e_trans != ERROR)) {
 		if (binary_search(s_input.valid_accts, 0, i_sizeValAcctArr, i_account) != -1) {
 			printf("Error: Account already exists.\n");
 			b_result = FALSE;
 		}
+	} else {
+		b_result = FALSE; // Error
 	}
 
 	return b_result;
@@ -265,7 +271,7 @@ Bool checkAccountExists(Int i_account, Transactions e_trans) {
 
 
 /*
- * Simple binary search function to find an account
+ * Simple binary search function to find an account, descending order
  * 
  * Input:	i_val_accts - Array of accounts (sorted descending)
  * 			i_low - Lowest index

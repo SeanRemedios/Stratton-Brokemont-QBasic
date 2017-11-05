@@ -42,8 +42,9 @@ if [ -n "$1" ] # 1:Program
 			do
 				if [ "$FILE_OUT" != "mach_transaction.log" ] && [ "$FILE_OUT" != "output.txt" ]
 					then
-					OUT="${FILE_OUT:1:1}"
-					if [[ "$OUT" -eq "$INC" ]]
+					OUT="${FILE_OUT:1:1}" # < 10
+					OUT2="${FILE_OUT:0:2}" # <= 10
+					if [[ "$OUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]] # Test case is < 10
 						then
 						RESULT="$(diff transaction.txt "$FILE_OUT")"
 						if [ "$RESULT" != "" ]
@@ -53,6 +54,19 @@ if [ -n "$1" ] # 1:Program
 							printf "\n" >> mach_transaction.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> mach_transaction.log
+						fi
+					fi
+					if  [[ "$INC" -ge 10 ]] && [[ "$OUT2" == "$INC" ]] # Test case is >= 10
+						then
+						RESULT="$(diff transaction.txt "$FILE_OUT")"
+						if [ "$RESULT" != "" ]
+							then
+							echo "$RESULT"
+							echo "Test Case "$INC": FAILED" >> mach_transaction.log
+							sdiff "transaction.txt" "$FILE_OUT" >> mach_transaction.log
+							printf "\n" >> mach_transaction.log
+						else
+							echo "Test Case "$INC": PASSED" >> mach_transaction.log
 						fi
 					fi
 				fi
@@ -67,7 +81,8 @@ if [ -n "$1" ] # 1:Program
 				if [ "$FILE_LOG" != "mach_out.log" ]
 					then
 					LOUT="${FILE_LOG:1:1}"
-					if [[ "$LOUT" -eq "$INC" ]]
+					LOUT2="${FILE_LOG:0:2}"
+					if [[ "$LOUT" -eq "$INC" ]] && [[ "$INC" -lt 10 ]]
 						then
 						LRESULT="$(diff output.txt "$FILE_LOG")"
 						if [ "$LRESULT" != "" ] # == are no differences
@@ -78,6 +93,19 @@ if [ -n "$1" ] # 1:Program
 							echo -e "-----------------------------------------------------------------------\n" >> mach_out.log
 						else
 							echo "Test Case 0"$INC": PASSED" >> mach_out.log
+						fi
+					fi
+					if [[ "$INC" -ge 10 ]] && [[ "$LOUT2" == "$INC" ]]
+						then
+						LRESULT="$(diff output.txt "$FILE_LOG")"
+						if [ "$LRESULT" != "" ] # == are no differences
+							then
+							echo "Test Case "$INC": FAILED" >> mach_out.log
+							echo -e "-----------------------------------------------------------------------" >> mach_out.log
+							cat "output.txt" >> mach_out.log
+							echo -e "-----------------------------------------------------------------------\n" >> mach_out.log
+						else
+							echo "Test Case "$INC": PASSED" >> mach_out.log
 						fi
 					fi
 				fi

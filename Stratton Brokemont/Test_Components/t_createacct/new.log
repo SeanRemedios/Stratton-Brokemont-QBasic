@@ -16,100 +16,13 @@ Test Case 10: PASSED
 
 Log Test Output:
 
-Test Case 01: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > Enter an account number: Error: Account does not exist.
-Enter an account number: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 02: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 03: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Error: Account already exists.
-Enter an account number to create account: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 04: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 05: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Name too long.
------------------------------------------------------------------------
-
-Test Case 06: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 07: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Error: Invalid Entry.
------------------------------------------------------------------------
-
-Test Case 08: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: 
-Enter Command (enter help for options) > LOGOUT SUCCESSFUL
-DONE
------------------------------------------------------------------------
-
-Test Case 09: FAILED
------------------------------------------------------------------------
-
-> LOGIN SUCCESSFUL
-
-Enter User > Passed
-
-Enter Command (enter help for options) > Enter an account number to create account: Enter an account name: Error: Invalid Entry.
------------------------------------------------------------------------
-
+Test Case 01: PASSED
+Test Case 02: PASSED
+Test Case 03: PASSED
+Test Case 04: PASSED
+Test Case 05: PASSED
+Test Case 06: PASSED
+Test Case 07: PASSED
+Test Case 08: PASSED
+Test Case 09: PASSED
+Test Case 10: PASSED

@@ -3,5 +3,7 @@
 
 Enter User > Passed
 
-Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents):
-Enter Command (enter help for options) > Enter account number: Enter an amount (in cents): Error: Withdraw session total will exceed $1000
+Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
+Enter Command (enter help for options) > Enter an account number: Enter an amount (in cents): 
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE
