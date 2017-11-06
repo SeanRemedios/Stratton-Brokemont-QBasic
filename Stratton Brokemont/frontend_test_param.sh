@@ -31,7 +31,7 @@ if [ -d "$RESULTS" ] # 3:Test_Results Folder
 	
 	if [ "$(ls -A "$RESULTS" 2> /dev/null)" == "" ] # Lists all entries except . and ..
 		then
-		LATEST="$(ls -rt | tail -n 1)" # Gets latest file based on time
+		LATEST="$(ls -rt *.log | tail -n 1)" # Gets latest file based on time
 		INC="${LATEST:1:1}" # 1, 2, 3 ...
 		INC2="${LATEST:1:2}" # 01, 02,..., 10, 11 ...
 		C="${LATEST:2:1}" # '_' or number to check if >10 files
