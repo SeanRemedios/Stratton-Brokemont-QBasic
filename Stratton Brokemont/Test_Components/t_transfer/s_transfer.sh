@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# =================================================================================================================
+# All the shell scripts are the same with very minor differences so s_account.sh is the only one that was commented
+# for CISC 326, Fall 2017
+# By Stratton Brokemont: Sean Remedios, Taylor Simpson, Matt Rodgers, Stefan Decimelli
+# =================================================================================================================
+
 echo "Transfer Test"
 
 if [ -n "$1" ] # 1:Program
