@@ -4,11 +4,15 @@
 
 #include "process.h"
 #include "check.h"
+#include "log.h"
 
 extern InputLists s_inputLists;
+extern LogStructure s_log;
 
 extern TranInfo pop(Stack* stack);
 extern Bool check(TranInfo *s_fullTrans);
+extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
+extern void initLog(void);
 
 extern Stack* createStack(unsigned capacity); // TEMPORARY
 extern void push(Stack* st_transStack, TranInfo item); // TEMPORARY
@@ -33,6 +37,7 @@ Bool processTransaction(void) {
 
 		if (!b_transResult) {
 			printf("Transaction Error\n");
+			exit (-1); // Error with a transaction, abort
 			continue; // Invalid transaction, move to next transaction
 		}
 
@@ -123,25 +128,32 @@ Bool processDEP(Int i_account, Int i_amount) {
  */
 Bool processWDR(Int i_account, Int i_amount) {
 	Bool b_result = FALSE;
+	Bool b_logWrite = TRUE;
 	LinkedList *s_current = NULL;
+	Uint16 tempbalance = 0;
 
 	if (checkAccountExists(i_account)) { // Account exists
 
 		s_current = iterateMasterList(s_inputLists.ll_oldMasterList, i_account);
 
 		if (s_current != NULL) {
-			s_current->balance -= i_amount;
+			tempbalance = s_current->balance - i_amount;
+			if (tempbalance < 0) {
+				BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, i_amount, "");
+				b_logWrite = writeFile(LOG_FILE, "\tError: Account will have a negative balance. Transaction not processed\n"); 
+			} else {
+				s_current->balance -= i_amount;
+			}
 			b_result = TRUE;
 		}
 	}
 
-	return b_result;
+	return (b_result && b_logWrite);
 }
 
 
 /*
- * Processes the create account transacation. Already checked to see if account
- * exists in the checkAccount function so we don't need to do it again here.
+ * Processes the create account transacation.
  *
  * Input:	i_account: An account to be created
  *			ca_name: The account name
@@ -150,27 +162,36 @@ Bool processWDR(Int i_account, Int i_amount) {
  */
 Bool processNEW(Int i_account, Char* ca_name) {
 	Bool b_result = FALSE;
+	Bool b_logWrite = TRUE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 	LinkedList *s_newAccount = malloc(sizeof(LinkedList));
 	
-	// Allocate space for the name
-	s_newAccount->name = malloc(sizeof(Char*));
+	if (!checkAccountExists(i_account)) { // Account does not exist
 
-	// Create a new account
-	s_newAccount->account = i_account;
-	s_newAccount->balance = 000;
-	memcpy(s_newAccount->name, ca_name, strlen(ca_name));
+		// Allocate space for the name
+		s_newAccount->name = malloc(sizeof(Char*));
 
-	while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
-		s_current = s_current->next;
+		// Create a new account
+		s_newAccount->account = i_account;
+		s_newAccount->balance = START_BAL;
+		memcpy(s_newAccount->name, ca_name, strlen(ca_name));
+
+		while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
+			s_current = s_current->next;
+		}
+
+		// Insert new account node before next node so list stays sorted
+		s_newAccount->next = s_current->next;
+		s_current->next = s_newAccount;
+
+		b_result = TRUE;
+
+	} else {
+		BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name);
+		b_logWrite = writeFile(LOG_FILE, "\tError: Account number for requested new account already exists\n"); 
 	}
 
-	s_newAccount->next = s_current->next;
-	s_current->next = s_newAccount;
-
-	b_result = TRUE;
-
-	return b_result;
+	return (b_result && b_logWrite);
 }
 
 
@@ -184,6 +205,7 @@ Bool processNEW(Int i_account, Char* ca_name) {
  */
 Bool processDEL(Int i_account, Char* ca_name) {
 	Bool b_result = FALSE;
+	Bool b_logWrite = TRUE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 
 	if (checkAccountExists(i_account)) { // Account exists
@@ -192,18 +214,19 @@ Bool processDEL(Int i_account, Char* ca_name) {
 			// Account matches
 			if (s_current->next->account == i_account) {
 				b_result = TRUE;
-				printf("%s - %s\n", s_current->next->name, ca_name);
 				
 				// Make sure the name is the same
 				if (strncmp(s_current->next->name, ca_name, strlen(s_current->next->name))) {
-					printf("name failed\n");
+					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name);
+					b_logWrite = writeFile(LOG_FILE, "\tError: Name for requested deleted account does not match existing account\n"); 
 					// Log error, name is not the same
 					b_result = FALSE;
 				}
 				
 				// Make sure the account balance is 0
 				if (s_current->next->balance != 0) {
-					printf("balance failed\n");
+					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name);
+					b_logWrite = writeFile(LOG_FILE, "\tError: Balance for requested deleted account is not 0\n"); 
 					// Log error, amount is less than or equal to 0
 					b_result = FALSE;
 				}
@@ -218,7 +241,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 		}
 	}
 
-	return b_result;
+	return (b_result && b_logWrite);
 }
 
 
@@ -308,6 +331,7 @@ int main() {
 	push(s_inputLists.st_transStack, transaction1);
 	push(s_inputLists.st_transStack, transaction2);
 
+	initLog();
 	processTransaction();
 
 	print_list();
