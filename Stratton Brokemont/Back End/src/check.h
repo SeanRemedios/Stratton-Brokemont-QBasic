@@ -5,12 +5,19 @@
 #include "readargs.h"
 
 #define INVALID_ACCOUNT		0000000
+#define MIN_ACCOUNT			1000000
+#define MAX_ACCOUNT			9999999
+#define MIN_AMOUNT			000
+#define MAX_AMOUNT			99999999
+#define MIN_NAME_LEN		3
+#define MAX_NAME_LEN		30
+#define UNUSED_NAME			"***"
 
 Bool check(TranInfo *s_fullTrans);
 Bool checkTransaction(Transactions e_trans);
 Bool checkAccount(Int i_account);
 Bool checkAmount(Int i_amount);
 Bool checkName(Char* ca_name);
-Bool checkAccountExists(Int i_account);
+
 
 #endif

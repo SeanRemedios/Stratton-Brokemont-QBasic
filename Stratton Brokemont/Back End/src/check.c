@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "check.h"
 
@@ -22,33 +24,59 @@ Bool check(TranInfo *s_fullTrans) {
 
 
 Bool checkTransaction(Transactions e_trans) {
-	return TRUE;
+	Bool b_result = FALSE;
+
+	if ((e_trans > ERR) && (e_trans < EOS)) {
+		b_result = TRUE;
+	}
+
+	return b_result;
 }
 
 
 Bool checkAccount(Int i_account) {
 	Bool b_result = TRUE;
-	Bool b_acctExists = TRUE;
 
 	if (i_account != INVALID_ACCOUNT) {
-		// Check account validity
-		b_acctExists = checkAccountExists(i_account);
-	}
+		// Not invalid account so potential account number
+		if ((i_account < MIN_ACCOUNT) || (i_account > MAX_ACCOUNT)) {
+			b_result = FALSE;
+		}
+	} 
 
-	return (b_result && b_acctExists);
+	return b_result;
 }
 
 
 Bool checkAmount(Int i_amount) {
-	return TRUE;
+	Bool b_result = TRUE;
+
+	if ((i_amount < MIN_AMOUNT) || (i_amount > MAX_AMOUNT)) {
+		b_result = FALSE;
+	}
+
+	return b_result;
 }
 
 
 Bool checkName(Char* ca_name) {
-	return TRUE;
-}
+	Bool b_result = TRUE;
+	Int i_counter;
+	Int i_nameLen = strlen(ca_name);
 
+	// If name is not the unused account then check it
+	if (strncmp(UNUSED_NAME, ca_name, strlen(UNUSED_NAME))) {
+		if ((strlen(ca_name) < MIN_NAME_LEN) || (strlen(ca_name) > MAX_NAME_LEN)) {
+			b_result = FALSE;
+		}
 
-Bool checkAccountExists(Int i_account) {
+		for (i_counter = 0; i_counter < i_nameLen; i_counter++) {
+			if (!isalnum(ca_name[i_counter])) {
+				b_result = FALSE;
+				break;
+			}
+		}
+	}
+
 	return TRUE;
 }

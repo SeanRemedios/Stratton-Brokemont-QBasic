@@ -13,21 +13,32 @@ typedef enum {
 	EOS
 } Transactions;
 
+typedef struct node {
+	Int account;
+	Int balance;
+	Char* name;
+	struct node* next;
+} LinkedList;
+
 typedef struct {
-		Transactions transaction;
-		int toAccount;
-		int amount;
-		int fromAccount;
-		char* name;
+	Transactions transaction;
+	int toAccount;
+	int amount;
+	int fromAccount;
+	char* name;
 } TranInfo;
 
 // A structure to represent a stack
-typedef struct
-{
+typedef struct {
 	int top;
 	unsigned capacity;
 	TranInfo* array;
 } Stack;
+
+typedef struct {
+	Stack* st_transStack;
+	LinkedList* ll_oldMasterList;
+} InputLists;
 
 
 
