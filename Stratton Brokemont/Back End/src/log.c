@@ -29,6 +29,9 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 }
 
 
+/*
+ * Initializes the log structure and removes any previous log files
+ */
 void initLog(void) {
 	remove(LOG_FILE);
 	memset(s_log.logOutput, RESERVED, strlen(s_log.logOutput));

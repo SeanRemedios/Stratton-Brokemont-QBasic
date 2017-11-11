@@ -5,6 +5,7 @@
 #include "readargs.h"
 
 #define START_BAL 	000
+#define MIN_BALANCE	0
 
 Bool processTransaction(void);
 Bool findTransaction(TranInfo *s_fullTrans);

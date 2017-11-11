@@ -128,7 +128,6 @@ Bool processDEP(Int i_account, Int i_amount) {
  */
 Bool processWDR(Int i_account, Int i_amount) {
 	Bool b_result = FALSE;
-	Bool b_logWrite = TRUE;
 	LinkedList *s_current = NULL;
 	Uint16 tempbalance = 0;
 
@@ -139,8 +138,8 @@ Bool processWDR(Int i_account, Int i_amount) {
 		if (s_current != NULL) {
 			tempbalance = s_current->balance - i_amount;
 			if (tempbalance < 0) {
-				BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, i_amount, "");
-				b_logWrite = writeFile(LOG_FILE, "\tError: Account will have a negative balance. Transaction not processed\n"); 
+				BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, i_amount, "", 
+					"Error: Account will have a negative balance. Transaction not processed"); 
 			} else {
 				s_current->balance -= i_amount;
 			}
@@ -148,7 +147,7 @@ Bool processWDR(Int i_account, Int i_amount) {
 		}
 	}
 
-	return (b_result && b_logWrite);
+	return b_result;
 }
 
 
@@ -162,7 +161,6 @@ Bool processWDR(Int i_account, Int i_amount) {
  */
 Bool processNEW(Int i_account, Char* ca_name) {
 	Bool b_result = FALSE;
-	Bool b_logWrite = TRUE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 	LinkedList *s_newAccount = malloc(sizeof(LinkedList));
 	
@@ -187,11 +185,12 @@ Bool processNEW(Int i_account, Char* ca_name) {
 		b_result = TRUE;
 
 	} else {
-		BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name);
-		b_logWrite = writeFile(LOG_FILE, "\tError: Account number for requested new account already exists\n"); 
+		BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, 
+			i_account, START_BAL, ca_name,  
+			"Error: Account number for requested new account already exists"); 
 	}
 
-	return (b_result && b_logWrite);
+	return b_result;
 }
 
 
@@ -205,7 +204,6 @@ Bool processNEW(Int i_account, Char* ca_name) {
  */
 Bool processDEL(Int i_account, Char* ca_name) {
 	Bool b_result = FALSE;
-	Bool b_logWrite = TRUE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 
 	if (checkAccountExists(i_account)) { // Account exists
@@ -217,16 +215,16 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				
 				// Make sure the name is the same
 				if (strncmp(s_current->next->name, ca_name, strlen(s_current->next->name))) {
-					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name);
-					b_logWrite = writeFile(LOG_FILE, "\tError: Name for requested deleted account does not match existing account\n"); 
+					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name,
+						"Error: Name for requested deleted account does not match existing account"); 
 					// Log error, name is not the same
 					b_result = FALSE;
 				}
 				
 				// Make sure the account balance is 0
-				if (s_current->next->balance != 0) {
-					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name);
-					b_logWrite = writeFile(LOG_FILE, "\tError: Balance for requested deleted account is not 0\n"); 
+				if (s_current->next->balance != MIN_BALANCE) {
+					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name,
+						"Error: Balance for requested deleted account is not 0"); 
 					// Log error, amount is less than or equal to 0
 					b_result = FALSE;
 				}
@@ -241,7 +239,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 		}
 	}
 
-	return (b_result && b_logWrite);
+	return b_result;
 }
 
 
