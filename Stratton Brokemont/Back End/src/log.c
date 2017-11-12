@@ -31,6 +31,10 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 
 /*
  * Initializes the log structure and removes any previous log files
+ *
+ * Input:	None
+ *
+ * Output:	None
  */
 void initLog(void) {
 	remove(LOG_FILE);

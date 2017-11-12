@@ -4,6 +4,13 @@
 
 #include "check.h"
 
+/*
+ * Checks each part of the full transaction separately and combines them
+ * 
+ * Input:	s_fullTrans: A full transaction structure 
+ * 
+ * Output:	b_result: If all the fields passed or not
+ */
 Bool check(TranInfo *s_fullTrans) {
 	Bool b_result = TRUE;
 
@@ -23,6 +30,14 @@ Bool check(TranInfo *s_fullTrans) {
 }
 
 
+/*
+ * Checks if the transaction is valid
+ *
+ * Input:	e_trans: A transaction
+ *
+ * Output:	b_result: If the transaction was valid or not
+ *
+ */
 Bool checkTransaction(Transactions e_trans) {
 	Bool b_result = FALSE;
 
@@ -34,6 +49,13 @@ Bool checkTransaction(Transactions e_trans) {
 }
 
 
+/*
+ * Checks if an account is valid (does not check if it exists here)
+ *
+ * Input:	i_account: An account
+ *
+ * Output:	b_result: If the account was valid or not
+ */
 Bool checkAccount(Int i_account) {
 	Bool b_result = TRUE;
 
@@ -48,6 +70,13 @@ Bool checkAccount(Int i_account) {
 }
 
 
+/*
+ * Checks if an amount is valid
+ *
+ * Input:	i_amount: An amount
+ *
+ * Output:	b_result: If the amount was valid or not
+ */
 Bool checkAmount(Int i_amount) {
 	Bool b_result = TRUE;
 
@@ -59,6 +88,14 @@ Bool checkAmount(Int i_amount) {
 }
 
 
+/*
+ * Checks if an account name is valid. Checks length and if any character is
+ * not alphanumeric
+ *
+ * Input:	ca_name: An account name
+ *
+ * Output:	b_result: If the name was valid or not
+ */
 Bool checkName(Char* ca_name) {
 	Bool b_result = TRUE;
 	Int i_counter;
@@ -70,6 +107,7 @@ Bool checkName(Char* ca_name) {
 			b_result = FALSE;
 		}
 
+		// Checking every character for alphanumeric
 		for (i_counter = 0; i_counter < i_nameLen; i_counter++) {
 			if (!isalnum(ca_name[i_counter])) {
 				b_result = FALSE;
@@ -78,5 +116,5 @@ Bool checkName(Char* ca_name) {
 		}
 	}
 
-	return TRUE;
+	return b_result;
 }
