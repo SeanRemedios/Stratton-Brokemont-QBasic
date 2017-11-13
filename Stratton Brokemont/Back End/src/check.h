@@ -9,6 +9,7 @@
 #define MAX_ACCOUNT			9999999
 #define MIN_AMOUNT			000
 #define MAX_AMOUNT			99999999
+#define START_BALANCE		MIN_AMOUNT
 #define MIN_NAME_LEN		3
 #define MAX_NAME_LEN		30
 #define UNUSED_NAME			"***"

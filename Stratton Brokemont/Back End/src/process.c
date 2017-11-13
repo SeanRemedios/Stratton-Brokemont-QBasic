@@ -288,43 +288,43 @@ void print_list(void) {
 
 
 
-int main() {
-	s_inputLists.st_transStack = createStack(100);
+// int main() {
+// 	s_inputLists.st_transStack = createStack(100);
 
-	s_inputLists.ll_oldMasterList = NULL;
-	s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));
+// 	s_inputLists.ll_oldMasterList = NULL;
+// 	s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));
 	
-	s_inputLists.ll_oldMasterList->account = 0000000;
-	s_inputLists.ll_oldMasterList->balance = 000;
-	s_inputLists.ll_oldMasterList->name = "***";
-	s_inputLists.ll_oldMasterList->next = malloc(sizeof(LinkedList));
+// 	s_inputLists.ll_oldMasterList->account = 0000000;
+// 	s_inputLists.ll_oldMasterList->balance = 000;
+// 	s_inputLists.ll_oldMasterList->name = "***";
+// 	s_inputLists.ll_oldMasterList->next = malloc(sizeof(LinkedList));
 	
-	s_inputLists.ll_oldMasterList->next->account = 1234565;
-	s_inputLists.ll_oldMasterList->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->name = "taylor";
-	s_inputLists.ll_oldMasterList->next->next = malloc(sizeof(LinkedList));
+// 	s_inputLists.ll_oldMasterList->next->account = 1234565;
+// 	s_inputLists.ll_oldMasterList->next->balance = 000;
+// 	s_inputLists.ll_oldMasterList->next->name = "taylor";
+// 	s_inputLists.ll_oldMasterList->next->next = malloc(sizeof(LinkedList));
 
-	s_inputLists.ll_oldMasterList->next->next->account = 1234567;
-	s_inputLists.ll_oldMasterList->next->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->next->name = "sean";
-	s_inputLists.ll_oldMasterList->next->next->next = NULL;
+// 	s_inputLists.ll_oldMasterList->next->next->account = 1234567;
+// 	s_inputLists.ll_oldMasterList->next->next->balance = 000;
+// 	s_inputLists.ll_oldMasterList->next->next->name = "sean";
+// 	s_inputLists.ll_oldMasterList->next->next->next = NULL;
 
-	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
-	TranInfo transaction2 = {DEL,1234567,000,000,"sean"};
+// 	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
+// 	TranInfo transaction2 = {DEL,1234567,000,000,"sean"};
 
-	printf("Old Master Accounts List:\n");
-	print_list();
+// 	printf("Old Master Accounts List:\n");
+// 	print_list();
 
-	push(s_inputLists.st_transStack, transaction1);
-	push(s_inputLists.st_transStack, transaction2);
+// 	push(s_inputLists.st_transStack, transaction1);
+// 	push(s_inputLists.st_transStack, transaction2);
 
-	initLog();
-	processTransaction();
+// 	initLog();
+// 	processTransaction();
 
-	printf("-----------------------\n");
-	printf("New Master Accounts List:\n");
-	print_list();
+// 	printf("-----------------------\n");
+// 	printf("New Master Accounts List:\n");
+// 	print_list();
 
-}
+// }
 
 

@@ -37,7 +37,6 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
  * Output:	None
  */
 void initLog(void) {
-	remove(LOG_FILE);
 	memset(s_log.logOutput, RESERVED, strlen(s_log.logOutput));
 	s_log.logCounter = 1;
 }

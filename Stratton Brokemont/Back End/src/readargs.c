@@ -4,13 +4,13 @@
 #include <limits.h>
 
 #include "readargs.h"
+#include "check.h"
 
 InputLists s_inputLists;
 
 // function to create a stack of given capacity. It initializes size of
 // stack as 0
-Stack* createStack(Uint32 capacity)
-{
+Stack* createStack(Uint32 capacity) {
 	Stack* st_transStack = (Stack*) malloc(sizeof(Stack));
 	st_transStack->capacity = capacity;
 	st_transStack->top = -1;
@@ -19,30 +19,36 @@ Stack* createStack(Uint32 capacity)
 }
 
 // Stack is full when top is equal to the last index
-int isFull(Stack* st_transStack)
-{ return st_transStack->top == st_transStack->capacity - 1; }
+Int isFull(Stack* st_transStack) { 
+	return (st_transStack->top == (st_transStack->capacity - 1)); 
+}
 
 // Stack is empty when top is equal to -1
-int isEmpty(Stack* st_transStack)
-{ return st_transStack->top == -1; }
+Int isEmpty(Stack* st_transStack) { 
+	return (st_transStack->top == -1); 
+}
 
 // Function to add an item to stack. It increases top by 1
-void push(Stack* st_transStack, TranInfo item)
-{
-	if (isFull(st_transStack))
-		return;
-	st_transStack->array[++st_transStack->top] = item;
+void push(Stack* st_transStack, TranInfo item){
+	if (!isFull(st_transStack)) {
+		st_transStack->array[++st_transStack->top] = item;
+	}
 	//printf("%d %d %d %d %s pushed to stack\n", item.transaction, item.toAccount, item.amount, item.fromAccount, item.name);
 }
 
 // Function to remove an item from stack. It decreases top by 1
-TranInfo pop(Stack* st_transStack)
-{
-	TranInfo emptyTranInfo = {EOS,0000000,000,000000,"***"};
-	if (isEmpty(st_transStack))
-		return emptyTranInfo;
-	return st_transStack->array[st_transStack->top--];
+TranInfo pop(Stack* st_transStack) {
+	TranInfo s_transaction;
+	TranInfo s_emptyTranInfo = {EOS,INVALID_ACCOUNT,START_BALANCE,INVALID_ACCOUNT,UNUSED_NAME};
+
+	if (isEmpty(st_transStack)) {
+		s_transaction = s_emptyTranInfo;
+	} else {
+		s_transaction = st_transStack->array[st_transStack->top--];
+	}
+	return s_transaction;
 }
+
 // Driver program to test above functions
 // int main()
 // {

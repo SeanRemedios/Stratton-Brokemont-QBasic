@@ -18,8 +18,6 @@ Bool formatMasterOutput(LinkedList *ll_oldMasterList) {
 	LinkedList *s_current = ll_oldMasterList;
 	Char* ca_output = malloc(MASTER_OUTPUT_LEN); // Allocate space
 
-	remove(MASTER_FILE); // Removes the master file so it can be overwritten
-
 	while (s_current != NULL) {
 		
 		createOutput(s_current, ca_output); // Create the output string
