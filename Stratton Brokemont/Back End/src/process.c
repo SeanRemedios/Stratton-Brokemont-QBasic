@@ -13,10 +13,10 @@ extern TranInfo pop(Stack* stack);
 extern Bool check(TranInfo *s_fullTrans);
 extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
 extern void initLog(void);
+extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
 extern Stack* createStack(unsigned capacity); // TEMPORARY
 extern void push(Stack* st_transStack, TranInfo item); // TEMPORARY
-extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
 
 /*
@@ -25,10 +25,11 @@ extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
  *
  * Input:	None
  *
- * Output:	b_transResult: Transactions were successful or not
+ * Output:	b_result: Writing to the master accounts file was successful or not
  */
 Bool processTransaction(void) {
 	TranInfo s_fullTrans;
+	Bool b_result;
 	Bool b_transResult = TRUE;
 
 	do {
@@ -46,7 +47,9 @@ Bool processTransaction(void) {
 
 	} while (!isEmpty(s_inputLists.st_transStack));
 
-	return TRUE;
+	b_result = formatMasterOutput(s_inputLists.ll_oldMasterList);
+
+	return b_result;
 }
 
 
@@ -62,29 +65,29 @@ Bool findTransaction(TranInfo *s_fullTrans) {
 
 	switch (s_fullTrans->transaction) {
 		case DEP:
-			printf("DEP Transaction\n");
+			//printf("DEP Transaction\n");
 			b_result = processDEP(s_fullTrans->toAccount, s_fullTrans->amount);
 			break;
 		case WDR:
-			printf("WDR Transaction\n");
+			//printf("WDR Transaction\n");
 			b_result = processWDR(s_fullTrans->fromAccount, s_fullTrans->amount);
 			break;
 		case XFR:
-			printf("XFR Transaction\n");
+			//printf("XFR Transaction\n");
 			// Transfer = deposit into one account, withdraw from another
 			b_result = processDEP(s_fullTrans->toAccount, s_fullTrans->amount) 
 					&& processWDR(s_fullTrans->fromAccount, s_fullTrans->amount);
 			break;
 		case NEW:
-			printf("NEW Transaction\n");
+			//printf("NEW Transaction\n");
 			b_result = processNEW(s_fullTrans->toAccount, s_fullTrans->name);
 			break;
 		case DEL:
-			printf("DEL Transaction\n");
+			//printf("DEL Transaction\n");
 			b_result = processDEL(s_fullTrans->toAccount, s_fullTrans->name);
 			break;
 		default: // EOS and ERR are not possible (filtered in checkTransaction)
-			printf("DEFAULT Transaction\n");
+			//printf("DEFAULT Transaction\n");
 			b_result = FALSE;
 			break;
 	}
@@ -138,7 +141,7 @@ Bool processWDR(Int i_account, Int i_amount) {
 		tempbalance = s_current->balance - i_amount; // Don't assign yet, might be negative
 
 		if (tempbalance < 0) { // If there will be a negative balance, ignore transaction
-			BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, i_amount, "", 
+			BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, i_amount, "", 
 				"Error: Account will have a negative balance. Transaction not processed"); 
 		} else {
 			// Not negative, can assign now
@@ -188,7 +191,7 @@ Bool processNEW(Int i_account, Char* ca_name) {
 
 	} else {
 		// Account exists, log error and ignore transaction
-		BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, 
+		BUILD_LOG(s_log.logOutput, s_log.logCounter, 
 			i_account, START_BAL, ca_name,  
 			"Error: Account number for requested new account already exists"); 
 	}
@@ -219,7 +222,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				
 				// Make sure the name is the same
 				if (strncmp(s_current->next->name, ca_name, strlen(ca_name))) {
-					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name,
+					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name,
 						"Error: Name for requested deleted account does not match existing account"); 
 					// Log error, name is not the same
 					b_result = FALSE;
@@ -227,7 +230,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				
 				// Make sure the account balance is 0
 				if (s_current->next->balance != MIN_BALANCE) {
-					BUILD_LOG(s_log.logCounter, s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name,
+					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name,
 						"Error: Balance for requested deleted account is not 0"); 
 					// Log error, amount is less than or equal to 0
 					b_result = FALSE;
@@ -316,8 +319,6 @@ int main() {
 	processTransaction();
 
 	//print_list();
-
-	formatMasterOutput(s_inputLists.ll_oldMasterList);
 
 }
 

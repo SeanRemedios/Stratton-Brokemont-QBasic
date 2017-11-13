@@ -60,8 +60,7 @@ void createOutput(LinkedList* s_currentNode, Char* ca_output) {
 		insertNumInfo(ca_output, s_currentNode->balance);
 	}
 
-	insertStrInfo(ca_output, s_currentNode->name, NEWLINE);
-	
+	insertStrInfo(ca_output, s_currentNode->name, NEWLINE);	
 }
 
 /*

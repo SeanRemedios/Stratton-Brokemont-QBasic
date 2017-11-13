@@ -32,7 +32,7 @@ void push(Stack* st_transStack, TranInfo item)
 	if (isFull(st_transStack))
 		return;
 	st_transStack->array[++st_transStack->top] = item;
-	printf("%d %d %d %d %s pushed to stack\n", item.transaction, item.toAccount, item.amount, item.fromAccount, item.name);
+	//printf("%d %d %d %d %s pushed to stack\n", item.transaction, item.toAccount, item.amount, item.fromAccount, item.name);
 }
 
 // Function to remove an item from stack. It decreases top by 1
