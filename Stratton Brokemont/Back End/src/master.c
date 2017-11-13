@@ -18,6 +18,8 @@ Bool formatMasterOutput(LinkedList *ll_oldMasterList) {
 	LinkedList *s_current = ll_oldMasterList;
 	Char* ca_output = malloc(MASTER_OUTPUT_LEN); // Allocate space
 
+	remove(MASTER_FILE); // Removes the master file so it can be overwritten
+
 	while (s_current != NULL) {
 		
 		createOutput(s_current, ca_output); // Create the output string
@@ -65,7 +67,9 @@ void createOutput(LinkedList* s_currentNode, Char* ca_output) {
 
 /*
  * Inserts an integer value into a string and then inserts a space at the end.
- * Could be a macro, but tried to stray away from multi-line macros
+ * Could be a macro, but tried to stray away from multi-line macros.
+ * Inserts a SPACE because the only numbers in the file are account # and amount
+ * and they are first, so they always have a space after them.
  *
  * Input:	ca_output: Where the output is stored
  * 			i_info: Account or balance

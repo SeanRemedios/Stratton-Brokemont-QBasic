@@ -176,7 +176,7 @@ Bool processNEW(Int i_account, Char* ca_name) {
 
 		// Create a new account
 		s_newAccount->account = i_account;
-		s_newAccount->balance = START_BAL;
+		s_newAccount->balance = MIN_AMOUNT;
 		memcpy(s_newAccount->name, ca_name, strlen(ca_name));
 
 		while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
@@ -192,7 +192,7 @@ Bool processNEW(Int i_account, Char* ca_name) {
 	} else {
 		// Account exists, log error and ignore transaction
 		BUILD_LOG(s_log.logOutput, s_log.logCounter, 
-			i_account, START_BAL, ca_name,  
+			i_account, MIN_AMOUNT, ca_name,  
 			"Error: Account number for requested new account already exists"); 
 	}
 
@@ -222,14 +222,14 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				
 				// Make sure the name is the same
 				if (strncmp(s_current->next->name, ca_name, strlen(ca_name))) {
-					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, START_BAL, ca_name,
+					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, MIN_AMOUNT, ca_name,
 						"Error: Name for requested deleted account does not match existing account"); 
 					// Log error, name is not the same
 					b_result = FALSE;
 				}
 				
 				// Make sure the account balance is 0
-				if (s_current->next->balance != MIN_BALANCE) {
+				if (s_current->next->balance != MIN_AMOUNT) {
 					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name,
 						"Error: Balance for requested deleted account is not 0"); 
 					// Log error, amount is less than or equal to 0
@@ -312,13 +312,18 @@ int main() {
 	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
 	TranInfo transaction2 = {DEL,1234567,000,000,"sean"};
 
+	printf("Old Master Accounts List:\n");
+	print_list();
+
 	push(s_inputLists.st_transStack, transaction1);
 	push(s_inputLists.st_transStack, transaction2);
 
 	initLog();
 	processTransaction();
 
-	//print_list();
+	printf("-----------------------\n");
+	printf("New Master Accounts List:\n");
+	print_list();
 
 }
 

@@ -22,16 +22,16 @@ typedef struct node {
 
 typedef struct {
 	Transactions transaction;
-	int toAccount;
-	int amount;
-	int fromAccount;
-	char* name;
+	Int toAccount;
+	Int amount;
+	Int fromAccount;
+	Char* name;
 } TranInfo;
 
 // A structure to represent a stack
 typedef struct {
-	int top;
-	unsigned capacity;
+	Int top;
+	Uint32 capacity;
 	TranInfo* array;
 } Stack;
 
@@ -42,7 +42,7 @@ typedef struct {
 
 
 
-Stack* createStack(unsigned capacity);
+Stack* createStack(Uint32 capacity);
 int isFull(Stack* stack);
 int isEmpty(Stack* stack);
 void push(Stack* stack, TranInfo item);

@@ -20,6 +20,7 @@ typedef signed char		 	Int8;
 typedef unsigned short 		Uint16;
 typedef signed short   		Int16;
 typedef int            		Int;
+typedef unsigned int 		Uint32;
 typedef Int 				Bool;
 
 #endif

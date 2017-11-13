@@ -9,7 +9,7 @@ InputLists s_inputLists;
 
 // function to create a stack of given capacity. It initializes size of
 // stack as 0
-Stack* createStack(unsigned capacity)
+Stack* createStack(Uint32 capacity)
 {
 	Stack* st_transStack = (Stack*) malloc(sizeof(Stack));
 	st_transStack->capacity = capacity;
