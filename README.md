@@ -4,7 +4,11 @@ Decimelli.
 
 for CISC 327, Fall 2017			
 
-Compiling & Starting the program:
+Compiling & Starting the Back End program:
+	1. The program can be compiled by typing gcc *.c -o BackEnd
+	2. The program can be run by typing ./BackEnd mergedtransaction.txt oldMasterAccounts.txt
+
+Compiling & Starting the Front End program:
 	1. The program can be compiled by typing 'make' in the terminal window.
 	2. The program can be started by typing ./QBasic "validAccounts.txt" "transaction.txt"
 	3. The program can be compiled for testing using: gcc *.c -o QBasic -D TESTING 

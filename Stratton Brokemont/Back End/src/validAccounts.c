@@ -1,6 +1,6 @@
 /**********************************************************************
 |
-|	validAccounts.h is property of Stratton Brokemont™
+|	validAccounts.c is property of Stratton Brokemont™
 |	Created: November 15, 2017
 |	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
 |

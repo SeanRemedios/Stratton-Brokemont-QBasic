@@ -1,3 +1,11 @@
+/**********************************************************************
+|
+|	readargs.c is property of Stratton Brokemont™
+|	Created: November 15, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
+|
+|***********************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,23 +32,8 @@ Bool buildStructures(Char* ca_transactionFile, Char* ca_oldMasterFile) {
 	readFile(ca_transactionFile, TRANSACTION);
 	readFile(ca_oldMasterFile, MASTER_ACCOUNTS);
 
-	// addNode(0000000, 000, "***");
-	// addNode(1000001, 500, "stef");
-	// addNode(1234565, 400, "taylor");
-	// addNode(1234567, 000, "sean");
-
-	// TranInfo transaction1 = {NEW,1234566,000,000,"matt"};
-	// TranInfo transaction2 = {DEL,1234567,000,000,"sean"};
-	// TranInfo transaction3 = {DEP,1000001,100,000,"stef"};
-	// TranInfo transaction4 = {WDR,000,300,1234565,"taylor"};
-
 	printf("Old Master Accounts List:\n");
 	print_list();
-
-	// push(s_inputLists.st_transStack, transaction1);
-	// push(s_inputLists.st_transStack, transaction2);
-	// push(s_inputLists.st_transStack, transaction3);
-	// push(s_inputLists.st_transStack, transaction4);
 
 	processTransaction();
 

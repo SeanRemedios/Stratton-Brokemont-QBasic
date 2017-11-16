@@ -1,3 +1,11 @@
+/**********************************************************************
+|
+|	main.c is property of Stratton Brokemont™
+|	Created: November 15, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
+|
+|***********************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 

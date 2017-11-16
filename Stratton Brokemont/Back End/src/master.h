@@ -1,3 +1,11 @@
+/**********************************************************************
+|
+|	master.h is property of Stratton Brokemont™
+|	Created: November 15, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
+|
+|***********************************************************************/
+
 #ifndef __INCLUDE_MASTER__
 	#define __INCLUDE_MASTER__
 

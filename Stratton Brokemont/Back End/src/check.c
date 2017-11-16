@@ -1,3 +1,11 @@
+/**********************************************************************
+|
+|	check.c is property of Stratton Brokemont™
+|	Created: November 15, 2017
+|	Group: Stefan Decimelli, Taylor Simpson, Sean Remedios, Matt Rodgers
+|
+|***********************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
