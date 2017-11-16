@@ -19,8 +19,7 @@ Bool processWDR(Int i_account, Int i_amount);
 Bool processNEW(Int i_account, Char* ca_name);
 Bool processDEL(Int i_account, Char* ca_name);
 LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Int i_account);
-Bool checkAccountExists(Int i_account);
-
+void removeNewLine(void);
 
 
 #endif

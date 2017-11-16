@@ -15,6 +15,6 @@
 #include "master.h"
 #include "check.h"
 
-void createMasterAccountsFile(LinkedList *linked_list, const Char* sc_filename);
+void createValidAccountsFile(LinkedList *linked_list, const Char* sc_filename);
 
 #endif

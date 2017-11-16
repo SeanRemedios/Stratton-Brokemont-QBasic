@@ -51,6 +51,8 @@ Bool processTransaction(void) {
 
 	} while (!isEmpty(s_inputLists.st_transStack));
 
+	removeNewLine();
+
 	b_result = formatMasterOutput(s_inputLists.ll_oldMasterList);
 
 	return b_result;
@@ -187,13 +189,13 @@ Bool processNEW(Int i_account, Char* ca_name) {
 		s_newAccount->balance = MIN_AMOUNT;
 		memcpy(s_newAccount->name, ca_name, strlen(ca_name));
 
-		while ((s_current->next != NULL) && (s_current->next->account > i_account)) {
+		while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
 			s_current = s_current->next;
 		}
 
 		// Insert new account node before next node so list stays sorted
-		s_newAccount->next = s_current->next->next;
-		s_current->next->next = s_newAccount;
+		s_newAccount->next = s_current->next;
+		s_current->next = s_newAccount;
 
 		b_result = TRUE;
 
@@ -282,5 +284,21 @@ LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Int i_account) {
 	return s_current;
 }
 
+
+/*
+ * Removes the newline character after each name so there are no blank lines
+ *
+ * Input: 	None
+ *
+ * Output:	None
+ */
+void removeNewLine(void) {
+	LinkedList *s_current = s_inputLists.ll_oldMasterList;
+
+	while (s_current != NULL) {
+		s_current->name[strlen(s_current->name)-1] = '\0'; // Removes newline
+		s_current = s_current->next;
+	}
+}
 
 

@@ -26,10 +26,10 @@ extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
  *
  * Output:	void
  */
- void createMasterAccountsFile(LinkedList *ll_linked_list, const Char* sc_filename) {
+ void createValidAccountsFile(LinkedList *ll_linked_list, const Char* sc_filename) {
 	if (ll_linked_list != NULL) {
 
-		createMasterAccountsFile(ll_linked_list->next, sc_filename);
+		createValidAccountsFile(ll_linked_list->next, sc_filename);
 
 		Char ca_out_str[OUT_STR_SIZE];			//output string
 		Char ca_account_str[ACCOUNT_STR_SIZE];	//account number string

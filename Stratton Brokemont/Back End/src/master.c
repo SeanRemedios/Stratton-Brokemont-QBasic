@@ -12,7 +12,7 @@
 #include "master.h"
 
 extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
-extern void createMasterAccountsFile(LinkedList *linked_list, const Char* sc_filename);
+extern void createValidAccountsFile(LinkedList *linked_list, const Char* sc_filename);
 
 /*
  * Iterates through a linked list, takes all the nodes and writes them to
@@ -42,7 +42,7 @@ Bool formatMasterOutput(LinkedList *ll_oldMasterList) {
 		s_current = s_current->next;
 	}
 
-	createMasterAccountsFile(ll_oldMasterList, ACCOUNTS_FILE);
+	createValidAccountsFile(ll_oldMasterList, ACCOUNTS_FILE);
 
 	return b_result;
 }

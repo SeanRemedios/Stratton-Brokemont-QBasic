@@ -21,7 +21,7 @@ InputLists s_inputLists;
 
 extern Bool processTransaction(void);
 extern void readFile(Char* ca_filename, File_Types e_fileType);
-extern void createMasterAccountsFile(LinkedList *ll_linked_list, const Char* sc_filename);
+extern void createValidAccountsFile(LinkedList *ll_linked_list, const Char* sc_filename);
 
 
 Bool buildStructures(Char* ca_transactionFile, Char* ca_oldMasterFile) {
@@ -40,8 +40,6 @@ Bool buildStructures(Char* ca_transactionFile, Char* ca_oldMasterFile) {
 	printf("-----------------------\n");
 	printf("New Master Accounts List:\n");
 	print_list();
-
-	createMasterAccountsFile(s_inputLists.ll_oldMasterList, ACCOUNTS_FILE);
 
 	return b_result;
 }
@@ -126,24 +124,6 @@ TranInfo pop(Stack* st_transStack) {
 
 
 /*
- * Prints out the linked list
- *
- * Input:	None
- *
- * Ouput: 	None
- */
-void print_list(void) {
-	LinkedList *s_current = s_inputLists.ll_oldMasterList;
-
-	// Iterate over the list and print every node
-	while (s_current != NULL) {
-		printf("%d - %d - %s\n", s_current->account, s_current->balance, s_current->name);
-		s_current = s_current->next;
-	}
-}
-
-
-/*
  * Adds a node to the end of the list. Keeps it in descending order to preserve
  * master accounts list
  *
@@ -179,3 +159,22 @@ void addNode(Int i_account, Int i_amount, Char* ca_name) {
 		ll_current->next = ll_newNode;
 	}
 }
+
+
+/*
+ * Prints out the linked list
+ *
+ * Input:	None
+ *
+ * Ouput: 	None
+ */
+void print_list(void) {
+	LinkedList *s_current = s_inputLists.ll_oldMasterList;
+
+	// Iterate over the list and print every node
+	while (s_current != NULL) {
+		printf("%d - %d - %s\n", s_current->account, s_current->balance, s_current->name);
+		s_current = s_current->next;
+	}
+}
+
