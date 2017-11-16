@@ -17,6 +17,8 @@ extern void createMasterAccountsFile(LinkedList *ll_linked_list, const Char* sc_
 
 
 Bool buildStructures(Char* ca_transactionFile, Char* ca_oldMasterFile) {
+	Bool b_result = TRUE;
+
 	s_inputLists.st_transStack = createStack(STACK_SIZE);
 
 	readFile(ca_transactionFile, TRANSACTION);
@@ -48,7 +50,7 @@ Bool buildStructures(Char* ca_transactionFile, Char* ca_oldMasterFile) {
 
 	createMasterAccountsFile(s_inputLists.ll_oldMasterList, ACCOUNTS_FILE);
 
-	return TRUE;
+	return b_result;
 }
 
 /*
