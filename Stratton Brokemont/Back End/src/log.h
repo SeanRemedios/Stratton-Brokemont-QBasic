@@ -7,7 +7,10 @@
 
 #include "types.h"
 
-#define LOG_FILE	"faillog.log"
+#define LOG_FILE			"faillog.log"
+#define MASTER_FILE			"masterAccounts.txt"
+#define ACCOUNTS_FILE		"validAccounts.txt"
+
 #define FILE_FUNC	"a+"	// Append to file, create if it doesn't exist
 #define MAX_LEN		256		// Some arbitrary length
 /*

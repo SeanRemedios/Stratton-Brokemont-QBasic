@@ -18,7 +18,6 @@ Bool writeFile(const Char* sc_filename, const Char* sc_output) {
 	FILE *f_fp;
 
 	//printf("%s\n", sc_output);
-
 	f_fp = fopen(sc_filename, FILE_FUNC); // Opens a file allowing appending
 	if (fwrite(sc_output, strlen(sc_output), 1, f_fp)) { // Writes the line
 		b_result = FALSE;

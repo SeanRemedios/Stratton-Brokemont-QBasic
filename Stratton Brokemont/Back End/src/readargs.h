@@ -13,6 +13,11 @@ typedef enum {
 	EOS
 } Transactions;
 
+typedef enum {
+	TRANSACTION,
+	MASTER_ACCOUNTS
+} File_Types;
+
 typedef struct node {
 	Int account;
 	Int balance;
@@ -43,9 +48,13 @@ typedef struct {
 
 
 Stack* createStack(Uint32 capacity);
-int isFull(Stack* stack);
-int isEmpty(Stack* stack);
+Bool isFull(Stack* stack);
+Bool isEmpty(Stack* stack);
 void push(Stack* stack, TranInfo item);
 TranInfo pop(Stack* stack);
+Bool buildStructures(Char* transactionFile, Char* oldMasterFile);
+void addNode(Int I_account, Int i_amount, Char* ca_name);
+void initLinkedList(void);
+void print_list(void);
 
 #endif

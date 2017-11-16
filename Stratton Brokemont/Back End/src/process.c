@@ -12,11 +12,7 @@ extern LogStructure s_log;
 extern TranInfo pop(Stack* stack);
 extern Bool check(TranInfo *s_fullTrans);
 extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
-extern void initLog(void);
 extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
-
-extern Stack* createStack(unsigned capacity); // TEMPORARY
-extern void push(Stack* st_transStack, TranInfo item); // TEMPORARY
 
 
 /*
@@ -86,7 +82,11 @@ Bool findTransaction(TranInfo *s_fullTrans) {
 			//printf("DEL Transaction\n");
 			b_result = processDEL(s_fullTrans->toAccount, s_fullTrans->name);
 			break;
-		default: // EOS and ERR are not possible (filtered in checkTransaction)
+		case EOS:
+			// Do nothing
+			b_result = TRUE;
+			break;
+		default: // ERR is not possible (filtered in checkTransaction)
 			//printf("DEFAULT Transaction\n");
 			b_result = FALSE;
 			break;
@@ -179,13 +179,13 @@ Bool processNEW(Int i_account, Char* ca_name) {
 		s_newAccount->balance = MIN_AMOUNT;
 		memcpy(s_newAccount->name, ca_name, strlen(ca_name));
 
-		while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
+		while ((s_current->next != NULL) && (s_current->next->account > i_account)) {
 			s_current = s_current->next;
 		}
 
 		// Insert new account node before next node so list stays sorted
-		s_newAccount->next = s_current->next;
-		s_current->next = s_newAccount;
+		s_newAccount->next = s_current->next->next;
+		s_current->next->next = s_newAccount;
 
 		b_result = TRUE;
 
@@ -221,7 +221,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				b_result = TRUE;
 				
 				// Make sure the name is the same
-				if (strncmp(s_current->next->name, ca_name, strlen(ca_name))) {
+				if (strncmp(s_current->next->name, ca_name, strlen(ca_name)-1)) {
 					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, MIN_AMOUNT, ca_name,
 						"Error: Name for requested deleted account does not match existing account"); 
 					// Log error, name is not the same
@@ -274,57 +274,5 @@ LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Int i_account) {
 	return s_current;
 }
 
-
-/* TEMPORARY */
-void print_list(void) {
-	LinkedList *s_current = s_inputLists.ll_oldMasterList;
-
-	// Iterate over the list and print every node
-	while (s_current != NULL) {
-		printf("%d - %d - %s\n", s_current->account, s_current->balance, s_current->name);
-		s_current = s_current->next;
-	}
-}
-
-
-
-// int main() {
-// 	s_inputLists.st_transStack = createStack(100);
-
-// 	s_inputLists.ll_oldMasterList = NULL;
-// 	s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));
-	
-// 	s_inputLists.ll_oldMasterList->account = 0000000;
-// 	s_inputLists.ll_oldMasterList->balance = 000;
-// 	s_inputLists.ll_oldMasterList->name = "***";
-// 	s_inputLists.ll_oldMasterList->next = malloc(sizeof(LinkedList));
-	
-// 	s_inputLists.ll_oldMasterList->next->account = 1234565;
-// 	s_inputLists.ll_oldMasterList->next->balance = 000;
-// 	s_inputLists.ll_oldMasterList->next->name = "taylor";
-// 	s_inputLists.ll_oldMasterList->next->next = malloc(sizeof(LinkedList));
-
-// 	s_inputLists.ll_oldMasterList->next->next->account = 1234567;
-// 	s_inputLists.ll_oldMasterList->next->next->balance = 000;
-// 	s_inputLists.ll_oldMasterList->next->next->name = "sean";
-// 	s_inputLists.ll_oldMasterList->next->next->next = NULL;
-
-// 	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
-// 	TranInfo transaction2 = {DEL,1234567,000,000,"sean"};
-
-// 	printf("Old Master Accounts List:\n");
-// 	print_list();
-
-// 	push(s_inputLists.st_transStack, transaction1);
-// 	push(s_inputLists.st_transStack, transaction2);
-
-// 	initLog();
-// 	processTransaction();
-
-// 	printf("-----------------------\n");
-// 	printf("New Master Accounts List:\n");
-// 	print_list();
-
-// }
 
 

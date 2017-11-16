@@ -20,11 +20,16 @@ Bool check(TranInfo *s_fullTrans) {
 		&& checkAmount(s_fullTrans->amount)
 		&& checkName(s_fullTrans->name);
 
+//		printf("%d\n", b_result);
+
 	// Both accounts are invalid so something is wrong
-	if ((s_fullTrans->toAccount == INVALID_ACCOUNT) 
+	if ((s_fullTrans->transaction != EOS)
+		&& (s_fullTrans->toAccount == INVALID_ACCOUNT) 
 		&& (s_fullTrans->fromAccount == INVALID_ACCOUNT)) {
 		b_result = FALSE;
 	}
+
+//	printf("%d\n", b_result);
 
 	return b_result;
 }
@@ -41,7 +46,7 @@ Bool check(TranInfo *s_fullTrans) {
 Bool checkTransaction(Transactions e_trans) {
 	Bool b_result = FALSE;
 
-	if ((e_trans > ERR) && (e_trans < EOS)) {
+	if ((e_trans > ERR) && (e_trans <= EOS)) {
 		b_result = TRUE;
 	}
 
@@ -108,7 +113,7 @@ Bool checkName(Char* ca_name) {
 		}
 
 		// Checking every character for alphanumeric
-		for (i_counter = 0; i_counter < i_nameLen; i_counter++) {
+		for (i_counter = 0; i_counter < i_nameLen-1; i_counter++) {
 			if (!isalnum(ca_name[i_counter])) {
 				b_result = FALSE;
 				break;

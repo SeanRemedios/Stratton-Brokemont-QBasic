@@ -13,6 +13,7 @@
 #define MIN_NAME_LEN		3
 #define MAX_NAME_LEN		30
 #define UNUSED_NAME			"***"
+#define STR_INVAL_ACCT		"0000000"
 
 Bool check(TranInfo *s_fullTrans);
 Bool checkTransaction(Transactions e_trans);

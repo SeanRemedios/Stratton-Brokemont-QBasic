@@ -4,7 +4,6 @@
 #include "log.h"
 #include "check.h"
 
-#define MASTER_FILE			"masterAccounts.txt"
 #define MASTER_OUTPUT_LEN	48 // 47 + newline
 #define STR_INVALID_ACCT	"0000000"
 #define STR_NO_BALANCE		"000"
