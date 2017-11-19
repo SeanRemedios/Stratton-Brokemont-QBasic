@@ -20,6 +20,7 @@ extern void runChecks(TranInfo *s_fullTrans);
 extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
 extern void print_list(void);
+extern void addNode(Uint32 ui_account, Uint32 ui_amount, Char* ca_name);
 
 
 /*
@@ -102,21 +103,21 @@ Bool findTransaction(TranInfo *s_fullTrans) {
 /*
  * Process a deposit transaction. Used for half of the transfer transaction
  *
- * Input:	i_account: An account number
- * 			i_amount: An amount to be deposited
+ * Input:	ui_account: An account number
+ * 			ui_amount: An amount to be deposited
  *
  * Output:	b_result: Amount successfully deposited
  */
-Bool processDEP(Int i_account, Int i_amount) {
+Bool processDEP(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
 	
-	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, i_account);
+	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, ui_account);
 
 	// s_current != NULL, account exists
 	if (s_current != NULL) {
 		// Deposit into account
-		s_current->balance += i_amount;
+		s_current->balance += ui_amount;
 		b_result = TRUE;
 	}
 
@@ -127,28 +128,28 @@ Bool processDEP(Int i_account, Int i_amount) {
 /*
  * Process a withdraw transaction. Used for half of the transfer transaction
  *
- * Input:	i_account: An account number
- * 			i_amount: An amount to be withdrawn
+ * Input:	ui_account: An account number
+ * 			ui_amount: An amount to be withdrawn
  *
  * Output:	b_result: Amount successfully withdrew or not
  */
-Bool processWDR(Int i_account, Int i_amount) {
+Bool processWDR(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
 	Uint16 tempbalance = 0;
 
-	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, i_account);
+	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, ui_account);
 
 	// s_current != NULL, account exists
 	if (s_current != NULL) {
-		tempbalance = s_current->balance - i_amount; // Don't assign yet, might be negative
+		tempbalance = s_current->balance - ui_amount; // Don't assign yet, might be negative
 
 		if (tempbalance < MIN_AMOUNT) { // If there will be a negative balance, ignore transaction
-			BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, i_amount, "", 
+			BUILD_LOG(s_log.logOutput, s_log.logCounter, ui_account, ui_amount, "", 
 				"Error: Account will have a negative balance. Transaction not processed"); 
 		} else {
 			// Not negative, can assign now
-			s_current->balance -= i_amount;
+			s_current->balance -= ui_amount;
 		}
 
 		b_result = TRUE;
@@ -161,28 +162,28 @@ Bool processWDR(Int i_account, Int i_amount) {
 /*
  * Processes the create account transacation.
  *
- * Input:	i_account: An account to be created
+ * Input:	ui_account: An account to be created
  *			ca_name: The account name
  *
  * Output:	b_result: Account created or not
  */
-Bool processNEW(Int i_account, Char* ca_name) {
+Bool processNEW(Uint32 ui_account, Char* ca_name) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 	LinkedList *s_newAccount = malloc(sizeof(LinkedList));
 	
 	// if NULL is returned, account does not exist
-	if (iterateMasterList(s_inputLists.ll_oldMasterList, i_account) == NULL) { // Account does not exist
+	if (iterateMasterList(s_inputLists.ll_oldMasterList, ui_account) == NULL) { // Account does not exist
 
 		// Allocate space for the name
 		s_newAccount->name = malloc(sizeof(Char*));
 
 		// Create a new account
-		s_newAccount->account = i_account;
+		s_newAccount->account = ui_account;
 		s_newAccount->balance = MIN_AMOUNT;
 		memcpy(s_newAccount->name, ca_name, strlen(ca_name));
 
-		while ((s_current->next != NULL) && (s_current->next->account < i_account)) {
+		while ((s_current->next != NULL) && (s_current->next->account < ui_account)) {
 			s_current = s_current->next;
 		}
 
@@ -195,7 +196,7 @@ Bool processNEW(Int i_account, Char* ca_name) {
 	} else {
 		// Account exists, log error and ignore transaction
 		BUILD_LOG(s_log.logOutput, s_log.logCounter, 
-			i_account, MIN_AMOUNT, ca_name,  
+			ui_account, MIN_AMOUNT, ca_name,  
 			"Error: Account number for requested new account already exists"); 
 	}
 
@@ -206,26 +207,26 @@ Bool processNEW(Int i_account, Char* ca_name) {
 /*
  * Process a delete transaction
  *
- * Input:	i_account: An account number
+ * Input:	ui_account: An account number
  * 			ca_name: The account name
  *
  * Output:	b_result: Account successfully deleted or not
  */
-Bool processDEL(Int i_account, Char* ca_name) {
+Bool processDEL(Uint32 ui_account, Char* ca_name) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 
 	// if NULL is returned, account does not exist
-	if (iterateMasterList(s_inputLists.ll_oldMasterList, i_account) != NULL) { // Account exists
+	if (iterateMasterList(s_inputLists.ll_oldMasterList, ui_account) != NULL) { // Account exists
 
 		while (s_current->next != NULL) {
 			// Account matches
-			if (s_current->next->account == i_account) {
+			if (s_current->next->account == ui_account) {
 				b_result = TRUE;
 				
 				// Make sure the name is the same
 				if (strncmp(s_current->next->name, ca_name, strlen(ca_name)-1)) {
-					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, MIN_AMOUNT, ca_name,
+					BUILD_LOG(s_log.logOutput, s_log.logCounter, ui_account, MIN_AMOUNT, ca_name,
 						"Error: Name for requested deleted account does not match existing account"); 
 					// Log error, name is not the same
 					b_result = FALSE;
@@ -233,7 +234,7 @@ Bool processDEL(Int i_account, Char* ca_name) {
 				
 				// Make sure the account balance is 0
 				if (s_current->next->balance != MIN_AMOUNT) {
-					BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, s_current->next->balance, ca_name,
+					BUILD_LOG(s_log.logOutput, s_log.logCounter, ui_account, s_current->next->balance, ca_name,
 						"Error: Balance for requested deleted account is not 0"); 
 					// Log error, amount is less than or equal to 0
 					b_result = FALSE;
@@ -259,16 +260,16 @@ Bool processDEL(Int i_account, Char* ca_name) {
  * Iterate through the old master accounts list
  * 
  * Input:	ll_oldMasterList: A the old master accounts linked list
- * 			i_account: Account to search for
+ * 			ui_account: Account to search for
  *
  * Output:	s_current: The node of the account found
  */
-LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Int i_account) {
+LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Uint32 ui_account) {
 	LinkedList *s_current = ll_oldMasterList;
 	
 	// Just iterating until we hit an account we want
 	while (s_current != NULL) {
-		if (s_current->account == i_account) {
+		if (s_current->account == ui_account) {
 			break;
 		}
 		s_current = s_current->next;
@@ -298,14 +299,13 @@ void removeNewLine(void) {
 Int main(Int argc, Char* argv[]) {
 	s_inputLists.st_transStack = createStack(100);
 
-	s_inputLists.ll_oldMasterList = NULL;
 	s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));
-	
+
 	s_inputLists.ll_oldMasterList->account = 0000000;
 	s_inputLists.ll_oldMasterList->balance = 000;
 	s_inputLists.ll_oldMasterList->name = "***";
 	s_inputLists.ll_oldMasterList->next = malloc(sizeof(LinkedList));
-	
+
 	s_inputLists.ll_oldMasterList->next->account = 1234565;
 	s_inputLists.ll_oldMasterList->next->balance = 000;
 	s_inputLists.ll_oldMasterList->next->name = "taylor";
@@ -315,6 +315,7 @@ Int main(Int argc, Char* argv[]) {
 	s_inputLists.ll_oldMasterList->next->next->balance = 000;
 	s_inputLists.ll_oldMasterList->next->next->name = "sean";
 	s_inputLists.ll_oldMasterList->next->next->next = NULL;
+
 
 	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
 	TranInfo transaction2 = {DEL,1234565,000,000,"sean"};
