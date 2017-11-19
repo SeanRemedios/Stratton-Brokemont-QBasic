@@ -10,6 +10,9 @@
 	#define __INCLUDE_READARGS__
 
 #include "types.h"
+#include "log.h"
+
+#define STACK_SIZE	1000
 
 typedef enum {
 	ERR,

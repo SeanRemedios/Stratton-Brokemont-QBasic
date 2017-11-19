@@ -9,10 +9,6 @@
 #ifndef __INCLUDE_LOG__
 	#define __INCLUDE_LOG__
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "types.h"
 
 #define LOG_FILE			"faillog.log"

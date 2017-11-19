@@ -6,14 +6,11 @@
 |
 |***********************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "validAccounts.h"
-
-#define OUT_STR_SIZE 48
-#define ACCOUNT_STR_SIZE 8
-#define BALANCE_STR_SIZE 9
 
 
 extern Bool writeFile(const Char* sc_filename, const Char* sc_output);

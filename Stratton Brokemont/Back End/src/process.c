@@ -11,15 +11,12 @@
 #include <string.h>
 
 #include "process.h"
-#include "check.h"
-#include "log.h"
 
 extern InputLists s_inputLists;
 extern LogStructure s_log;
 
 extern TranInfo pop(Stack* stack);
 extern Bool check(TranInfo *s_fullTrans);
-extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
 extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
 
@@ -44,7 +41,6 @@ Bool processTransaction(void) {
 		if (!b_transResult) {
 			printf("Transaction Error\n");
 			exit (-1); // Error with a transaction, abort
-			continue; // Invalid transaction, move to next transaction
 		}
 
 		findTransaction(&s_fullTrans);
@@ -150,7 +146,7 @@ Bool processWDR(Int i_account, Int i_amount) {
 	if (s_current != NULL) {
 		tempbalance = s_current->balance - i_amount; // Don't assign yet, might be negative
 
-		if (tempbalance < 0) { // If there will be a negative balance, ignore transaction
+		if (tempbalance < MIN_AMOUNT) { // If there will be a negative balance, ignore transaction
 			BUILD_LOG(s_log.logOutput, s_log.logCounter, i_account, i_amount, "", 
 				"Error: Account will have a negative balance. Transaction not processed"); 
 		} else {
@@ -296,7 +292,7 @@ void removeNewLine(void) {
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 
 	while (s_current != NULL) {
-		s_current->name[strlen(s_current->name)-1] = '\0'; // Removes newline
+		s_current->name[strlen(s_current->name)-1] = RESERVED; // Removes newline
 		s_current = s_current->next;
 	}
 }

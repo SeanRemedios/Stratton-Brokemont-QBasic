@@ -7,6 +7,7 @@
 |***********************************************************************/
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "tokenize.h"
@@ -31,28 +32,29 @@ void tokenize (Char* ca_singleLine, File_Types e_fileType) {
 	j = 0; count = 0;
 	Int length = strlen(ca_singleLine);
 	for (i=0; i <= length; i++){
-		//split when a space is encountered or when there is an end of line
-		if(ca_singleLine[i] == ' ' || ca_singleLine[i] == RESERVED){ 
-			//put it on a new line and add it to the array
-			ca_splitStrings[count][j] = '\0';
+		
+		// Split when a space is encountered or when there is an end of line
+		if ((ca_singleLine[i] == C_SPACE) || (ca_singleLine[i] == RESERVED)) { 
+			// Put it on a new line and add it to the array
+			ca_splitStrings[count][j] = RESERVED;
 			count++;
 			j=0;
-		}
-		else{
-			// move to the next character
+		} else {
+			// Move to the next character
 			ca_splitStrings[count][j] = ca_singleLine[i];
 			j++;
 		}
-	}	
-		//the master accounts file and transaction file both have a different number
-		// of parameters. The tokenize function is generic, but now these values have
-		// meaning to the function they are sent to
-		if (e_fileType == MASTER_ACCOUNTS) {
-			addMasterAcct(ca_splitStrings);
 
-		} else if (e_fileType == TRANSACTION) {
-			addTransaction(ca_splitStrings);
-		} else {}
+	}	
+
+	// The master accounts file and transaction file both have a different number
+	// of parameters. The tokenize function is generic, but now these values have
+	// meaning to the function they are sent to
+	if (e_fileType == MASTER_ACCOUNTS) {
+		addMasterAcct(ca_splitStrings);
+	} else if (e_fileType == TRANSACTION) {
+		addTransaction(ca_splitStrings);
+	} else {}
 }
 
 
@@ -66,14 +68,14 @@ void tokenize (Char* ca_singleLine, File_Types e_fileType) {
  */
 void addMasterAcct(Char splitStrings[WORDS][CHARS]) {
 	// Getting the integer equivalent of the strings
-	Int master_accountNum = atoi(splitStrings[0]);
-	Int master_balanceNum = atoi(splitStrings[1]);
+	Int master_accountNum = atoi(splitStrings[SS_LL_ACCOUNT]);
+	Int master_balanceNum = atoi(splitStrings[SS_LL_BALANCE]);
 	Char *master_accountName = malloc(MAX_NAME_LEN*sizeof(Char*));
-	strncpy(master_accountName, splitStrings[2], strlen(splitStrings[2]));
+	strncpy(master_accountName, splitStrings[SS_LL_NAME], strlen(splitStrings[SS_LL_NAME]));
 
 	// Adding the node to the linked list
 	addNode(master_accountNum, master_balanceNum, master_accountName);
-	free(master_accountName);
+	//free(master_accountName); // If we free, it messes up the output??
 } 
 
 
@@ -85,17 +87,18 @@ void addMasterAcct(Char splitStrings[WORDS][CHARS]) {
  * Output: 	None
  */
 void addTransaction(Char splitStrings[WORDS][CHARS]) {
-	Transactions trans_transType = getTransaction(splitStrings[0]); // Getting the transaction code
+	Transactions trans_transType = getTransaction(splitStrings[SS_TRANS_TYPE]); // Getting the transaction code
 	// Getting the integer equivalent of the strings
-	Int trans_toAccount = atoi(splitStrings[1]);
-	Int trans_amount = atoi(splitStrings[2]);
-	Int trans_fromAccount = atoi(splitStrings[3]);
+	Int trans_toAccount = atoi(splitStrings[SS_TRANS_TOACCOUNT]);
+	Int trans_amount = atoi(splitStrings[SS_TRANS_AMOUNT]);
+	Int trans_fromAccount = atoi(splitStrings[SS_TRANS_FROMACCOUNT]);
 	Char *trans_accountName = malloc(MAX_NAME_LEN*sizeof(Char*));
-	strncpy(trans_accountName, splitStrings[4], strlen(splitStrings[4]));
+	strncpy(trans_accountName, splitStrings[SS_TRANS_NAME], strlen(splitStrings[SS_TRANS_NAME]));
 
 	// Pushing the transaction onto the stack
 	TranInfo transaction = {trans_transType, trans_toAccount, trans_amount, trans_fromAccount, trans_accountName};
 	push(s_inputLists.st_transStack, transaction);
+	//free(trans_accountName); // If we free, it messes up the output??
 }
 
 
@@ -110,17 +113,17 @@ Transactions getTransaction(Char* ca_transName) {
 	Transactions e_trans;
 
 	// Comparing the string with the string code
-	if (!strncmp(ca_transName, STR_EOS, strlen(ca_transName))) {
+	if (!COMPARE(ca_transName, STR_EOS)) {
 		e_trans = EOS;
-	} else if (!strncmp(ca_transName, STR_DEP, strlen(ca_transName))) {
+	} else if (!COMPARE(ca_transName, STR_DEP)) {
 		e_trans = DEP;
-	} else if (!strncmp(ca_transName, STR_WDR, strlen(ca_transName))) {
+	} else if (!COMPARE(ca_transName, STR_WDR)) {
 		e_trans = WDR;
-	} else if (!strncmp(ca_transName, STR_XFR, strlen(ca_transName))) {
+	} else if (!COMPARE(ca_transName, STR_XFR)) {
 		e_trans = XFR;
-	} else if (!strncmp(ca_transName, STR_NEW, strlen(ca_transName))) {
+	} else if (!COMPARE(ca_transName, STR_NEW)) {
 		e_trans = NEW;
-	} else if (!strncmp(ca_transName, STR_DEL, strlen(ca_transName))) {
+	} else if (!COMPARE(ca_transName, STR_DEL)) {
 		e_trans = DEL;
 	} else {
 		e_trans = ERR;
@@ -150,5 +153,6 @@ void readFile(Char* ca_filename, File_Types e_fileType) {
 		fgets(singleLine, CHARS, fPointer);
 		tokenize(singleLine, e_fileType);
 	}
+
 	fclose(fPointer);
 }

@@ -16,7 +16,6 @@
 
 #define WORDS	5
 #define CHARS	65
-
 #define STR_EOS	"EOS"
 #define STR_DEP "DEP"
 #define STR_WDR	"WDR"
@@ -24,6 +23,18 @@
 #define STR_NEW	"NEW"
 #define STR_DEL	"DEL"
 #define STR_ERR	"ERR"
+#define C_SPACE	' '
+
+#define SS_LL_ACCOUNT			0
+#define SS_LL_BALANCE			1
+#define SS_LL_NAME				2
+#define SS_TRANS_TYPE			0
+#define SS_TRANS_TOACCOUNT		1
+#define SS_TRANS_AMOUNT			2
+#define SS_TRANS_FROMACCOUNT	3
+#define SS_TRANS_NAME			4
+
+#define COMPARE(str1,str2)	strncmp(str1,str2,strlen(str1))
 
 
 void tokenize (Char* ca_singleLine, File_Types e_fileType);

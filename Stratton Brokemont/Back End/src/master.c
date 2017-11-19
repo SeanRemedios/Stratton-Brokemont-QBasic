@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "master.h"
 
@@ -43,6 +44,7 @@ Bool formatMasterOutput(LinkedList *ll_oldMasterList) {
 	}
 
 	createValidAccountsFile(ll_oldMasterList, ACCOUNTS_FILE);
+	free(ca_output);
 
 	return b_result;
 }

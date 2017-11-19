@@ -13,9 +13,7 @@
 
 #include "readargs.h"
 #include "check.h"
-#include "log.h"
 
-#define STACK_SIZE	1000
 
 InputLists s_inputLists;
 

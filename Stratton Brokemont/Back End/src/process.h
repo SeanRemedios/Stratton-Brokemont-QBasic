@@ -11,6 +11,8 @@
 
 #include "types.h"
 #include "readargs.h"
+#include "check.h"
+#include "log.h"
 
 Bool processTransaction(void);
 Bool findTransaction(TranInfo *s_fullTrans);

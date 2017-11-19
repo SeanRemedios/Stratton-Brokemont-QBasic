@@ -116,7 +116,7 @@ Bool checkName(Char* ca_name) {
 
 	// If name is not the unused account then check it
 	if (strncmp(UNUSED_NAME, ca_name, strlen(UNUSED_NAME))) {
-		if ((strlen(ca_name) < MIN_NAME_LEN) || (strlen(ca_name) > MAX_NAME_LEN)) {
+		if ((i_nameLen < MIN_NAME_LEN) || (i_nameLen > MAX_NAME_LEN)) {
 			b_result = FALSE;
 		}
 
