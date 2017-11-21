@@ -104,7 +104,7 @@ Bool findTransaction(TranInfo *s_fullTrans) {
  *
  * Output:	b_result: Amount successfully deposited
  */
-Bool processDEP(Uint16 ui_account, Uint16 ui_amount) {
+Bool processDEP(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
 	
@@ -129,10 +129,10 @@ Bool processDEP(Uint16 ui_account, Uint16 ui_amount) {
  *
  * Output:	b_result: Amount successfully withdrew or not
  */
-Bool processWDR(Uint16 ui_account, Uint16 ui_amount) {
+Bool processWDR(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
-	Uint16 tempbalance = 0;
+	Uint32 tempbalance = 0;
 
 	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, ui_account);
 
@@ -163,7 +163,7 @@ Bool processWDR(Uint16 ui_account, Uint16 ui_amount) {
  *
  * Output:	b_result: Account created or not
  */
-Bool processNEW(Uint16 ui_account, Char* ca_name) {
+Bool processNEW(Uint32 ui_account, Char* ca_name) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 	LinkedList *s_newAccount = malloc(sizeof(LinkedList));
@@ -208,7 +208,7 @@ Bool processNEW(Uint16 ui_account, Char* ca_name) {
  *
  * Output:	b_result: Account successfully deleted or not
  */
-Bool processDEL(Uint16 ui_account, Char* ca_name) {
+Bool processDEL(Uint32 ui_account, Char* ca_name) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = s_inputLists.ll_oldMasterList;
 
@@ -260,7 +260,7 @@ Bool processDEL(Uint16 ui_account, Char* ca_name) {
  *
  * Output:	s_current: The node of the account found
  */
-LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Uint16 ui_account) {
+LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Uint32 ui_account) {
 	LinkedList *s_current = ll_oldMasterList;
 	
 	// Just iterating until we hit an account we want

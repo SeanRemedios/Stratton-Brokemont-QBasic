@@ -16,11 +16,11 @@
 
 Bool processTransaction(void);
 Bool findTransaction(TranInfo *s_fullTrans);
-Bool processDEP(Int i_account, Int i_amount);
-Bool processWDR(Int i_account, Int i_amount);
-Bool processNEW(Int i_account, Char* ca_name);
-Bool processDEL(Int i_account, Char* ca_name);
-LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Int i_account);
+Bool processDEP(Uint32 ui_account, Uint32 ui_amount);
+Bool processWDR(Uint32 ui_account, Uint32 ui_amount);
+Bool processNEW(Uint32 ui_account, Char* ca_name);
+Bool processDEL(Uint32 ui_account, Char* ca_name);
+LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Uint32 ui_account);
 void removeNewLine(void);
 
 

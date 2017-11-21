@@ -14,7 +14,7 @@
 
 extern InputLists s_inputLists;
 
-extern void addNode(Uint32 ui_account, Uint32 ui_amount, Char* ca_name);
+extern void addNode(Int i_account, Int i_amount, Char* ca_name);
 extern void push(Stack* st_transStack, TranInfo s_item);
 
 /*
@@ -68,8 +68,8 @@ void tokenize (Char* ca_singleLine, File_Types e_fileType) {
  */
 void addMasterAcct(Char splitStrings[WORDS][CHARS]) {
 	// Getting the integer equivalent of the strings
-	Uint32 master_accountNum = atoi(splitStrings[SS_LL_ACCOUNT]);
-	Uint32 master_balanceNum = atoi(splitStrings[SS_LL_BALANCE]);
+	Int master_accountNum = atoi(splitStrings[SS_LL_ACCOUNT]);
+	Int master_balanceNum = atoi(splitStrings[SS_LL_BALANCE]);
 	Char *master_accountName = malloc(MAX_NAME_LEN*sizeof(Char*));
 	strncpy(master_accountName, splitStrings[SS_LL_NAME], strlen(splitStrings[SS_LL_NAME]));
 
@@ -89,9 +89,9 @@ void addMasterAcct(Char splitStrings[WORDS][CHARS]) {
 void addTransaction(Char splitStrings[WORDS][CHARS]) {
 	Transactions trans_transType = getTransaction(splitStrings[SS_TRANS_TYPE]); // Getting the transaction code
 	// Getting the integer equivalent of the strings
-	Uint32 trans_toAccount = atoi(splitStrings[SS_TRANS_TOACCOUNT]);
-	Uint32 trans_amount = atoi(splitStrings[SS_TRANS_AMOUNT]);
-	Uint32 trans_fromAccount = atoi(splitStrings[SS_TRANS_FROMACCOUNT]);
+	Int trans_toAccount = atoi(splitStrings[SS_TRANS_TOACCOUNT]);
+	Int trans_amount = atoi(splitStrings[SS_TRANS_AMOUNT]);
+	Int trans_fromAccount = atoi(splitStrings[SS_TRANS_FROMACCOUNT]);
 	Char *trans_accountName = malloc(MAX_NAME_LEN*sizeof(Char*));
 	strncpy(trans_accountName, splitStrings[SS_TRANS_NAME], strlen(splitStrings[SS_TRANS_NAME]));
 

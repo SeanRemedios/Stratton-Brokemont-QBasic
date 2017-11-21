@@ -30,17 +30,17 @@ typedef enum {
 } File_Types;
 
 typedef struct node {
-	Int account;
-	Int balance;
+	Uint32 account;
+	Uint32 balance;
 	Char* name;
 	struct node* next;
 } LinkedList;
 
 typedef struct {
 	Transactions transaction;
-	Int toAccount;
-	Int amount;
-	Int fromAccount;
+	Uint32 toAccount;
+	Uint32 amount;
+	Uint32 fromAccount;
 	Char* name;
 } TranInfo;
 
@@ -64,7 +64,7 @@ Bool isEmpty(Stack* stack);
 void push(Stack* stack, TranInfo item);
 TranInfo pop(Stack* stack);
 Bool buildStructures(Char* transactionFile, Char* oldMasterFile);
-void addNode(Int I_account, Int i_amount, Char* ca_name);
+void addNode(Uint32 ui_account, Uint32 ui_amount, Char* ca_name);
 void initLinkedList(void);
 void print_list(void);
 

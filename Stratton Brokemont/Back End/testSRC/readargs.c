@@ -131,18 +131,18 @@ TranInfo pop(Stack* st_transStack) {
  *
  * Output:	None 			
  */
-void addNode(Int i_account, Int i_amount, Char* ca_name) {
+void addNode(Uint32 ui_account, Uint32 ui_amount, Char* ca_name) {
 	LinkedList *ll_newNode = NULL;
 	ll_newNode = malloc(sizeof(LinkedList)); // Allocate new node
  	// Current pointer for iterating
 	LinkedList *ll_current = s_inputLists.ll_oldMasterList; 
   
-	ll_newNode->account  = i_account;
-	ll_newNode->balance = i_amount;
+	ll_newNode->account  = ui_account;
+	ll_newNode->balance = ui_amount;
 	ll_newNode->name = malloc(strlen(ca_name));
 	strncpy(ll_newNode->name, ca_name, strlen(ca_name));
 	ll_newNode->next = NULL; // Next is null, no data there
- 
+
 	// If the head is empty, make the new node the head
 	if (s_inputLists.ll_oldMasterList == NULL) {
 	   s_inputLists.ll_oldMasterList = ll_newNode;

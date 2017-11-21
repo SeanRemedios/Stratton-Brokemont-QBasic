@@ -245,7 +245,6 @@ Bool checkValAcct(Int i_account, Int *ia_validAccounts) {
  */
 Bool checkAccountExists(Int i_account, Transactions e_trans) {
 	Bool b_result = TRUE;
-	Int i;
 	Int i_sizeValAcctArr = sizeof(s_input.valid_accts);
 
 	// Find if account doesn't exist

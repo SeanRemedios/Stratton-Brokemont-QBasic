@@ -20,7 +20,6 @@ extern void runChecks(TranInfo *s_fullTrans);
 extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
 extern void print_list(void);
-extern void addNode(Uint32 ui_account, Uint32 ui_amount, Char* ca_name);
 
 
 /*
@@ -308,12 +307,12 @@ Int main(Int argc, Char* argv[]) {
 
 	s_inputLists.ll_oldMasterList->next->account = 1234565;
 	s_inputLists.ll_oldMasterList->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->name = "taylor";
+	s_inputLists.ll_oldMasterList->next->name = "sean";
 	s_inputLists.ll_oldMasterList->next->next = malloc(sizeof(LinkedList));
 
 	s_inputLists.ll_oldMasterList->next->next->account = 1234567;
 	s_inputLists.ll_oldMasterList->next->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->next->name = "sean";
+	s_inputLists.ll_oldMasterList->next->next->name = "taylor";
 	s_inputLists.ll_oldMasterList->next->next->next = NULL;
 
 

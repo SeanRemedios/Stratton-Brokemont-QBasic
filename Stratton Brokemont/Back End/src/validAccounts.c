@@ -24,13 +24,12 @@ extern Bool writeFile(const Char* sc_filename, const Char* sc_output);
  * Output:	void
  */
  void createValidAccountsFile(LinkedList *ll_linked_list, const Char* sc_filename) {
+	Char ca_out_str[OUT_STR_SIZE];			//output string
+	Char ca_account_str[ACCOUNT_STR_SIZE];	//account number string	
+
 	if (ll_linked_list != NULL) {
 
 		createValidAccountsFile(ll_linked_list->next, sc_filename);
-
-		Char ca_out_str[OUT_STR_SIZE];			//output string
-		Char ca_account_str[ACCOUNT_STR_SIZE];	//account number string
-		Char ca_balance_str[BALANCE_STR_SIZE];	//balence string
 
 		//convert integer values to strings
 		if (ll_linked_list->account == INVALID_ACCOUNT) {

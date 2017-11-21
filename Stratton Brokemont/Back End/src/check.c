@@ -14,6 +14,14 @@
 #include "check.h"
 
 
+/*
+ * Allows for the checking to be done within findTransaction. Runs the checks
+ * for the transaction and if any fail, exit immediately.
+ *
+ * Input:	s_fullTrans: A transaction
+ *
+ * Output:	None
+ */
 void runChecks(TranInfo *s_fullTrans) {
 	Bool b_transResult = TRUE;
 

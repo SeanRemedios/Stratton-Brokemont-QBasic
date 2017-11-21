@@ -42,16 +42,12 @@ Bool check(TranInfo *s_fullTrans) {
 		&& checkAmount(s_fullTrans->amount)
 		&& checkName(s_fullTrans->name);
 
-//		printf("%d\n", b_result);
-
 	// Both accounts are invalid so something is wrong
 	if ((s_fullTrans->transaction != EOS)
 		&& (s_fullTrans->toAccount == INVALID_ACCOUNT) 
 		&& (s_fullTrans->fromAccount == INVALID_ACCOUNT)) {
 		b_result = FALSE;
 	}
-
-//	printf("%d\n", b_result);
 
 	return b_result;
 }
@@ -83,12 +79,12 @@ Bool checkTransaction(Transactions e_trans) {
  *
  * Output:	b_result: If the account was valid or not
  */
-Bool checkAccount(Int i_account) {
+Bool checkAccount(Uint32 ui_account) {
 	Bool b_result = TRUE;
 
-	if (i_account != INVALID_ACCOUNT) {
+	if (ui_account != INVALID_ACCOUNT) {
 		// Not invalid account so potential account number
-		if ((i_account < MIN_ACCOUNT) || (i_account > MAX_ACCOUNT)) {
+		if ((ui_account < MIN_ACCOUNT) || (ui_account > MAX_ACCOUNT)) {
 			b_result = FALSE;
 		}
 	} 
@@ -104,10 +100,10 @@ Bool checkAccount(Int i_account) {
  *
  * Output:	b_result: If the amount was valid or not
  */
-Bool checkAmount(Int i_amount) {
+Bool checkAmount(Uint32 ui_amount) {
 	Bool b_result = TRUE;
 
-	if ((i_amount < MIN_AMOUNT) || (i_amount > MAX_AMOUNT)) {
+	if ((ui_amount < MIN_AMOUNT) || (ui_amount > MAX_AMOUNT)) {
 		b_result = FALSE;
 	}
 
