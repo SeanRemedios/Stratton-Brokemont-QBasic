@@ -133,7 +133,7 @@ Bool processDEP(Uint32 ui_account, Uint32 ui_amount) {
 Bool processWDR(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
-	Uint32 tempbalance = 0;
+	Int tempbalance = 0;
 
 	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, ui_account);
 
