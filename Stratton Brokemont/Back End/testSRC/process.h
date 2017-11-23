@@ -23,5 +23,6 @@ Bool processDEL(Uint32 ui_account, Char* ca_name);
 LinkedList* iterateMasterList(LinkedList *ll_oldMasterList, Uint32 ui_account);
 void removeNewLine(void);
 
+void main_testing(void);
 
 #endif

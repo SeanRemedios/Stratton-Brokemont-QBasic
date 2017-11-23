@@ -21,20 +21,28 @@ extern void initLog(void);
 extern Bool buildStructures(Char* transactionFile, Char* oldMasterFile);
 
 Int main(Int argc, Char* argv[]) {
-	if (argc != NUM_ARGS) {
-		printf("Error: Incorrect number of arguments - %d\n", argc);
-		exit (-1);
-	}
+	
+	#ifdef TESTING
+		extern void main_Testing(void);
+		main_Testing();
+	#else
 
-	remove(LOG_FILE);
-	remove(MASTER_FILE); 
- 	remove(ACCOUNTS_FILE); // Removes the files so they can be overwritten
+		if (argc != NUM_ARGS) {
+			printf("Error: Incorrect number of arguments - %d\n", argc);
+			exit (-1);
+		}
 
-	initLog();
+		remove(LOG_FILE);
+		remove(MASTER_FILE); 
+	 	remove(ACCOUNTS_FILE); // Removes the files so they can be overwritten
 
-	if (!buildStructures(argv[TRANS_INDEX], argv[OLDMAST_INDEX])) {
-		printf("Error: Failure while building structure\n");
-		exit(-1);
-	}
+		initLog();
+
+		if (!buildStructures(argv[TRANS_INDEX], argv[OLDMAST_INDEX])) {
+			printf("Error: Failure while building structure\n");
+			exit(-1);
+		}
+
+	#endif
 
 }

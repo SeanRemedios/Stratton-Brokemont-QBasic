@@ -26,8 +26,8 @@
 void runChecks(TranInfo *s_fullTrans);
 Bool check(TranInfo *s_fullTrans);
 Bool checkTransaction(Transactions e_trans);
-Bool checkAccount(Int i_account);
-Bool checkAmount(Int i_amount);
+Bool checkAccount(Uint32 ui_account);
+Bool checkAmount(Uint32 ui_amount);
 Bool checkName(Char* ca_name);
 
 

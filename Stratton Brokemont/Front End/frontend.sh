@@ -83,4 +83,5 @@ if [ "$RUNTEST" == "TRUE" ]
 	then
 	# 'sh' sometimes does weird things (like ignoring -e in 'echo') so use 'bash' instead
 	bash frontend_test_param.sh "$PWD/src/QBasic" Test_Components/ Test_Results/
+	rm "validAccounts.txt"
 fi

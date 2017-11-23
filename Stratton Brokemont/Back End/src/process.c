@@ -84,6 +84,7 @@ Bool findTransaction(TranInfo *s_fullTrans) {
 			break;
 		case EOS:
 			// Do nothing
+			//printf("EOS Transaction\n");
 			b_result = TRUE;
 			break;
 		default: // ERR is not possible (filtered in checkTransaction)
@@ -290,5 +291,3 @@ void removeNewLine(void) {
 		s_current = s_current->next;
 	}
 }
-
-

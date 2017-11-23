@@ -50,16 +50,12 @@ Bool check(TranInfo *s_fullTrans) {
 		&& checkAmount(s_fullTrans->amount)
 		&& checkName(s_fullTrans->name);
 
-//		printf("%d\n", b_result);
-
 	// Both accounts are invalid so something is wrong
 	if ((s_fullTrans->transaction != EOS)
 		&& (s_fullTrans->toAccount == INVALID_ACCOUNT) 
 		&& (s_fullTrans->fromAccount == INVALID_ACCOUNT)) {
 		b_result = FALSE;
 	}
-
-//	printf("%d\n", b_result);
 
 	return b_result;
 }
@@ -87,16 +83,16 @@ Bool checkTransaction(Transactions e_trans) {
 /*
  * Checks if an account is valid (does not check if it exists here)
  *
- * Input:	i_account: An account
+ * Input:	ui_account: An account
  *
  * Output:	b_result: If the account was valid or not
  */
-Bool checkAccount(Int i_account) {
+Bool checkAccount(Uint32 ui_account) {
 	Bool b_result = TRUE;
 
-	if (i_account != INVALID_ACCOUNT) {
+	if (ui_account != INVALID_ACCOUNT) {
 		// Not invalid account so potential account number
-		if ((i_account < MIN_ACCOUNT) || (i_account > MAX_ACCOUNT)) {
+		if ((ui_account < MIN_ACCOUNT) || (ui_account > MAX_ACCOUNT)) {
 			b_result = FALSE;
 		}
 	} 
@@ -108,14 +104,14 @@ Bool checkAccount(Int i_account) {
 /*
  * Checks if an amount is valid
  *
- * Input:	i_amount: An amount
+ * Input:	ui_amount: An amount
  *
  * Output:	b_result: If the amount was valid or not
  */
-Bool checkAmount(Int i_amount) {
+Bool checkAmount(Uint32 ui_amount) {
 	Bool b_result = TRUE;
 
-	if ((i_amount < MIN_AMOUNT) || (i_amount > MAX_AMOUNT)) {
+	if ((ui_amount < MIN_AMOUNT) || (ui_amount > MAX_AMOUNT)) {
 		b_result = FALSE;
 	}
 
@@ -133,18 +129,18 @@ Bool checkAmount(Int i_amount) {
  */
 Bool checkName(Char* ca_name) {
 	Bool b_result = TRUE;
-	Int i_counter;
-	Int i_nameLen = strlen(ca_name);
+	Uint32 ui_counter;
+	Uint32 ui_nameLen = strlen(ca_name);
 
 	// If name is not the unused account then check it
 	if (strncmp(UNUSED_NAME, ca_name, strlen(UNUSED_NAME))) {
-		if ((i_nameLen < MIN_NAME_LEN) || (i_nameLen > MAX_NAME_LEN)) {
+		if ((ui_nameLen < MIN_NAME_LEN) || (ui_nameLen > MAX_NAME_LEN)) {
 			b_result = FALSE;
 		}
 
 		// Checking every character for alphanumeric
-		for (i_counter = 0; i_counter < i_nameLen-1; i_counter++) {
-			if (!isalnum(ca_name[i_counter])) {
+		for (ui_counter = 0; ui_counter < ui_nameLen-1; ui_counter++) {
+			if (!isalnum(ca_name[ui_counter])) {
 				b_result = FALSE;
 				break;
 			}

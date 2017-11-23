@@ -19,8 +19,6 @@ extern TranInfo pop(Stack* stack);
 extern void runChecks(TranInfo *s_fullTrans);
 extern Bool formatMasterOutput(LinkedList *ll_oldMasterList);
 
-extern void print_list(void);
-
 
 /*
  * Pops the latest transaction off of the stack, checks validity then finds the
@@ -135,7 +133,7 @@ Bool processDEP(Uint32 ui_account, Uint32 ui_amount) {
 Bool processWDR(Uint32 ui_account, Uint32 ui_amount) {
 	Bool b_result = FALSE;
 	LinkedList *s_current = NULL;
-	Uint16 tempbalance = 0;
+	Uint32 tempbalance = 0;
 
 	s_current = iterateMasterList(s_inputLists.ll_oldMasterList, ui_account);
 
@@ -293,36 +291,4 @@ void removeNewLine(void) {
 		s_current = s_current->next;
 	}
 }
-
-
-Int main(Int argc, Char* argv[]) {
-	s_inputLists.st_transStack = createStack(100);
-
-	s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));
-
-	s_inputLists.ll_oldMasterList->account = 0000000;
-	s_inputLists.ll_oldMasterList->balance = 000;
-	s_inputLists.ll_oldMasterList->name = "***";
-	s_inputLists.ll_oldMasterList->next = malloc(sizeof(LinkedList));
-
-	s_inputLists.ll_oldMasterList->next->account = 1234565;
-	s_inputLists.ll_oldMasterList->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->name = "sean";
-	s_inputLists.ll_oldMasterList->next->next = malloc(sizeof(LinkedList));
-
-	s_inputLists.ll_oldMasterList->next->next->account = 1234567;
-	s_inputLists.ll_oldMasterList->next->next->balance = 000;
-	s_inputLists.ll_oldMasterList->next->next->name = "taylor";
-	s_inputLists.ll_oldMasterList->next->next->next = NULL;
-
-
-	TranInfo transaction1 = {NEW,1234566,000,000,"jeff"};
-	TranInfo transaction2 = {DEL,1234565,000,000,"sean"};
-
-	findTransaction(&transaction1);
-	findTransaction(&transaction2);
-
-	print_list();
-}
-
 
