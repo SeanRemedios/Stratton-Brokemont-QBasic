@@ -7,6 +7,7 @@ echo "FINISHED"
 #---------------------------------------
 
 echo "TESTING..."
+rm "faillog.log"
 
 inDir="Test_Inputs"
 wdrDir="WDR_TESTS"
@@ -34,7 +35,3 @@ do
 done 
 
 echo "FINISHED"
-
-# while IFS= read -r var; do
-#   echo "$var"
-# done <"$input"
