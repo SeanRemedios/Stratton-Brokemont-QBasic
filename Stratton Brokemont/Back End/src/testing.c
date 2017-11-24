@@ -34,8 +34,6 @@
 	 * The purpose of this function is to test only the transaction part of the system
 	 */
 	void main_Testing(void) {
-		remove(LOG_FILE);
-
 		s_inputLists.st_transStack = createStack(1000);
 
 		s_inputLists.ll_oldMasterList = malloc(sizeof(LinkedList));

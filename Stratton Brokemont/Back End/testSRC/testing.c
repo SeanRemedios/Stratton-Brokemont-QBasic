@@ -59,7 +59,6 @@
 		s_inputLists.ll_oldMasterList->next->next->next->next = NULL;
 
 		Int amt = 5;
-		Int count = 0;
 		Int i;
 		Char* input = malloc(64);
 		Char array[5][64];

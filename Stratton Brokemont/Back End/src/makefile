@@ -18,10 +18,9 @@ INCLUDES := $(wildcard *.h)
 OBJECTS  := $(SOURCES:.c=*.o)
 rm       = rm -f
 
-$(TARGET): obj
-	@$(LINKER) $(TARGET) $(LFLAGS) $(OBJECTS)
+$(TARGET): 
+	@$(LINKER) $(TARGET) $(LFLAGS) $(SOURCES)
 	@echo "Front End Linking complete!"
-	@make clean
 
 link: obj
 	$(LINK) $(LKFLAGS) $(OBJECTS) -o $(LINKTARGET)
