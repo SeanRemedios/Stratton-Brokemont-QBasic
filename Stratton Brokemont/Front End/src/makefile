@@ -1,6 +1,6 @@
 # project name (generate executable with this name)
-TARGET	= QBasic
-LINKTARGET = QBasic.o
+TARGET	= FrontEnd
+LINKTARGET = FrontEnd.o
 
 CC		= gcc -std=c99 -c
 # compiling flags here
@@ -18,18 +18,17 @@ INCLUDES := $(wildcard *.h)
 OBJECTS  := $(SOURCES:.c=*.o)
 rm       = rm -f
 
-$(TARGET): obj
-	@$(LINKER) $(TARGET) $(LFLAGS) $(OBJECTS)
-	@echo "Back End Linking complete!"
-	@make clean
+$(TARGET):
+	@$(LINKER) $(TARGET) $(LFLAGS) $(SOURCES)
+	@echo "Front End Linking complete!"
 
 link: obj
 	$(LINK) $(LKFLAGS) $(OBJECTS) -o $(LINKTARGET)
 
 obj: $(SOURCES) $(INCLUDES)
 	@$(CC) $(CFLAGS) $(SOURCES)
-	@echo "Back End Compilation complete!"
+	@echo "Front End Compilation complete!"
 
 clean:
 	@$(rm) $(TARGET) $(OBJECTS)
-	@echo "Back End Cleanup complete!"
+	@echo "Front End Cleanup complete!"

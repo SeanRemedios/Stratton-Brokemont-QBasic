@@ -20,15 +20,15 @@ rm       = rm -f
 
 $(TARGET): 
 	@$(LINKER) $(TARGET) $(LFLAGS) $(SOURCES)
-	@echo "Front End Linking complete!"
+	@echo "Back End Linking complete!"
 
 link: obj
 	$(LINK) $(LKFLAGS) $(OBJECTS) -o $(LINKTARGET)
 
 obj: $(SOURCES) $(INCLUDES)
 	@$(CC) $(CFLAGS) $(SOURCES)
-	@echo "Front End Compilation complete!"
+	@echo "Back End Compilation complete!"
 
 clean:
 	@$(rm) $(TARGET) $(OBJECTS)
-	@echo "Front End Cleanup complete!"
+	@echo "Back End Cleanup complete!"
