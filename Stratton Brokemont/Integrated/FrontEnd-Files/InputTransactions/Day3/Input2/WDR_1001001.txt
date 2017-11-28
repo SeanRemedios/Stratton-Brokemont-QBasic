@@ -1,0 +1,6 @@
+login
+agent
+withdraw
+1001001
+1000
+logout

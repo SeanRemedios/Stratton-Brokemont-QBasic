@@ -1,0 +1,6 @@
+login
+agent
+withdraw
+4321987
+1000
+logout

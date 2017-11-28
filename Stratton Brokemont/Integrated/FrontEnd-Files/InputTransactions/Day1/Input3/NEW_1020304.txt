@@ -1,0 +1,6 @@
+login
+agent
+createacct
+1020304
+taylor
+logout

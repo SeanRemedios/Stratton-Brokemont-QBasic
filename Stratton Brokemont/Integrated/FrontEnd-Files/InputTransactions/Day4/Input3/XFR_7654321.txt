@@ -1,0 +1,7 @@
+login
+agent
+withdraw
+7654321
+4321987
+250
+logout

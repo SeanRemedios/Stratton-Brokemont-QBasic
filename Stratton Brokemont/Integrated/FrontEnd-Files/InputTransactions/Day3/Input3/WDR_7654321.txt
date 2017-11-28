@@ -1,0 +1,6 @@
+login
+agent
+withdraw
+7654321
+1000
+logout

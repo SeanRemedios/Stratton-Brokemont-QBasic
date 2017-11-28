@@ -1,0 +1,6 @@
+login
+agent
+deposit
+4321987
+1000
+logout

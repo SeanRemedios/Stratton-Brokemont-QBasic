@@ -1,0 +1,6 @@
+login
+agent
+deposit
+1020304
+1000
+logout

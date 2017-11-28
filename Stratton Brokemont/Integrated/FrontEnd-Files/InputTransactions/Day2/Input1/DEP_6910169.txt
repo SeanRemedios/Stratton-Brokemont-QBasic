@@ -1,0 +1,6 @@
+login
+agent
+deposit
+6910169
+1000
+logout

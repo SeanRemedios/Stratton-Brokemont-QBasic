@@ -1,0 +1,7 @@
+login
+agent
+withdraw
+1001001
+2666791
+250
+logout
