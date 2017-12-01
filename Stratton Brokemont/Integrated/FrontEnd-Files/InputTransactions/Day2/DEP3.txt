@@ -1,0 +1,12 @@
+login
+agent
+deposit
+1020304
+1000
+deposit
+7654321
+1000
+deposit
+4321987
+1000
+logout

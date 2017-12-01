@@ -2,6 +2,11 @@ login
 agent
 withdraw
 1002003
+1000
+withdraw
 9000102
-250
+1000
+withdraw
+6910169
+1000
 logout

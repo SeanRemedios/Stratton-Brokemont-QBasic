@@ -1,6 +1,0 @@
-login
-agent
-deleteacct
-2666791
-tst
-logout

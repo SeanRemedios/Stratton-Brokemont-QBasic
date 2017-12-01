@@ -1,0 +1,15 @@
+login
+agent
+transfer
+1020304
+7654321
+250
+transfer
+7654321
+4321987
+250
+transfer
+4321987
+1020304
+250
+logout

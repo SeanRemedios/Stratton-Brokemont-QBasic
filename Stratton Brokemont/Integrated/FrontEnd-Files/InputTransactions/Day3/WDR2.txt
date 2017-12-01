@@ -1,7 +1,12 @@
 login
 agent
 withdraw
+1001001
+1000
+withdraw
 2666791
+1000
+withdraw
 1234567
-250
+1000
 logout

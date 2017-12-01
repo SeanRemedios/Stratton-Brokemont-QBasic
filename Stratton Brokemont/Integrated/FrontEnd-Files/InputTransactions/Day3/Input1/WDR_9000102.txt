@@ -1,6 +1,0 @@
-login
-agent
-withdraw
-9000102
-1000
-logout

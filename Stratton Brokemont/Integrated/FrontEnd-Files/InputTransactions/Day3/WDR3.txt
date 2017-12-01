@@ -1,7 +1,12 @@
 login
 agent
 withdraw
+1020304
+1000
+withdraw
 7654321
+1000
+withdraw
 4321987
-250
+1000
 logout

@@ -1,6 +1,0 @@
-login
-agent
-deposit
-7654321
-1000
-logout
