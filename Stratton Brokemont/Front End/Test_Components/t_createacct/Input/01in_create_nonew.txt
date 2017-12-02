@@ -1,0 +1,9 @@
+login
+agent
+createacct
+9000102
+testname
+deposit
+9000102
+50000
+logout

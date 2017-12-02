@@ -1,0 +1,12 @@
+login
+agent
+deposit
+1002003
+1000
+deposit
+9000102
+1000
+deposit
+6910169
+1000
+logout

@@ -1,0 +1,12 @@
+login
+agent
+createacct
+1020304
+taylor
+createacct
+7654321
+tstnme
+createacct
+4321987
+brokemont
+logout

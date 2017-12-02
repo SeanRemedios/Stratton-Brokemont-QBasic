@@ -1,0 +1,12 @@
+login
+agent
+createacct
+1002003
+stratton
+createacct
+9000102
+stef
+createacct
+6910169
+matt
+logout

@@ -1,0 +1,6 @@
+login
+machine
+deposit
+1
+50000
+logout

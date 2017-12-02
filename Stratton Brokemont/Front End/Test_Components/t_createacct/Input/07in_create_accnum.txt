@@ -1,0 +1,6 @@
+login
+agent
+createacct
+100h102
+walrus1
+logout

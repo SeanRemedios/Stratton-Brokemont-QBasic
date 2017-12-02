@@ -1,0 +1,15 @@
+login
+agent
+transfer
+1001001
+2666791
+250
+transfer
+2666791
+1234567
+250
+transfer
+1234567
+1001001
+250
+logout

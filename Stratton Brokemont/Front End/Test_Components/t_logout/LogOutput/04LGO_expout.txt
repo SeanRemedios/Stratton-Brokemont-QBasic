@@ -1,0 +1,7 @@
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > LOGOUT SUCCESSFUL
+DONE

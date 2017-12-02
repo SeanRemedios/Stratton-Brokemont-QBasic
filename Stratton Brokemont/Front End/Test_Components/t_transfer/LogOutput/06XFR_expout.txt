@@ -1,0 +1,7 @@
+
+> LOGIN SUCCESSFUL
+
+Enter User > Passed
+
+Enter Command (enter help for options) > Enter an account number to transfer from: Enter an account number to transfer to: Error: Account does not exist.
+Enter an amount (in cents): Error: Invalid Entry.

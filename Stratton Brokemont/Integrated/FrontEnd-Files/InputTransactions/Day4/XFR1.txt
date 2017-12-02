@@ -1,0 +1,15 @@
+login
+agent
+transfer
+1002003
+9000102
+250
+transfer
+9000102
+6910169
+250
+transfer
+6910169
+1002003
+250
+logout

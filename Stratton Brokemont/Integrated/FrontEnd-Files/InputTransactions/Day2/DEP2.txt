@@ -1,0 +1,12 @@
+login
+agent
+deposit
+1001001
+1000
+deposit
+2666791
+1000
+deposit
+1234567
+1000
+logout
